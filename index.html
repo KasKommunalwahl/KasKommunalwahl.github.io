@@ -2,88 +2,108 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kölle kreuzt clever</title>
+
   <style>
-    html, body {
+    /* Hintergrund-Animation mit Pastellfarben */
+    body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: "Segoe UI", sans-serif;
-      background: #ffffff;
-      overflow: hidden;
-      position: relative;
-      color: #333;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, 
+        #fff9c4,  /* pastellgelb */
+        #ffe0f0,  /* pastellrosa */
+        #e0f7fa,  /* pastellblau */
+        #e6f4ea,  /* pastellgrün */
+        #ffffff   /* weiß */
+      );
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    @keyframes gradientFlow {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .background {
       text-align: center;
-    }
-
-    .background-chaos {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .background-chaos svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    .content {
-      position: relative;
-      background: rgba(255, 255, 255, 0.85);
+      padding: 2rem;
+      max-width: 800px;
+      background-color: rgba(255, 255, 255, 0.75);
       border-radius: 20px;
-      padding: 2rem 3rem;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-      max-width: 600px;
-      z-index: 10;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
 
-    @media (max-width: 600px) {
-      .content {
-        padding: 1.5rem;
-        max-width: 90%;
-      }
+    h1 {
+      font-size: 3rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .slogan {
+      font-size: 1.5rem;
+      color: #555;
+    }
+
+    .description {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      color: #444;
+    }
+
+    .teaser {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #666;
+    }
+
+    footer {
+      margin-top: 2rem;
+    }
+
+    footer a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #0077cc;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
+  <div class="background">
+    <header>
+      <h1>Kölle kreuzt clever</h1>
+      <p class="slogan">Clever kreuzen. Köln gestalten!</p>
+    </header>
 
-  <!-- Chaotischer Linien-Hintergrund -->
-  <div class="background-chaos" aria-hidden="true">
-    <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
-      <!-- Rosa Linien -->
-      <path d="M0,100 Q250,200 500,100 T1000,100" stroke="#ffc0cb" stroke-width="0.8" fill="none"/>
-      <path d="M0,300 Q300,400 600,300 T1000,300" stroke="#ffc0cb" stroke-width="0.6" fill="none"/>
-      <!-- Hellblau -->
-      <path d="M0,200 Q200,100 400,200 T1000,200" stroke="#add8e6" stroke-width="0.7" fill="none"/>
-      <path d="M0,400 Q300,250 700,400 T1000,400" stroke="#add8e6" stroke-width="0.5" fill="none"/>
-      <!-- Mintgrün -->
-      <path d="M0,150 Q350,50 700,150 T1000,150" stroke="#b2f2bb" stroke-width="0.7" fill="none"/>
-      <path d="M0,500 Q250,600 500,500 T1000,500" stroke="#b2f2bb" stroke-width="0.5" fill="none"/>
-      <!-- Hellgelb -->
-      <path d="M0,250 Q300,350 600,250 T1000,250" stroke="#fff9c4" stroke-width="0.6" fill="none"/>
-      <path d="M0,600 Q400,450 800,600 T1000,600" stroke="#fff9c4" stroke-width="0.5" fill="none"/>
+    <main>
+      <p class="description">
+        Ein interaktives Projekt von Schüler:innen der Kaiserin-Augusta-Schule Köln zur Kommunalwahl.
+      </p>
+      <p class="teaser">Die Seite wird bald veröffentlicht – bleib gespannt!</p>
+    </main>
 
-      <!-- Leicht chaotischere Linien -->
-      <path d="M0,700 C200,800 800,600 1000,700" stroke="#e0f7fa" stroke-width="0.6" fill="none"/>
-      <path d="M0,850 C300,750 700,950 1000,850" stroke="#fce4ec" stroke-width="0.4" fill="none"/>
-      <path d="M0,950 C400,1000 600,900 1000,950" stroke="#dcedc8" stroke-width="0.5" fill="none"/>
-    </svg>
+    <footer>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutzerklärung.html">Datenschutzerklärung</a>
+    </footer>
   </div>
 
-  <!-- Inhalt -->
-  <div class="content" role="main">
-    <h1>Kölle kreuzt clever</h1>
-    <p>
-      Clever kreuzen. Köln gestalten!<br>
-      Ein interaktives Projekt von Schüler:innen der Kaiserin-Augusta-Schule Köln zur Kommunalwahl.
-    </p>
-    <p><em>Die Seite wird bald veröffentlicht – bleib gespannt!</em></p>
-  </div>
-
+  <script>
+    // Hier kannst du später eigene Funktionen ergänzen
+    console.log("Startseite geladen – Willkommen bei Kölle kreuzt clever!");
+  </script>
 </body>
 </html>
+
