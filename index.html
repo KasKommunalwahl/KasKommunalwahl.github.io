@@ -7,25 +7,41 @@
   <style>
     /* Pastell-Hintergrund mit Farbverlauf */
     body {
-      margin: 0;
-      padding: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #fce4ec, #e0f7fa, #f3e5f5, #e8f5e9);
-      background-size: 400% 400%;
-      animation: gradient 20s ease infinite;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #333;
-    }
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(
+    135deg,
+    #a8dadc, /* pastell-blau */
+    #f7cac9, /* pastell-rosa */
+    #fff9c4, /* pastell-gelb */
+    #ffcc80, /* pastell-orange */
+    #c8e6c9, /* pastell-grün */
+    #f8bbd0, /* pastell-rot (rosa-rot) */
+    #d1c4e9  /* pastell-lila */
+  );
+  background-size: 1400% 1400%;
+  animation: gradient 30s ease infinite;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #333;
+}
 
-    @keyframes gradient {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
     .container {
       background-color: rgba(255, 255, 255, 0.8);
