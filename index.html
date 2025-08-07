@@ -20,26 +20,17 @@
       text-align: center;
     }
 
-    .background-lines {
+    .background-chaos {
       position: absolute;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       z-index: 0;
       overflow: hidden;
     }
 
-    .background-lines svg {
-      position: absolute;
+    .background-chaos svg {
       width: 100%;
-      height: auto;
-      left: 0;
+      height: 100%;
     }
-
-    .line1 { top: 0; opacity: 0.5; }
-    .line2 { top: 20%; opacity: 0.4; }
-    .line3 { top: 40%; opacity: 0.3; }
-    .line4 { bottom: 20%; opacity: 0.35; }
-    .line5 { bottom: 0; opacity: 0.4; }
 
     .content {
       position: relative;
@@ -53,7 +44,7 @@
 
     @media (max-width: 600px) {
       .content {
-        padding: 1.5rem 1.5rem;
+        padding: 1.5rem;
         max-width: 90%;
       }
     }
@@ -61,27 +52,26 @@
 </head>
 <body>
 
-  <!-- Hintergrundlinien -->
-  <div class="background-lines">
-    <!-- Rosa Linie -->
-    <svg class="line1" viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <path fill="#ffeef7" d="M0,64 C360,160 1080,0 1440,96 L1440,0 L0,0 Z" />
-    </svg>
-    <!-- Hellblau Linie -->
-    <svg class="line2" viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <path fill="#e0f7fa" d="M0,160 C400,80 1040,240 1440,160 L1440,0 L0,0 Z" />
-    </svg>
-    <!-- Hellgelb Linie -->
-    <svg class="line3" viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <path fill="#fff9c4" d="M0,128 C300,200 1140,40 1440,128 L1440,0 L0,0 Z" />
-    </svg>
-    <!-- Mintgrün Linie -->
-    <svg class="line4" viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <path fill="#d0f0c0" d="M0,96 C400,180 1040,40 1440,96 L1440,0 L0,0 Z" />
-    </svg>
-    <!-- Hellrosa Linie -->
-    <svg class="line5" viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <path fill="#fce4ec" d="M0,160 C300,60 1140,240 1440,160 L1440,0 L0,0 Z" />
+  <!-- Chaotischer Linien-Hintergrund -->
+  <div class="background-chaos" aria-hidden="true">
+    <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
+      <!-- Rosa Linien -->
+      <path d="M0,100 Q250,200 500,100 T1000,100" stroke="#ffc0cb" stroke-width="0.8" fill="none"/>
+      <path d="M0,300 Q300,400 600,300 T1000,300" stroke="#ffc0cb" stroke-width="0.6" fill="none"/>
+      <!-- Hellblau -->
+      <path d="M0,200 Q200,100 400,200 T1000,200" stroke="#add8e6" stroke-width="0.7" fill="none"/>
+      <path d="M0,400 Q300,250 700,400 T1000,400" stroke="#add8e6" stroke-width="0.5" fill="none"/>
+      <!-- Mintgrün -->
+      <path d="M0,150 Q350,50 700,150 T1000,150" stroke="#b2f2bb" stroke-width="0.7" fill="none"/>
+      <path d="M0,500 Q250,600 500,500 T1000,500" stroke="#b2f2bb" stroke-width="0.5" fill="none"/>
+      <!-- Hellgelb -->
+      <path d="M0,250 Q300,350 600,250 T1000,250" stroke="#fff9c4" stroke-width="0.6" fill="none"/>
+      <path d="M0,600 Q400,450 800,600 T1000,600" stroke="#fff9c4" stroke-width="0.5" fill="none"/>
+
+      <!-- Leicht chaotischere Linien -->
+      <path d="M0,700 C200,800 800,600 1000,700" stroke="#e0f7fa" stroke-width="0.6" fill="none"/>
+      <path d="M0,850 C300,750 700,950 1000,850" stroke="#fce4ec" stroke-width="0.4" fill="none"/>
+      <path d="M0,950 C400,1000 600,900 1000,950" stroke="#dcedc8" stroke-width="0.5" fill="none"/>
     </svg>
   </div>
 
@@ -97,5 +87,3 @@
 
 </body>
 </html>
-
-
