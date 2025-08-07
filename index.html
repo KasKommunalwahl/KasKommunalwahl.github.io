@@ -6,8 +6,8 @@
   <title>Kölle kreuzt clever</title>
 
   <style>
-    /* Hintergrund-Animation mit Pastellfarben */
-    body, html {
+    /* Grundlayout mit Pastellfarben und sanfter Animation */
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
@@ -22,8 +22,10 @@
       background-size: 400% 400%;
       animation: gradientFlow 15s ease infinite;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
+      position: relative;
     }
 
     @keyframes gradientFlow {
@@ -42,14 +44,15 @@
     }
 
     h1 {
-      font-size: 3rem;
-      color: #333;
+      font-size: 4rem;
+      color: #c62828; /* kräftiges Kölner-Rot */
       margin-bottom: 0.5rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
 
     .slogan {
-      font-size: 1.5rem;
-      color: #555;
+      font-size: 1.7rem;
+      color: #444;
     }
 
     .description {
@@ -64,14 +67,19 @@
       color: #666;
     }
 
+    /* Fester Footer am unteren Rand */
     footer {
-      margin-top: 2rem;
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
     }
 
     footer a {
       margin: 0 1rem;
       text-decoration: none;
       color: #0077cc;
+      font-size: 0.9rem;
     }
 
     footer a:hover {
@@ -93,17 +101,17 @@
       </p>
       <p class="teaser">Die Seite wird bald veröffentlicht – bleib gespannt!</p>
     </main>
-
-    <footer>
-      <a href="impressum.html">Impressum</a>
-      <a href="datenschutzerklärung.html">Datenschutzerklärung</a>
-    </footer>
   </div>
 
+  <footer>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutzerklärung.html">Datenschutzerklärung</a>
+  </footer>
+
   <script>
-    // Hier kannst du später eigene Funktionen ergänzen
     console.log("Startseite geladen – Willkommen bei Kölle kreuzt clever!");
   </script>
 </body>
 </html>
+
 
