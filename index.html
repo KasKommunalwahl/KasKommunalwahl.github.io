@@ -1,130 +1,72 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Pastell Hintergrund mit animierten Kugeln</title>
-<style>
-  html, body {
-    margin: 0; padding: 0; height: 100%;
-    font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(135deg, #ffcc80, #fff59d, #dcedc8, #cce5ff, #fddde6);
-    overflow: hidden;
-    position: relative;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pastell Hintergrund mit Linien</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Segoe UI", sans-serif;
+      background: #ffffff;
+      overflow: hidden;
+      position: relative;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
 
-  /* Weißer Inhalt mit Transparenz für gute Lesbarkeit */
-  .content {
-    position: relative;
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 20px;
-    padding: 2rem 3rem;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-    max-width: 600px;
-    z-index: 10;
-  }
+    .background-shapes {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
 
-  /* Stil der Kugeln */
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.15;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-  }
+    .shape {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      left: 0;
+    }
 
-  /* Kugel-Varianten mit verschiedenen Größen, Farben und Animation */
-  .blob1 {
-    width: 180px;
-    height: 180px;
-    background: #ffcc80;
-    top: 10%;
-    left: 10%;
-    animation: blobMove1 40s infinite alternate;
-  }
+    .shape1 {
+      top: 0;
+    }
 
-  .blob2 {
-    width: 150px;
-    height: 150px;
-    background: #fff59d;
-    top: 60%;
-    left: 20%;
-    animation: blobMove2 35s infinite alternate;
-  }
+    .shape2 {
+      bottom: 0;
+    }
 
-  .blob3 {
-    width: 200px;
-    height: 200px;
-    background: #dcedc8;
-    top: 40%;
-    left: 60%;
-    animation: blobMove3 45s infinite alternate;
-  }
-
-  .blob4 {
-    width: 130px;
-    height: 130px;
-    background: #cce5ff;
-    top: 15%;
-    left: 75%;
-    animation: blobMove4 50s infinite alternate;
-  }
-
-  .blob5 {
-    width: 160px;
-    height: 160px;
-    background: #fddde6;
-    top: 70%;
-    left: 70%;
-    animation: blobMove5 48s infinite alternate;
-  }
-
-  /* Animations für sanfte Bewegung */
-  @keyframes blobMove1 {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(30px, 15px) scale(1.1); }
-    100% { transform: translate(0, 0) scale(1); }
-  }
-
-  @keyframes blobMove2 {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(-20px, 20px) scale(0.9); }
-    100% { transform: translate(0, 0) scale(1); }
-  }
-
-  @keyframes blobMove3 {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(40px, -15px) scale(1.05); }
-    100% { transform: translate(0, 0) scale(1); }
-  }
-
-  @keyframes blobMove4 {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(-25px, -20px) scale(1.15); }
-    100% { transform: translate(0, 0) scale(1); }
-  }
-
-  @keyframes blobMove5 {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(10px, 25px) scale(1.1); }
-    100% { transform: translate(0, 0) scale(1); }
-  }
-</style>
+    .content {
+      position: relative;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 2rem 3rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      max-width: 600px;
+      z-index: 10;
+    }
+  </style>
 </head>
 <body>
 
-  <div class="blob blob1"></div>
-  <div class="blob blob2"></div>
-  <div class="blob blob3"></div>
-  <div class="blob blob4"></div>
-  <div class="blob blob5"></div>
+  <!-- Hintergrundlinien -->
+  <div class="background-shapes">
+    <svg class="shape shape1" viewBox="0 0 1440 320">
+      <path fill="#ffeef7" fill-opacity="1" d="M0,96L80,106.7C160,117,320,139,480,138.7C640,139,800,117,960,112C1120,107,1280,117,1360,122.7L1440,128L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+    </svg>
+    <svg class="shape shape2" viewBox="0 0 1440 320">
+      <path fill="#e0f7fa" fill-opacity="0.6" d="M0,224L48,208C96,192,192,160,288,144C384,128,480,128,576,117.3C672,107,768,85,864,90.7C960,96,1056,128,1152,149.3C1248,171,1344,181,1392,186.7L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+    </svg>
+  </div>
 
+  <!-- Inhalt -->
   <div class="content" role="main">
     <h1>Kölle kreuzt clever</h1>
     <p>
