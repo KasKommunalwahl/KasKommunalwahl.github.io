@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Wahl-O-Mat Köln</title>
+  <title>Kölle kreuzt clever – Wahl-O-Mat</title>
   <style>
     html, body {
       margin: 0;
@@ -41,6 +41,7 @@
     h1 {
       color: #c62828;
       text-align: center;
+      font-size: 2rem;
     }
 
     .question {
@@ -87,7 +88,7 @@
 <body>
 
   <div class="container">
-    <h1>Wahl-O-Mat Köln</h1>
+    <h1>Kölle kreuzt clever</h1>
     <div id="app"></div>
     <div id="result" class="result"></div>
 
@@ -126,9 +127,9 @@
         <div class="question">
           <p><strong>Frage ${currentQuestion + 1} von ${questions.length}:</strong><br>${question}</p>
           <div class="btn-group">
-            <button onclick="answer(-1)" style="background:#ef9a9a;">Ablehnen</button>
+            <button onclick="answer(-1)" style="background:#ef9a9a;">Stimme nicht zu</button>
             <button onclick="answer(0)" style="background:#fff59d;">Neutral</button>
-            <button onclick="answer(1)" style="background:#a5d6a7;">Zustimmen</button>
+            <button onclick="answer(1)" style="background:#a5d6a7;">Stimme zu</button>
           </div>
         </div>
       `;
@@ -141,28 +142,26 @@
     }
 
     function calculateResult() {
-      const scores = [];
+      const results = [];
 
       for (const party in partyPositions) {
         const positions = partyPositions[party];
-        let matchScore = 0;
+        let matches = 0;
 
         for (let i = 0; i < positions.length; i++) {
-          if (userAnswers[i] !== null) {
-            const diff = Math.abs(userAnswers[i] - positions[i]);
-            const match = 2 - diff; // 2=voll, 1=teilweise, 0=keine Übereinstimmung
-            matchScore += match;
+          if (userAnswers[i] === positions[i]) {
+            matches++;
           }
         }
 
-        scores.push({ party, score: matchScore });
+        results.push({ party, matches });
       }
 
-      scores.sort((a, b) => b.score - a.score);
+      results.sort((a, b) => b.matches - a.matches);
 
       let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
-      for (const entry of scores) {
-        resultHTML += `<li><strong>${entry.party}:</strong> ${entry.score} Punkte</li>`;
+      for (const entry of results) {
+        resultHTML += `<li><strong>${entry.party}:</strong> ${entry.matches} von ${questions.length} Übereinstimmungen</li>`;
       }
       resultHTML += "</ul>";
 
@@ -176,3 +175,4 @@
 
 </body>
 </html>
+
