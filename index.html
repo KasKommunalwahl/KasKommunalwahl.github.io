@@ -10,9 +10,19 @@
   margin: 0;
   padding: 0;
   font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #f8c8c8, #ffe0b2);
-  background-size: 100% 100%;
-  animation: colorCycle 60s linear infinite;
+  background: linear-gradient(
+    135deg,
+    #f4a8a8,
+    #fddde6,
+    #e1bee7,
+    #cce5ff,
+    #dcedc8,
+    #fff9c4,
+    #ffe0b2,
+    #f4a8a8 /* wieder zurück zu rot */
+  );
+  background-size: 1600% 1600%;
+  animation: gradientShift 60s ease infinite;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -21,32 +31,18 @@
   color: #333;
 }
 
-@keyframes colorCycle {
+@keyframes gradientShift {
   0% {
-    background: linear-gradient(135deg, #f8c8c8, #fddde6); /* rot → rosa */
+    background-position: 0% 50%;
   }
-  14% {
-    background: linear-gradient(135deg, #fddde6, #e1bee7); /* rosa → lila */
-  }
-  28% {
-    background: linear-gradient(135deg, #e1bee7, #cce5ff); /* lila → blau */
-  }
-  42% {
-    background: linear-gradient(135deg, #cce5ff, #dcedc8); /* blau → grün */
-  }
-  57% {
-    background: linear-gradient(135deg, #dcedc8, #fff9c4); /* grün → gelb */
-  }
-  71% {
-    background: linear-gradient(135deg, #fff9c4, #ffe0b2); /* gelb → orange */
-  }
-  85% {
-    background: linear-gradient(135deg, #ffe0b2, #f8c8c8); /* orange → rot */
+  50% {
+    background-position: 100% 50%;
   }
   100% {
-    background: linear-gradient(135deg, #f8c8c8, #fddde6); /* wieder rot → rosa */
+    background-position: 0% 50%;
   }
 }
+
 
 
 
