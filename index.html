@@ -1,141 +1,138 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kölle kreuzt clever</title>
-  <style>
-    /* Reset und Vollflächiges Layout */
-    html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  font-family: "Segoe UI", sans-serif;
-  color: #333;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(
-    315deg,
-    #ffcc80 0%,     /* orange */
-    #ffcc80 12.5%,
-    #fff59d 12.5%,  /* gelb */
-    #fff59d 25%,
-    #dcedc8 25%,    /* grün */
-    #dcedc8 37.5%,
-    #cce5ff 37.5%,  /* blau */
-    #cce5ff 50%,
-    #e1bee7 50%,    /* lila */
-    #e1bee7 62.5%,
-    #fddde6 62.5%,  /* rosa */
-    #fddde6 75%,
-    #f4978e 75%,    /* pastelliges rot */
-    #f4978e 87.5%,
-    #ffcc80 87.5%,  /* orange wiederholt für zyklischen Übergang*/
-    #ffcc80 100%
-  );
-  background-size: 200% 200%;
-  animation: rainbow 40s linear infinite;
-}
-
-@keyframes rainbow {
-  0% {
-    background-position: 0% 50%;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pastell Hintergrund mit animierten Kugeln</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #ffcc80, #fff59d, #dcedc8, #cce5ff, #fddde6);
+    overflow: hidden;
+    position: relative;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
-  100% {
-    background-position: 100% 50%;
+
+  /* Weißer Inhalt mit Transparenz für gute Lesbarkeit */
+  .content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+    padding: 2rem 3rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    max-width: 600px;
+    z-index: 10;
   }
-}
 
+  /* Stil der Kugeln */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.15;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
 
+  /* Kugel-Varianten mit verschiedenen Größen, Farben und Animation */
+  .blob1 {
+    width: 180px;
+    height: 180px;
+    background: #ffcc80;
+    top: 10%;
+    left: 10%;
+    animation: blobMove1 40s infinite alternate;
+  }
 
-    /* Container mit halbtransparentem Hintergrund für gute Lesbarkeit */
-    .container {
-      background-color: rgba(255, 255, 255, 0.85);
-      padding: 2.5rem 2rem;
-      border-radius: 20px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-      max-width: 600px;
-      width: 90vw;
-      box-sizing: border-box;
-      user-select: none;
-    }
+  .blob2 {
+    width: 150px;
+    height: 150px;
+    background: #fff59d;
+    top: 60%;
+    left: 20%;
+    animation: blobMove2 35s infinite alternate;
+  }
 
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-      color: #880e4f;
-      user-select: text;
-    }
+  .blob3 {
+    width: 200px;
+    height: 200px;
+    background: #dcedc8;
+    top: 40%;
+    left: 60%;
+    animation: blobMove3 45s infinite alternate;
+  }
 
-    p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin-top: 0;
-      user-select: text;
-    }
+  .blob4 {
+    width: 130px;
+    height: 130px;
+    background: #cce5ff;
+    top: 15%;
+    left: 75%;
+    animation: blobMove4 50s infinite alternate;
+  }
 
-    .coming-soon {
-      margin-top: 2rem;
-      font-size: 1rem;
-      font-style: italic;
-      color: #555;
-      user-select: text;
-    }
+  .blob5 {
+    width: 160px;
+    height: 160px;
+    background: #fddde6;
+    top: 70%;
+    left: 70%;
+    animation: blobMove5 48s infinite alternate;
+  }
 
-    /* Footer am unteren Rand, aber nicht überlappt */
-    footer {
-      position: fixed;
-      bottom: 1rem;
-      width: 100%;
-      text-align: center;
-      font-size: 0.9rem;
-      user-select: none;
-      background: transparent;
-      padding: 0 1rem;
-      box-sizing: border-box;
-      z-index: 10;
-    }
+  /* Animations für sanfte Bewegung */
+  @keyframes blobMove1 {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(30px, 15px) scale(1.1); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
 
-    footer a {
-      color: #333;
-      text-decoration: none;
-      margin: 0 0.75rem;
-      transition: color 0.3s ease;
-    }
+  @keyframes blobMove2 {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
 
-    footer a:hover,
-    footer a:focus {
-      text-decoration: underline;
-      color: #880e4f;
-      outline: none;
-    }
-  </style>
+  @keyframes blobMove3 {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(40px, -15px) scale(1.05); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  @keyframes blobMove4 {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(-25px, -20px) scale(1.15); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  @keyframes blobMove5 {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(10px, 25px) scale(1.1); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+</style>
 </head>
 <body>
-  <div class="container" role="main">
+
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <div class="blob blob4"></div>
+  <div class="blob blob5"></div>
+
+  <div class="content" role="main">
     <h1>Kölle kreuzt clever</h1>
     <p>
-      Clever kreuzen. Köln gestalten!<br />
+      Clever kreuzen. Köln gestalten!<br>
       Ein interaktives Projekt von Schüler:innen der Kaiserin-Augusta-Schule Köln zur Kommunalwahl.
     </p>
-    <div class="coming-soon">
-      Die Seite wird bald veröffentlicht – bleib gespannt!
-    </div>
+    <p><em>Die Seite wird bald veröffentlicht – bleib gespannt!</em></p>
   </div>
 
-  <footer>
-    <a href="impressum.html">Impressum</a> |
-    <a href="datenschutz.html">Datenschutz</a>
-  </footer>
 </body>
 </html>
-
