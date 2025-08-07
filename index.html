@@ -7,41 +7,46 @@
   <style>
     /* Reset und Vollflächiges Layout */
     html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: "Segoe UI", sans-serif;
-      color: #333;
-      text-align: center;
-      background: linear-gradient(
-        90deg,
-        #ffcc80 0%,     /* orange */
-        #fff59d 14.3%,  /* gelb */
-        #dcedc8 28.6%,  /* grün */
-        #cce5ff 42.9%,  /* blau */
-        #e1bee7 57.2%,  /* lila */
-        #fddde6 71.5%,  /* rosa */
-        #ef5350 85.8%,  /* rot */
-        #ffcc80 100%    /* wieder orange */
-      );
-      background-size: 400% 100%;
-      animation: rainbow 18s linear infinite;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      position: relative;
-    }
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-    @keyframes rainbow {
-      0% {
-        background-position: 0% 50%;
-      }
-      100% {
-        background-position: 100% 50%;
-      }
-    }
+body {
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+
+  background: linear-gradient(
+    315deg,               /* Richtung: von rechts unten nach links oben */
+    #ffcc80 0%,           /* orange */
+    #fff59d 14.3%,        /* gelb */
+    #dcedc8 28.6%,        /* grün */
+    #cce5ff 42.9%,        /* blau */
+    #e1bee7 57.2%,        /* lila */
+    #fddde6 71.5%,        /* rosa */
+    #f4978e 85.8%,        /* pastelliges rot (statt kräftiges rot) */
+    #ffcc80 100%          /* zurück zu orange für nahtlosen Loop */
+  );
+  background-size: 400% 400%;   /* größer für sanfteren Verlauf */
+  animation: rainbow 22s linear infinite;  /* langsamer */
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
 
     /* Container mit halbtransparentem Hintergrund für gute Lesbarkeit */
     .container {
