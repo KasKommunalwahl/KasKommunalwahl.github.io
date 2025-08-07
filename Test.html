@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Kölle kreuzt clever – Wahl-O-Mat</title>
   <style>
     html, body {
@@ -41,43 +41,100 @@
     h1 {
       color: #c62828;
       text-align: center;
-      font-size: 2rem;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-shadow: 1px 1px 3px #aaa;
     }
 
-    .question {
-      margin-top: 2rem;
+    .question-counter {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .question p {
+      font-size: 1.15rem;
+      line-height: 1.4;
+      margin: 0 0 1rem 0;
+      font-weight: 600;
+      color: #222;
     }
 
     .btn-group {
       display: flex;
       gap: 1rem;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
     }
 
     .btn-group button {
+      flex: 1;
       padding: 0.7rem 1.2rem;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       font-size: 1rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      color: #111;
     }
 
     .btn-group button:hover {
       opacity: 0.9;
     }
 
+    .btn-group button:nth-child(1) {
+      background: #ef9a9a;
+      color: #600;
+    }
+
+    .btn-group button:nth-child(2) {
+      background: #fff59d;
+      color: #665500;
+    }
+
+    .btn-group button:nth-child(3) {
+      background: #a5d6a7;
+      color: #155214;
+    }
+
     .result {
       margin-top: 2rem;
+      font-size: 1.1rem;
+      color: #222;
+    }
+
+    .result h2 {
+      color: #c62828;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .result ul {
+      list-style-type: none;
+      padding: 0;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .result li {
+      margin-bottom: 0.5rem;
+      padding: 0.3rem 0.5rem;
+      border-bottom: 1px solid #ddd;
+      font-weight: 600;
     }
 
     .footer-link {
       margin-top: 3rem;
       text-align: center;
+      font-size: 0.95rem;
     }
 
     .footer-link a {
       text-decoration: none;
       color: #0077cc;
+      font-weight: 600;
     }
 
     .footer-link a:hover {
@@ -98,31 +155,52 @@
   </div>
 
   <script>
+    // Alle 23 Fragen
     const questions = [
-      "Jugendliche sollen stärker an der Kommunalpolitik beteiligt werden.",
-      "Der öffentliche Nahverkehr in Köln soll kostenlos für Schüler:innen sein.",
-      "In Köln soll mehr Wohnraum durch Hochhäuser geschaffen werden."
+      "Köln soll mehr Clubs, Jugendzentren und Freizeitorte für junge Menschen schaffen.",
+      "Bei neuen Wohnungen in Köln sollen günstige Plätze für Azubis und junge Erwachsene mitgeplant werden.",
+      "An öffentlichen Plätzen und Haltestellen in Köln soll es flächendeckend kostenloses WLAN geben.",
+      "Jugendliche sollen in Köln stärker an der Kommunalpolitik beteiligt werden.",
+      "Köln soll mehr kostenlose Sport- und Bewegungsangebote im Freien anbieten.",
+      "Köln soll mehr sichere Fahrradwege und Fahrradparkplätze bauen.",
+      "Busse, Bahnen und Fahrräder sollen in der Innenstadt Vorrang vor Autos haben.",
+      "Schüler:innen in Köln sollen kostenlos Bus und Bahn fahren dürfen.",
+      "Nachtbusse und Verbindungen in Außenbezirke sollen verbessert werden.",
+      "Einige Teile der Innenstadt sollen autofrei werden.",
+      "Kreative Projekte und junge Start-ups sollen Räume und Geld zur Unterstützung bekommen.",
+      "Bei neuen Gebäuden soll stärker auf bezahlbare Wohnungen geachtet werden.",
+      "Kölner Schulen sollen modernisiert und besser für digitalen Unterricht ausgestattet werden.",
+      "Das Schulessen soll kostenlos und möglichst in Bio-Qualität angeboten werden.",
+      "Alle Schultoiletten in Köln sollen sauber, modern und regelmäßig gepflegt sein.",
+      "Köln soll bis 2035 klimaneutral werden.",
+      "Beim Sparen soll nicht an Umwelt- und Jugendprojekten gekürzt werden.",
+      "Die Stadt soll sich stärker um saubere Straßen, Parks und öffentliche Plätze kümmern.",
+      "Schulen sollen mehr gegen Rassismus, Queerfeindlichkeit und andere Diskriminierung tun.",
+      "Die Stadt soll Angebote für junge Menschen zur mentalen Gesundheit ausbauen.",
+      "Geflüchtete sollen in Köln mehr Angebote zur Teilhabe und Unterstützung bekommen.",
+      "Die Stadtverwaltung soll digitaler und einfacher für junge Menschen werden.",
+      "Köln soll enger mit seinen europäischen Partnerstädten zusammenarbeiten."
     ];
 
+    // Parteien und ihre Antworten auf die Fragen (1=Stimme zu, 0=Neutral, -1=Stimme nicht zu)
     const partyPositions = {
-  "SPD": [0, 0, 0],
-  "CDU": [0, 0, 0],
-  "Bündnis 90/Die Grünen": [0, 0, 0],
-  "FDP": [0, 0, 0],
-  "AfD": [0, 0, 0],
-  "Die Linke": [0, 0, 0],
-  "Volt": [0, 0, 0],
-  "Freie Wähler": [0, 0, 0],
-  "Partei des Fortschritts": [0, 0, 0],
-  "Kölner Stadt-Gesellschaft": [0, 0, 0],
-  "Die PARTEI": [0, 0, 0],
-  "Gut & Klimafreunde": [0, 0, 0],
-  "Bündnis Deutschland": [0, 0, 0],
-  "Marxistisch-Leninistische Partei Deutschlands": [0, 0, 0],
-  "ÖDP": [0, 0, 0],
-  "BSW": [0, 0, 0]
-};
-
+      "SPD":                [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "CDU":                [0,0,0,0,0,1,1,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Bündnis 90/Die Grünen":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "FDP":                [0,0,0,0,0,0,1,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "AfD":                [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+      "Die Linke":          [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Volt":               [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Freie Wähler":       [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Partei des Fortschritts":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Kölner Stadt-Gesellschaft":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Die PARTEI":          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Gut & Klimafreunde":  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Marxistisch-Leninistische Partei Deutschlands": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Ödp":                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "BSW":                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    };
 
     let userAnswers = new Array(questions.length).fill(null);
     let currentQuestion = 0;
@@ -139,7 +217,10 @@
       const question = questions[currentQuestion];
       app.innerHTML = `
         <div class="question">
-          <p><strong>Frage ${currentQuestion + 1} von ${questions.length}:</strong><br>${question}</p>
+          <div class="question-counter">
+            Frage ${currentQuestion + 1} von ${questions.length}
+          </div>
+          <p><strong>${question}</strong></p>
           <div class="btn-group">
             <button onclick="answer(-1)" style="background:#ef9a9a;">Stimme nicht zu</button>
             <button onclick="answer(0)" style="background:#fff59d;">Neutral</button>
@@ -189,4 +270,3 @@
 
 </body>
 </html>
-
