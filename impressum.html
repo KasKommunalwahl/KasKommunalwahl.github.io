@@ -4,46 +4,87 @@
   <meta charset="UTF-8">
   <title>Impressum – Kölle kreuzt clever</title>
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, 
+        #fff9c4,
+        #ffe0f0,
+        #e0f7fa,
+        #e6f4ea,
+        #ffffff
+      );
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+    }
+
+    @keyframes gradientFlow {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .content {
       max-width: 800px;
       margin: 2rem auto;
-      padding: 1rem;
-      background-color: #f9f9f9;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+
     h1 {
-      color: #cc0000;
+      color: #c62828;
+    }
+
+    a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <h1>Impressum</h1>
-  <p><strong>Angaben gemäß § 5 TMG:</strong></p>
-  <p>
-    Projekt „Kölle kreuzt clever“<br>
-    Q2-Schüler:innen der Kaiserin-Augusta-Schule Köln<br>
-    Georgsplatz 10<br>
-    50676 Köln
-  </p>
+  <div class="content">
+    <h1>Impressum</h1>
 
-  <p><strong>Vertretung und inhaltlich verantwortlich nach § 55 Abs. 2 RStV:</strong><br>
-    Frau <br>
-    E-Mail: kas.kommunalwahl-2025@mail.de
-  </p>
+    <p><strong>Angaben gemäß § 5 TMG:</strong></p>
+    <p>
+      Projekt „Kölle kreuzt clever“<br>
+      Q2-Schüler:innen der Kaiserin-Augusta-Schule Köln<br>
+      Georgsplatz 10<br>
+      50676 Köln
+    </p>
 
-  <p><strong>Schulträger:</strong><br>
-    Stadt Köln – Amt für Schulentwicklung<br>
-    <a href="https://www.stadt-koeln.de" target="_blank">www.stadt-koeln.de</a>
-  </p>
+    <p><strong>Vertretung und inhaltlich verantwortlich nach § 55 Abs. 2 RStV:</strong><br>
+      Frau <br>
+      E-Mail: kas.kommunalwahl-2025@mail.de
+    </p>
 
-  <p>
-    Dieses Projekt ist Teil eines schulischen Wettbewerbs.
-  </p>
+    <p><strong>Schulträger:</strong><br>
+      Stadt Köln – Amt für Schulentwicklung<br>
+      <a href="https://www.stadt-koeln.de" target="_blank">www.stadt-koeln.de</a>
+    </p>
 
-  <footer style="margin-top: 3rem;">
-    <a href="index.html">Zurück zur Startseite</a>
-  </footer>
+    <p>
+      Dieses Projekt ist Teil eines schulischen Wettbewerbs.
+    </p>
+
+    <footer>
+      <a href="index.html">← Zurück zur Startseite</a>
+    </footer>
+  </div>
 
 </body>
 </html>
