@@ -124,30 +124,57 @@
       { name: "Ödp", statement: "—" },
       { name: "BSW", statement: "—" }
     ];
+    const partyColors = {
+  "SPD": "#E3000F",
+  "CDU": "#000000",
+  "Bündnis 90/Die Grünen": "#1AA037",
+  "FDP": "#FFCC00",
+  "AfD": "#009EE0",
+  "Die Linke": "#D0006F",
+  "Volt": "#5D3FD3",
+  "Freie Wähler": "#F28C00",
+  "Partei des Fortschritts": "#00BFAE",
+  "Kölner Stadt-Gesellschaft": "#808080",
+  "Die PARTEI": "#A40000",
+  "Gut & Klimafreunde": "#7ED957",
+  "Bündnis Deutschland": "#003366",
+  "Marxistisch-Leninistische Partei Deutschlands": "#D10000",
+  "Ödp": "#FF9900",
+  "BSW": "#8E44AD"
+};
 
     const partyList = document.getElementById("partyList");
 
-    parties.forEach((party, index) => {
-      const button = document.createElement("button");
-      button.className = "party-button";
-      button.textContent = party.name;
-      button.onclick = () => {
-        const existing = document.getElementById("statement-" + index);
-        if (existing.style.display === "none") {
-          existing.style.display = "block";
-        } else {
-          existing.style.display = "none";
-        }
-      };
+ parties.forEach((party, index) => {
+  const button = document.createElement("button");
+  button.className = "party-button";
+  button.textContent = party.name;
 
-      const statementDiv = document.createElement("div");
-      statementDiv.className = "statement-box";
-      statementDiv.id = "statement-" + index;
-      statementDiv.textContent = party.statement;
+  // Farbzuweisung
+  const bgColor = partyColors[party.name] || "#f0f0f0";
+  const textColor = (["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(bgColor)) ? "#000" : "#fff";
 
-      partyList.appendChild(button);
-      partyList.appendChild(statementDiv);
-    });
+  button.style.backgroundColor = bgColor;
+  button.style.color = textColor;
+
+  button.onclick = () => {
+    const existing = document.getElementById("statement-" + index);
+    if (existing.style.display === "none") {
+      existing.style.display = "block";
+    } else {
+      existing.style.display = "none";
+    }
+  };
+
+  const statementDiv = document.createElement("div");
+  statementDiv.className = "statement-box";
+  statementDiv.id = "statement-" + index;
+  statementDiv.textContent = party.statement;
+
+  partyList.appendChild(button);
+  partyList.appendChild(statementDiv);
+});
+
   </script>
 </body>
 </html>
