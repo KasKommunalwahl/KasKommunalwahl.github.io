@@ -33,6 +33,11 @@
       font-size: 2rem;
       margin-bottom: 1rem;
     }
+    /* Wrapper um die Tabelle scrollbar zu machen */
+    .table-wrapper {
+      overflow-x: auto;
+      width: 100%;
+    }
     table {
       border-collapse: collapse;
       width: 100%;
@@ -40,10 +45,11 @@
     }
     th, td {
       border: 1px solid #bbb;
-      padding: 8px 10px;
+      padding: 6px 8px;
       text-align: center;
       vertical-align: middle;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      word-wrap: break-word;
     }
     th {
       background-color: #f0f0f0;
@@ -52,16 +58,25 @@
       top: 0;
       z-index: 2;
     }
+    /* Thesen-Spalten: nicht mehr drehen, damit Text umbrechen kann */
     th.question-col {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
+      white-space: normal;
+      writing-mode: horizontal-tb;
+      text-align: left;
+      vertical-align: bottom;
+      min-width: 200px;
       font-size: 0.8rem;
-      min-width: 80px;
+      padding: 4px 8px;
     }
+    /* Parteinamen: linksbündig und umbrechen */
     td.party-name {
       text-align: left;
       font-weight: bold;
       background-color: #f7f7f7;
+      white-space: normal;
+      word-break: break-word;
+      min-width: 120px;
+      padding: 4px 8px;
     }
     .a {
       background-color: #a5d6a7; color: #2e7d32; font-weight: bold; font-size: 1.3rem;
@@ -89,7 +104,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>Thesenvergleich – Parteien (Zeilen) & Thesen (Spalten)</h1>
+    <h1>Thesenvergleich – Parteien (Zeilen) &amp; Thesen (Spalten)</h1>
     <div class="table-wrapper">
       <table>
         <thead>
@@ -121,7 +136,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Beispielzeile: alle Parteien -->
           <tr><td class="party-name">SPD</td> <td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
           <tr><td class="party-name">CDU</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
           <tr><td class="party-name">Bündnis 90/Die Grünen</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
@@ -141,12 +155,9 @@
         </tbody>
       </table>
     </div>
-
     <div class="footer-link">
-      <a href="statements.html">Zur Partei-Statements-Seite</a>
+      <a href="https://koellekreuzt.de" target="_blank" rel="noopener noreferrer">Mehr Infos auf Kölle kreuzt clever</a>
     </div>
   </div>
 </body>
 </html>
-
-
