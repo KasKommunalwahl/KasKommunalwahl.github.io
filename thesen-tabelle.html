@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kölle kreuzt clever – Thesen-Vergleich</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg,
+        #fff9c4,
+        #ffe0f0,
+        #e0f7fa,
+        #e6f4ea,
+        #ffffff);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      max-width: 100%;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      margin: 3rem auto;
+      overflow-x: auto;
+    }
+
+    h1 {
+      color: #c62828;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 1000px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background-color: #f0f0f0;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .agree {
+      background-color: #c8e6c9; /* pastellgrün */
+    }
+
+    .neutral {
+      background-color: #fff9c4; /* pastellgelb */
+    }
+
+    .disagree {
+      background-color: #f8c7c7; /* pastellrot */
+    }
+
+    .footer-link {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .footer-link a {
+      text-decoration: none;
+      color: #0077cc;
+    }
+
+    .footer-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Thesenvergleich der Parteien</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>These</th>
+          <th>SPD</th>
+          <th>CDU</th>
+          <th>B90/Grüne</th>
+          <th>FDP</th>
+          <th>AfD</th>
+          <th>Die Linke</th>
+          <th>Volt</th>
+          <th>Freie Wähler</th>
+          <th>Partei d. Fortschritts</th>
+          <th>Kölner Stadt-Ges.</th>
+          <th>Die PARTEI</th>
+          <th>Gut & Klima</th>
+          <th>Bündnis Dtl.</th>
+          <th>MLPD</th>
+          <th>Ödp</th>
+          <th>BSW</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Köln soll mehr Clubs, Jugendzentren und Freizeitorte für junge Menschen schaffen.</td>
+          <td class="agree"></td>
+          <td class="neutral"></td>
+          <td class="agree"></td>
+          <td class="neutral"></td>
+          <td class="disagree"></td>
+          <td class="agree"></td>
+          <td class="agree"></td>
+          <td class="neutral"></td>
+          <td class="agree"></td>
+          <td class="agree"></td>
+          <td class="agree"></td>
+          <td class="agree"></td>
+          <td class="disagree"></td>
+          <td class="agree"></td>
+          <td class="agree"></td>
+          <td class="neutral"></td>
+        </tr>
+
+        <!-- Weitere Thesen folgen hier als <tr> -->
+        <!-- Du kannst für jede neue These einfach eine weitere <tr> hinzufügen und die Klassen (agree, neutral, disagree) setzen -->
+
+        <tr>
+          <td>Bei neuen Wohnungen in Köln sollen günstige Plätze für Azubis und junge Erwachsene mitgeplant werden.</td>
+          <td class="agree"></td>
+          <td class="agree"></td>
+          <td class="agree"></td>
+          <td class="neutral"></td>
+          <td class="disagree"></td>
+          <td class="agree"></td>
+          <td class="agree"></td>
+          <td class="neutral"></td>
+          <td class="agree"></td>
+          <td class="neutral"></td>
+          <td class="agree"></td>
+          <td class="agree"></td>
+          <td class="disagree"></td>
+          <td class="agree"></td>
+          <td class="agree"></td>
+          <td class="neutral"></td>
+        </tr>
+
+        <!-- Kopiere & passe weitere <tr> für die restlichen Thesen an -->
+
+      </tbody>
+    </table>
+
+    <div class="footer-link">
+      <a href="Test.html">← Zurück zur Startseite</a>
+    </div>
+  </div>
+
+</body>
+</html>
