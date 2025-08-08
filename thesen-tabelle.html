@@ -1,144 +1,108 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<title>Kölle kreuzt clever – Thesenvergleich</title>
-<style>
-  html, body {
-    margin: 0; padding: 0; min-height: 100vh;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #fff9c4, #ffe0f0, #e0f7fa, #e6f4ea, #ffffff);
-    background-size: 400% 400%;
-    animation: gradientFlow 15s ease infinite;
-  }
-  @keyframes gradientFlow {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-  }
-  .container {
-    max-width: 100%;
-    margin: 2rem auto;
-    padding: 1rem;
-    background-color: rgba(255,255,255,0.85);
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  h1 {
-    color: #c62828;
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  .table-wrapper {
-    overflow-x: auto; /* horizontal scrollbar bei Bedarf */
-    width: 100%;
-  }
-  table {
-    border-collapse: collapse;
-    width: max-content; /* natürliche Breite, nicht gezwungen in Container */
-    min-width: 100%;
-  }
-  th, td {
-    border: 1px solid #bbb;
-    padding: 8px 10px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 0.9rem;
-    white-space: normal; /* Zeilenumbruch erlaubt für alle Zellen */
-    max-width: 180px; /* Begrenzung für Zeilenumbruch */
-  }
-  th {
-    background-color: #f0f0f0;
-    color: #333;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-  td.party-name {
-    font-weight: bold;
-    background-color: #f7f7f7;
-    text-align: left;
-    white-space: normal;
-    max-width: 140px;
-  }
-  /* Farbklassen für Antworten */
-  .a {
-    background-color: #a5d6a7; color: #2e7d32; font-weight: bold; font-size: 1.3rem;
-  }
-  .n {
-    background-color: #fff59d; color: #f9a825; font-weight: bold; font-size: 1.3rem;
-  }
-  .d {
-    background-color: #ef9a9a; color: #c62828; font-weight: bold; font-size: 1.3rem;
-  }
-  .footer-link {
-    margin-top: 2rem;
-    text-align: center;
-  }
-  .footer-link a {
-    text-decoration: none;
-    color: #0077cc;
-    font-weight: 600;
-    font-size: 1rem;
-  }
-  .footer-link a:hover {
-    text-decoration: underline;
-  }
-</style>
+  <meta charset="UTF-8"/>
+  <title>Kölle kreuzt clever – Thesenvergleich</title>
+  <style>
+    html, body { margin:0; padding:0; min-height:100vh; font-family:Arial, sans-serif;
+      background:linear-gradient(135deg,#fff9c4,#ffe0f0,#e0f7fa,#e6f4ea,#ffffff);
+      background-size:400% 400%; animation:gradientFlow 15s ease infinite; }
+    @keyframes gradientFlow {0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .container { max-width:100%; margin:2rem auto; padding:1rem; background:rgba(255,255,255,0.85);
+      border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
+    h1 { color:#c62828; text-align:center; font-size:2rem; margin-bottom:1rem; }
+    .table-wrapper { overflow-x:auto; width:100%; }
+    table { border-collapse:collapse; width:max-content; min-width:100%; }
+    th, td { border:1px solid #bbb; padding:8px 10px; text-align:center; vertical-align:middle;
+      font-size:0.9rem; white-space:normal;}
+    th { background:#f0f0f0; color:#333; position:sticky; top:0; z-index:2; font-weight:700; line-height:1.2; }
+
+    /* Parteifarben nach deinem Mapping */
+    .party-name.spd { background-color:#E3000F; color:white; }
+    .party-name.cdu { background-color:#000000; color:white; }
+    .party-name.gruene { background-color:#1AA037; color:white; }
+    .party-name.fdp { background-color:#FFCC00; color:black; }
+    .party-name.afd { background-color:#009EE0; color:white; }
+    .party-name.die-linke { background-color:#D0006F; color:white; }
+    .party-name.volt { background-color:#5D3FD3; color:white; }
+    .party-name.freie-waehler { background-color:#F28C00; color:white; }
+    .party-name.partei-fortschritt { background-color:#00BFAE; color:white; }
+    .party-name.stadtgesellschaft { background-color:#808080; color:white; }
+    .party-name.die-partei { background-color:#A40000; color:white; }
+    .party-name.gut-klimafreunde { background-color:#7ED957; color:white; }
+    .party-name.buendnis-deutschland { background-color:#003366; color:white; }
+    .party-name.mlpd { background-color:#D10000; color:white; }
+    .party-name.oedp { background-color:#FF9900; color:white; }
+    .party-name.bsw { background-color:#8E44AD; color:white; }
+
+    /* Antwortfarben */
+    .a { background-color:#a5d6a7; color:#2e7d32; font-weight:bold; font-size:1.3rem; }
+    .n { background-color:#fff59d; color:#f9a825; font-weight:bold; font-size:1.3rem; }
+    .d { background-color:#ef9a9a; color:#c62828; font-weight:bold; font-size:1.3rem; }
+
+    .footer-link { margin-top:2rem; text-align:center; }
+    .footer-link a { text-decoration:none; color:#0077cc; font-weight:600; font-size:1rem; }
+    .footer-link a:hover { text-decoration:underline; }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>Thesenvergleich – Parteien (Zeilen) &amp; Thesen (Spalten)</h1>
+    <h1>Thesenvergleich</h1>
     <div class="table-wrapper">
       <table>
         <thead>
-          <tr>
-            <th>Partei</th>
-            <th>Köln soll mehr Clubs, Jugendzentren und Freizeitorte für junge Menschen schaffen.</th>
-            <th>Bei neuen Wohnungen in Köln sollen günstige Plätze für Azubis und junge Erwachsene mitgeplant werden.</th>
-            <th>An öffentlichen Plätzen und Haltestellen in Köln soll es flächendeckend kostenloses WLAN geben.</th>
-            <th>Jugendliche sollen in Köln stärker an der Kommunalpolitik beteiligt werden.</th>
-            <th>Köln soll mehr kostenlose Sport- und Bewegungsangebote im Freien anbieten.</th>
-            <th>Köln soll mehr sichere Fahrradwege und Fahrradparkplätze bauen.</th>
-            <th>Busse, Bahnen und Fahrräder sollen in der Innenstadt Vorrang vor Autos haben.</th>
-            <th>Schüler:innen in Köln sollen kostenlos Bus und Bahn fahren dürfen.</th>
-            <th>Nachtbusse und Verbindungen in Außenbezirke sollen verbessert werden.</th>
-            <th>Einige Teile der Innenstadt sollen autofrei werden.</th>
-            <th>Kreative Projekte und junge Start-ups sollen Räume und Geld zur Unterstützung bekommen.</th>
-            <th>Bei neuen Gebäuden soll stärker auf bezahlbare Wohnungen geachtet werden.</th>
-            <th>Kölner Schulen sollen modernisiert und besser für digitalen Unterricht ausgestattet werden.</th>
-            <th>Das Schulessen soll kostenlos und möglichst in Bio-Qualität angeboten werden.</th>
-            <th>Alle Schultoiletten in Köln sollen sauber, modern und regelmäßig gepflegt sein.</th>
-            <th>Köln soll bis 2035 klimaneutral werden.</th>
-            <th>Beim Sparen soll nicht an Umwelt- und Jugendprojekten gekürzt werden.</th>
-            <th>Die Stadt soll sich stärker um saubere Straßen, Parks und öffentliche Plätze kümmern.</th>
-            <th>Schulen sollen mehr gegen Rassismus, Queerfeindlichkeit und andere Diskriminierung tun.</th>
-            <th>Die Stadt soll Angebote für junge Menschen zur mentalen Gesundheit ausbauen.</th>
-            <th>Geflüchtete sollen in Köln mehr Angebote zur Teilhabe und Unterstützung bekommen.</th>
-            <th>Die Stadtverwaltung soll digitaler und einfacher für junge Menschen werden.</th>
-            <th>Köln soll enger mit seinen europäischen Partnerstädten zusammenarbeiten.</th>
-          </tr>
-        </thead>
+  <tr>
+    <th>Partei</th>
+    <th>Köln soll mehr Clubs, Jugendzentren und Freizeitorte für junge Menschen schaffen.</th>
+    <th>Bei neuen Wohnungen in Köln sollen günstige Plätze für Azubis und junge Erwachsene mitgeplant werden.</th>
+    <th>An öffentlichen Plätzen und Haltestellen in Köln soll es flächendeckend kostenloses WLAN geben.</th>
+    <th>Jugendliche sollen in Köln stärker an der Kommunalpolitik beteiligt werden.</th>
+    <th>Köln soll mehr kostenlose Sport- und Bewegungsangebote im Freien anbieten.</th>
+    <th>Köln soll mehr sichere Fahrradwege und Fahrradparkplätze bauen.</th>
+    <th>Busse, Bahnen und Fahrräder sollen in der Innenstadt Vorrang vor Autos haben.</th>
+    <th>Schüler:innen in Köln sollen kostenlos Bus und Bahn fahren dürfen.</th>
+    <th>Nachtbusse und Verbindungen in Außenbezirke sollen verbessert werden.</th>
+    <th>Einige Teile der Innenstadt sollen autofrei werden.</th>
+    <th>Kreative Projekte und junge Start‑ups sollen Räume und Geld zur Unterstützung bekommen.</th>
+    <th>Bei neuen Gebäuden soll stärker auf bezahlbare Wohnungen geachtet werden.</th>
+    <th>Kölner Schulen sollen modernisiert und besser für digitalen Unterricht ausgestattet werden.</th>
+    <th>Das Schulessen soll kostenlos und möglichst in Bio‑Qualität angeboten werden.</th>
+    <th>Alle Schultoiletten in Köln sollen sauber, modern und regelmäßig gepflegt sein.</th>
+    <th>Köln soll bis 2035 klimaneutral werden.</th>
+    <th>Beim Sparen soll nicht an Umwelt‑ und Jugendprojekten gekürzt werden.</th>
+    <th>Die Stadt soll sich stärker um saubere Straßen, Parks und öffentliche Plätze kümmern.</th>
+    <th>Schulen sollen mehr gegen Rassismus, Queerfeindlichkeit und andere Diskriminierung tun.</th>
+    <th>Die Stadt soll Angebote für junge Menschen zur mentalen Gesundheit ausbauen.</th>
+    <th>Geflüchtete sollen in Köln mehr Angebote zur Teilhabe und Unterstützung bekommen.</th>
+    <th>Die Stadtverwaltung soll digitaler und einfacher für junge Menschen werden.</th>
+    <th>Köln soll enger mit seinen europäischen Partnerstädten zusammenarbeiten.</th>
+  </tr>
+</thead>
+
         <tbody>
-          <tr><td class="party-name">SPD</td> <td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">CDU</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">Bündnis 90/Die Grünen</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">FDP</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">AfD</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">Die Linke</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">Volt</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">Freie Wähler</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">Partei des Fortschritts</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">Kölner Stadt-Gesellschaft</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">Die PARTEI</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">Gut & Klimafreunde</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">Bündnis Deutschland</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">Marxistisch-Leninistische Partei Deutschlands</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">ÖDP</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
-          <tr><td class="party-name">BSW</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
+          <td class="party-name spd">SPD</td>
+<td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
+<td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
+<td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
+<td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
+<td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td>
+<td class="n">—</td><td class="n">—</td><td class="n">—</td>
+
+          <tr><td class="party-name cdu">CDU</td></tr>
+          <tr><td class="party-name gruene">Bündnis 90/Die Grünen</td></tr>
+          <tr><td class="party-name fdp">FDP</td></tr>
+          <tr><td class="party-name afd">AfD</td></tr>
+          <tr><td class="party-name die-linke">Die Linke</td></tr>
+          <tr><td class="party-name volt">Volt</td></tr>
+          <tr><td class="party-name freie-waehler">Freie Wähler</td></tr>
+          <tr><td class="party-name partei-fortschritt">Partei des Fortschritts</td></tr>
+          <tr><td class="party-name stadtgesellschaft">Kölner Stadt-Gesellschaft</td></tr>
+          <tr><td class="party-name die-partei">Die PARTEI</td></tr>
+          <tr><td class="party-name gut-klimafreunde">Gut &amp; Klimafreunde</td></tr>
+          <tr><td class="party-name buendnis-deutschland">Bündnis Deutschland</td></tr>
+          <tr><td class="party-name mlpd">Marxistisch‑Leninistische Partei Deutschlands</td></tr>
+          <tr><td class="party-name oedp">Ödp</td></tr>
+          <tr><td class="party-name bsw">BSW</td></tr>
         </tbody>
       </table>
     </div>
@@ -148,4 +112,5 @@
   </div>
 </body>
 </html>
+
 
