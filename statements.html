@@ -106,6 +106,25 @@
   <a href="thesen-tabelle.html">Thesenvergleich der Parteien anzeigen</a>
 </div>
   <script>
+    const partyColors = {
+  "SPD": "#E3000F",
+  "CDU": "#000000",
+  "Bündnis 90/Die Grünen": "#1AA037",
+  "FDP": "#FFCC00",
+  "AfD": "#009EE0",
+  "Die Linke": "#D0006F",
+  "Volt": "#5D3FD3",
+  "Freie Wähler": "#F28C00",
+  "Partei des Fortschritts": "#00BFAE",
+  "Kölner Stadt-Gesellschaft": "#808080",
+  "Die PARTEI": "#A40000",
+  "Gut & Klimafreunde": "#7ED957",
+  "Bündnis Deutschland": "#003366",
+  "Marxistisch-Leninistische Partei Deutschlands": "#D10000",
+  "Ödp": "#FF9900",
+  "BSW": "#8E44AD"
+};
+
     const parties = [
       { name: "SPD", statement: "—" },
       { name: "CDU", statement: "—" },
@@ -173,6 +192,16 @@
 
   partyList.appendChild(button);
   partyList.appendChild(statementDiv);
+});
+document.querySelectorAll("tbody tr").forEach(row => {
+  const partyCell = row.cells[0]; // erste Zelle in der Reihe (Parteiname)
+  const partyName = partyCell.textContent.trim();
+
+  if (partyColors[partyName]) {
+    partyCell.style.backgroundColor = partyColors[partyName];
+    partyCell.style.color = "#fff"; // Weißer Text für bessere Lesbarkeit
+    partyCell.style.fontWeight = "bold";
+  }
 });
 
   </script>
