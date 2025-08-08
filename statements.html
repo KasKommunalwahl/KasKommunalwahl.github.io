@@ -34,12 +34,9 @@
       background-color: rgba(255, 255, 255, 0.85);
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      height: 550px;
+      height: auto;
       min-height: 550px;
       overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
 
     h1 {
@@ -49,37 +46,39 @@
       margin-bottom: 1rem;
     }
 
-    h2 {
-      margin-top: 0;
-      color: #7b1fa2;
-      border-bottom: 2px solid #c62828;
-      padding-bottom: 0.3rem;
+    .party-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    p {
-      font-size: 1rem;
-      line-height: 1.4;
-    }
-
-    .btn-next {
-      margin-top: 2rem;
-      padding: 0.7rem 1.5rem;
-      font-size: 1rem;
-      background-color: #0077cc;
-      color: white;
-      border: none;
+    .party-button {
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
       border-radius: 6px;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
       cursor: pointer;
-      align-self: flex-end;
+      text-align: left;
+      transition: background-color 0.2s;
     }
 
-    .btn-next:hover {
-      background-color: #005fa3;
+    .party-button:hover {
+      background-color: #e0e0e0;
+    }
+
+    .statement-box {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      display: none;
     }
 
     .footer-link {
-      text-align: center;
       margin-top: 2rem;
+      text-align: center;
     }
 
     .footer-link a {
@@ -94,62 +93,58 @@
 </head>
 <body>
   <div class="container">
-    <div id="statement">
-      <h1>Partei-Statements</h1>
-      <h2 id="party-name"></h2>
-      <p id="party-text">—</p>
-    </div>
-    <button class="btn-next" onclick="nextStatement()">Weiter</button>
-    <div class="footer-link" id="back-link" style="display: none;">
+    <h1>Partei-Statements</h1>
+
+    <div class="party-list" id="partyList"></div>
+
+    <div class="footer-link">
       <a href="Test.html">← Zurück zu Kölle kreuzt clever</a>
     </div>
   </div>
 
   <script>
-    const statements = [
-      { name: "SPD", text: "—" },
-      { name: "CDU", text: "—" },
-      { name: "Bündnis 90/Die Grünen", text: "—" },
-      { name: "FDP", text: "—" },
-      { name: "AfD", text: "—" },
-      { name: "Die Linke", text: "—" },
-      { name: "Volt", text: "—" },
-      { name: "Freie Wähler", text: "—" },
-      { name: "Partei des Fortschritts", text: "—" },
-      { name: "Kölner Stadt-Gesellschaft", text: "—" },
-      { name: "Die PARTEI", text: "—" },
-      { name: "Gut & Klimafreunde", text: "—" },
-      { name: "Bündnis Deutschland", text: "—" },
-      { name: "Marxistisch-Leninistische Partei Deutschlands", text: "—" },
-      { name: "Ödp", text: "—" },
-      { name: "BSW", text: "—" }
+    const parties = [
+      { name: "SPD", statement: "—" },
+      { name: "CDU", statement: "—" },
+      { name: "Bündnis 90/Die Grünen", statement: "—" },
+      { name: "FDP", statement: "—" },
+      { name: "AfD", statement: "—" },
+      { name: "Die Linke", statement: "—" },
+      { name: "Volt", statement: "—" },
+      { name: "Freie Wähler", statement: "—" },
+      { name: "Partei des Fortschritts", statement: "—" },
+      { name: "Kölner Stadt-Gesellschaft", statement: "—" },
+      { name: "Die PARTEI", statement: "—" },
+      { name: "Gut & Klimafreunde", statement: "—" },
+      { name: "Bündnis Deutschland", statement: "—" },
+      { name: "Marxistisch-Leninistische Partei Deutschlands", statement: "—" },
+      { name: "Ödp", statement: "—" },
+      { name: "BSW", statement: "—" }
     ];
 
-    let currentIndex = 0;
-    const nameEl = document.getElementById("party-name");
-    const textEl = document.getElementById("party-text");
-    const backLink = document.getElementById("back-link");
-    const button = document.querySelector(".btn-next");
+    const partyList = document.getElementById("partyList");
 
-    function showStatement(index) {
-      const statement = statements[index];
-      nameEl.textContent = statement.name;
-      textEl.textContent = statement.text;
-    }
+    parties.forEach((party, index) => {
+      const button = document.createElement("button");
+      button.className = "party-button";
+      button.textContent = party.name;
+      button.onclick = () => {
+        const existing = document.getElementById("statement-" + index);
+        if (existing.style.display === "none") {
+          existing.style.display = "block";
+        } else {
+          existing.style.display = "none";
+        }
+      };
 
-    function nextStatement() {
-      currentIndex++;
-      if (currentIndex < statements.length) {
-        showStatement(currentIndex);
-      } else {
-        document.getElementById("statement").innerHTML = "<h1>Alle Statements angezeigt</h1><p>Du hast alle Parteipositionen gesehen.</p>";
-        button.style.display = "none";
-        backLink.style.display = "block";
-      }
-    }
+      const statementDiv = document.createElement("div");
+      statementDiv.className = "statement-box";
+      statementDiv.id = "statement-" + index;
+      statementDiv.textContent = party.statement;
 
-    // Start mit dem ersten Statement
-    showStatement(currentIndex);
+      partyList.appendChild(button);
+      partyList.appendChild(statementDiv);
+    });
   </script>
 </body>
 </html>
