@@ -20,11 +20,13 @@
       flex-direction: column;
       align-items: center;
     }
+
     @keyframes gradientFlow {
       0% {background-position: 0% 50%;}
       50% {background-position: 100% 50%;}
       100% {background-position: 0% 50%;}
     }
+
     .container {
       max-width: 800px;
       margin-top: 3rem;
@@ -32,35 +34,59 @@
       background-color: rgba(255, 255, 255, 0.85);
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      height: auto;
+      height: 550px;
       min-height: 550px;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
+
     h1 {
       color: #c62828;
       text-align: center;
       font-size: 2rem;
       margin-bottom: 1rem;
     }
+
     h2 {
-      margin-top: 1.5rem;
+      margin-top: 0;
       color: #7b1fa2;
       border-bottom: 2px solid #c62828;
       padding-bottom: 0.3rem;
     }
+
     p {
-      margin-top: 0.5rem;
       font-size: 1rem;
       line-height: 1.4;
     }
-    .footer-link {
-      margin-top: 3rem;
-      text-align: center;
+
+    .btn-next {
+      margin-top: 2rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      align-self: flex-end;
     }
+
+    .btn-next:hover {
+      background-color: #005fa3;
+    }
+
+    .footer-link {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
     .footer-link a {
       text-decoration: none;
       color: #0077cc;
     }
+
     .footer-link a:hover {
       text-decoration: underline;
     }
@@ -68,59 +94,62 @@
 </head>
 <body>
   <div class="container">
-    <h1>Partei-Statements</h1>
-
-    <h2>SPD</h2>
-    <p>-</p>
-
-    <h2>CDU</h2>
-    <p>-</p>
-
-    <h2>Bündnis 90/Die Grünen</h2>
-    <p>-</p>
-
-    <h2>FDP</h2>
-    <p>-</p>
-
-    <h2>AfD</h2>
-    <p>-</p>
-
-    <h2>Die Linke</h2>
-    <p>-</p>
-
-    <h2>Volt</h2>
-    <p>-</p>
-
-    <h2>Freie Wähler</h2>
-    <p>-</p>
-
-    <h2>Partei des Fortschritts</h2>
-    <p>-</p>
-
-    <h2>Kölner Stadt-Gesellschaft</h2>
-    <p>-</p>
-
-    <h2>Die PARTEI</h2>
-    <p>-</p>
-
-    <h2>Gut & Klimafreunde</h2>
-    <p>-</p>
-
-    <h2>Bündnis Deutschland</h2>
-    <p>-</p>
-
-    <h2>Marxistisch-Leninistische Partei Deutschlands</h2>
-    <p>-</p>
-
-    <h2>Ödp</h2>
-    <p>-</p>
-
-    <h2>BSW</h2>
-    <p>-</p>
-
-    <div class="footer-link">
+    <div id="statement">
+      <h1>Partei-Statements</h1>
+      <h2 id="party-name"></h2>
+      <p id="party-text">—</p>
+    </div>
+    <button class="btn-next" onclick="nextStatement()">Weiter</button>
+    <div class="footer-link" id="back-link" style="display: none;">
       <a href="Test.html">← Zurück zu Kölle kreuzt clever</a>
     </div>
   </div>
+
+  <script>
+    const statements = [
+      { name: "SPD", text: "—" },
+      { name: "CDU", text: "—" },
+      { name: "Bündnis 90/Die Grünen", text: "—" },
+      { name: "FDP", text: "—" },
+      { name: "AfD", text: "—" },
+      { name: "Die Linke", text: "—" },
+      { name: "Volt", text: "—" },
+      { name: "Freie Wähler", text: "—" },
+      { name: "Partei des Fortschritts", text: "—" },
+      { name: "Kölner Stadt-Gesellschaft", text: "—" },
+      { name: "Die PARTEI", text: "—" },
+      { name: "Gut & Klimafreunde", text: "—" },
+      { name: "Bündnis Deutschland", text: "—" },
+      { name: "Marxistisch-Leninistische Partei Deutschlands", text: "—" },
+      { name: "Ödp", text: "—" },
+      { name: "BSW", text: "—" }
+    ];
+
+    let currentIndex = 0;
+    const nameEl = document.getElementById("party-name");
+    const textEl = document.getElementById("party-text");
+    const backLink = document.getElementById("back-link");
+    const button = document.querySelector(".btn-next");
+
+    function showStatement(index) {
+      const statement = statements[index];
+      nameEl.textContent = statement.name;
+      textEl.textContent = statement.text;
+    }
+
+    function nextStatement() {
+      currentIndex++;
+      if (currentIndex < statements.length) {
+        showStatement(currentIndex);
+      } else {
+        document.getElementById("statement").innerHTML = "<h1>Alle Statements angezeigt</h1><p>Du hast alle Parteipositionen gesehen.</p>";
+        button.style.display = "none";
+        backLink.style.display = "block";
+      }
+    }
+
+    // Start mit dem ersten Statement
+    showStatement(currentIndex);
+  </script>
 </body>
 </html>
