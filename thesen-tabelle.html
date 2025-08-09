@@ -57,11 +57,24 @@
       z-index: 2;
     }
     td.question-cell {
-      text-align: left;
-      font-weight: 600;
-      max-width: 350px;
-      padding-left: 15px;
-    }
+  text-align: left;
+  font-weight: 600;
+  max-width: 350px;
+  padding-left: 15px;
+  position: sticky;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 1;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+th:first-child {
+  position: sticky;
+  left: 0;
+  background-color: rgba(240, 240, 240, 0.95);
+  z-index: 2;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
     /* Abkürzungen und Farben für Antworten */
     .a {
       background-color: #a5d6a7; /* pastellgrün */
