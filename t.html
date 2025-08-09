@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kölle kreuzt clever</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, 
+        #fff9c4, 
+        #ffe0f0, 
+        #e0f7fa, 
+        #e6f4ea, 
+        #ffffff
+      );
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes gradientFlow {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .background {
+      text-align: center;
+      padding: 2rem;
+      max-width: 800px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 4rem;
+      color: #c62828;
+      margin-bottom: 0.5rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .slogan {
+      font-size: 1.7rem;
+      color: #333;
+    }
+
+    .description {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      color: #444;
+    }
+
+    .teaser {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #666;
+    }
+
+    nav {
+      margin-top: 2rem;
+    }
+
+    nav a {
+      display: inline-block;
+      margin: 0.5rem 1rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      background-color: #0077cc;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #005fa3;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+    }
+
+    footer a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #0077cc;
+      font-size: 0.9rem;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background">
+    <header>
+      <h1>Kölle kreuzt clever</h1>
+      <p class="slogan">Clever kreuzen. Köln gestalten!</p>
+    </header>
+
+    <main>
+      <p class="description">
+        Ein interaktives Projekt von Schüler:innen der Kaiserin-Augusta-Schule Köln zur Kommunalwahl.
+      </p>
+      <p class="teaser">Finde heraus, welche Partei am besten zu dir passt!</p>
+
+      <nav aria-label="Hauptnavigation">
+        <a href="test.html">👉 Zum Wahl-Test</a>
+        <a href="statements.html">📣 Parteistatements ansehen</a>
+        <a href="thesen-tabelle.html">📊 Thesen im Vergleich</a>
+      </nav>
+    </main>
+  </div>
+
+  <footer>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutzerklärung</a>
+  </footer>
+
+  <script>
+    console.log("Startseite geladen – Willkommen bei Kölle kreuzt clever!");
+  </script>
+</body>
+</html>
