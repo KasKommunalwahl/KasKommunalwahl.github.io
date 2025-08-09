@@ -36,6 +36,7 @@
       background-color: rgba(255, 255, 255, 0.85);
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      min-height: 520px; /* Einheitliche Container-Höhe */
     }
 
     h1 {
@@ -47,25 +48,35 @@
       text-shadow: 1px 1px 3px #aaa;
     }
 
+    .question {
+      min-height: 200px; /* Einheitliche Höhe für Fragebereich */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
     .question-counter {
       font-weight: bold;
       color: #333;
       margin-bottom: 1rem;
       font-size: 1.2rem;
+      text-align: center;
     }
 
     .question p {
       font-size: 1.15rem;
-      line-height: 1.4;
-      margin: 0 0 1rem 0;
+      line-height: 1.5;
+      margin: 1rem 0;
       font-weight: 600;
       color: #222;
+      text-align: center;
     }
 
     .btn-group {
       display: flex;
       gap: 1rem;
-      margin-top: 0.5rem;
+      margin-top: 1rem;
+      justify-content: center;
     }
 
     .btn-group button {
@@ -78,6 +89,7 @@
       font-weight: 600;
       transition: background-color 0.3s ease;
       color: #111;
+      max-width: 150px;
     }
 
     .btn-group button:hover {
@@ -155,7 +167,6 @@
   </div>
 
   <script>
-    // Alle 23 Fragen
     const questions = [
       "Köln soll mehr Clubs, Jugendzentren und Freizeitorte für junge Menschen schaffen.",
       "Bei neuen Wohnungen in Köln sollen günstige Plätze für Azubis und junge Erwachsene mitgeplant werden.",
@@ -181,26 +192,26 @@
       "Die Stadtverwaltung soll digitaler und einfacher für junge Menschen werden.",
       "Köln soll enger mit seinen europäischen Partnerstädten zusammenarbeiten."
     ];
-    const partyColors = {
-  "SPD": "#E3000F",
-  "CDU": "#000000",
-  "Bündnis 90/Die Grünen": "#1AA037",
-  "FDP": "#FFCC00",
-  "AfD": "#009EE0",
-  "Die Linke": "#D0006F",
-  "Volt": "#5D3FD3",
-  "Freie Wähler": "#F28C00",
-  "Partei des Fortschritts": "#00BFAE",
-  "Kölner Stadt-Gesellschaft": "#808080",
-  "Die PARTEI": "#A40000",
-  "Gut & Klimafreunde": "#7ED957",
-  "Bündnis Deutschland": "#003366",
-  "Marxistisch-Leninistische Partei Deutschlands": "#D10000",
-  "Ödp": "#FF9900",
-  "BSW": "#8E44AD"
-};
 
-    // Parteien und ihre Antworten auf die Fragen (1=Stimme zu, 0=Neutral, -1=Stimme nicht zu)
+    const partyColors = {
+      "SPD": "#E3000F",
+      "CDU": "#000000",
+      "Bündnis 90/Die Grünen": "#1AA037",
+      "FDP": "#FFCC00",
+      "AfD": "#009EE0",
+      "Die Linke": "#D0006F",
+      "Volt": "#5D3FD3",
+      "Freie Wähler": "#F28C00",
+      "Partei des Fortschritts": "#00BFAE",
+      "Kölner Stadt-Gesellschaft": "#808080",
+      "Die PARTEI": "#A40000",
+      "Gut & Klimafreunde": "#7ED957",
+      "Bündnis Deutschland": "#003366",
+      "Marxistisch-Leninistische Partei Deutschlands": "#D10000",
+      "Ödp": "#FF9900",
+      "BSW": "#8E44AD"
+    };
+
     const partyPositions = {
       "SPD":                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "CDU":                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -226,6 +237,31 @@
     const app = document.getElementById("app");
     const resultDiv = document.getElementById("result");
 
+    function showIntro() {
+      app.innerHTML = `
+        <div class="question">
+          <div class="question-counter">
+            Willkommen bei "Kölle kreuzt clever"
+          </div>
+          <p>
+            Du bekommst gleich <strong>23 Thesen</strong> zu Themen wie Schule, Umwelt, Freizeit und Verkehr in Köln.
+          </p>
+          <p>
+            Zu jeder These kannst du entscheiden:
+            <ul style="text-align: left; max-width: 600px; margin: 1rem auto;">
+              <li>✅ <strong>Stimme zu</strong></li>
+              <li>➖ <strong>Neutral</strong></li>
+              <li>❌ <strong>Stimme nicht zu</strong></li>
+            </ul>
+            Am Ende siehst du, <strong>mit welcher Partei du am meisten übereinstimmst</strong>.
+          </p>
+          <div class="btn-group" style="justify-content: center;">
+            <button onclick="showQuestion()" style="background-color:#1AA037; color: white;">Los geht's</button>
+          </div>
+        </div>
+      `;
+    }
+
     function showQuestion() {
       if (currentQuestion >= questions.length) {
         calculateResult();
@@ -238,12 +274,11 @@
           <div class="question-counter">
             Frage ${currentQuestion + 1} von ${questions.length}
           </div>
-          <p><strong>${question}</strong></p>
+          <p>${question}</p>
           <div class="btn-group">
-            <button onclick="answer(-1)" style="background:#f8c7c7;">Stimme nicht zu</button>
-            <button onclick="answer(0)" style="background:#fff9c4;">Neutral</button>
-            <button onclick="answer(1)" style="background:#c8e6c9;">Stimme zu</button>
-
+            <button onclick="answer(-1)">Stimme nicht zu</button>
+            <button onclick="answer(0)">Neutral</button>
+            <button onclick="answer(1)">Stimme zu</button>
           </div>
         </div>
       `;
@@ -254,43 +289,41 @@
       currentQuestion++;
       showQuestion();
     }
-function calculateResult() {
-  const results = [];
 
-  for (const party in partyPositions) {
-    const positions = partyPositions[party];
-    let matches = 0;
+    function calculateResult() {
+      const results = [];
 
-    for (let i = 0; i < positions.length; i++) {
-      if (userAnswers[i] === positions[i]) {
-        matches++;
+      for (const party in partyPositions) {
+        const positions = partyPositions[party];
+        let matches = 0;
+
+        for (let i = 0; i < positions.length; i++) {
+          if (userAnswers[i] === positions[i]) {
+            matches++;
+          }
+        }
+
+        results.push({ party, matches });
       }
+
+      results.sort((a, b) => b.matches - a.matches);
+
+      let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
+      for (const entry of results) {
+        const color = partyColors[entry.party] || "#ccc";
+        const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
+        resultHTML += `<li style="background-color: ${color}; color: ${textColor}; padding: 8px; border-radius: 6px; margin-bottom: 6px;">
+          <strong>${entry.party}:</strong> ${entry.matches} von ${questions.length} Übereinstimmungen
+        </li>`;
+      }
+      resultHTML += "</ul>";
+
+      app.innerHTML = "";
+      resultDiv.innerHTML = resultHTML;
     }
 
-    results.push({ party, matches });
-  }
-
-  results.sort((a, b) => b.matches - a.matches);
-
-  let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
-  for (const entry of results) {
-    const color = partyColors[entry.party] || "#ccc"; // Fallback-Farbe
-    const textColor = (color === "#FFCC00" || color === "#F28C00" || color === "#FF9900" || color === "#7ED957") ? "#000" : "#fff";
-    resultHTML += `<li style="background-color: ${color}; color: ${textColor}; padding: 8px; border-radius: 6px; margin-bottom: 6px;">
-      <strong>${entry.party}:</strong> ${entry.matches} von ${questions.length} Übereinstimmungen
-    </li>`;
-  }
-  resultHTML += "</ul>";
-
-  app.innerHTML = "";
-  resultDiv.innerHTML = resultHTML;
-}
-
-
-    // Start
-    showQuestion();
+    // Start mit Intro
+    showIntro();
   </script>
-
-
 </body>
 </html>
