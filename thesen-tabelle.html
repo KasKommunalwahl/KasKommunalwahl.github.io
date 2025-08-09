@@ -17,11 +17,13 @@
       background-size: 400% 400%;
       animation: gradientFlow 15s ease infinite;
     }
+
     @keyframes gradientFlow {
       0% {background-position: 0% 50%;}
       50% {background-position: 100% 50%;}
       100% {background-position: 0% 50%;}
     }
+
     .container {
       max-width: 900px;
       margin: 2rem auto 4rem;
@@ -29,19 +31,26 @@
       background-color: rgba(255, 255, 255, 0.85);
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      overflow-x: auto;
     }
+
     h1 {
       color: #c62828;
       text-align: center;
       font-size: 2rem;
       margin-bottom: 1rem;
     }
+
+    .table-wrapper {
+      overflow-x: auto;
+      width: 100%;
+    }
+
     table {
       border-collapse: collapse;
       width: 100%;
       min-width: 900px;
     }
+
     th, td {
       border: 1px solid #bbb;
       padding: 8px 10px;
@@ -49,94 +58,94 @@
       vertical-align: middle;
       font-size: 0.9rem;
     }
+
+    /* Sticky Header */
     th {
-      background-color: #f0f0f0;
-      color: #333;
       position: sticky;
       top: 0;
       z-index: 2;
+      background-color: #f0f0f0;
+      color: #333;
     }
+
+    /* Sticky erste Spalte */
+    th:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 4;
+      text-align: left;
+      padding-left: 15px;
+      background-color: rgba(240, 240, 240, 0.95);
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+
     td.question-cell {
-  text-align: left;
-  font-weight: 600;
-  max-width: 350px;
-  padding-left: 15px;
-  position: sticky;
-  left: 0;
-  background-color: rgba(255, 255, 255, 0.95);
-  z-index: 1;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-}
-th:first-child {
-  position: sticky;
-  left: 0;
-  background-color: rgba(240, 240, 240, 0.95);
-  z-index: 2;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-}
-    .question-header {
-  position: sticky;
-  left: 0;
-  background-color: rgba(240, 240, 240, 0.95);
-  z-index: 4;
-  text-align: left;
-  padding-left: 15px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-}
+      position: sticky;
+      left: 0;
+      z-index: 3;
+      text-align: left;
+      font-weight: 600;
+      max-width: 350px;
+      padding-left: 15px;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
 
-
-    /* Abkürzungen und Farben für Antworten */
+    /* Antwortfarben */
     .a {
-      background-color: #a5d6a7; /* pastellgrün */
+      background-color: #a5d6a7;
       color: #2e7d32;
       font-weight: bold;
       font-size: 1.3rem;
     }
+
     .n {
-      background-color: #fff59d; /* pastellgelb */
+      background-color: #fff59d;
       color: #f9a825;
       font-weight: bold;
       font-size: 1.3rem;
     }
+
     .d {
-      background-color: #ef9a9a; /* pastellrot */
+      background-color: #ef9a9a;
       color: #c62828;
       font-weight: bold;
       font-size: 1.3rem;
     }
+
     .footer-link {
       margin-top: 2rem;
       text-align: center;
     }
+
     .footer-link a {
       text-decoration: none;
       color: #0077cc;
       font-weight: 600;
       font-size: 1rem;
     }
+
     .footer-link a:hover {
       text-decoration: underline;
     }
-    .table-wrapper {
-      overflow-x: auto;
-    }
-    /* Parteienfarben im Spaltenkopf (th) */
-th:nth-child(2)  { background-color: #E3000F; color: white; }  /* SPD */
-th:nth-child(3)  { background-color: #000000; color: white; }  /* CDU */
-th:nth-child(4)  { background-color: #1AA037; color: white; }  /* Grüne */
-th:nth-child(5)  { background-color: #FFCC00; color: black; }  /* FDP */
-th:nth-child(6)  { background-color: #009EE0; color: white; }  /* AfD */
-th:nth-child(7)  { background-color: #D0006F; color: white; }  /* Die Linke */
-th:nth-child(8)  { background-color: #5D3FD3; color: white; }  /* Volt */
-th:nth-child(9)  { background-color: #F28C00; color: white; }  /* Freie Wähler */
-th:nth-child(10) { background-color: #00BFAE; color: white; }  /* Partei des Fortschritts */
-th:nth-child(11) { background-color: #808080; color: white; }  /* Kölner Stadt-Gesellschaft */
-th:nth-child(12) { background-color: #A40000; color: white; }  /* Die PARTEI */
-th:nth-child(13) { background-color: #7ED957; color: black; }  /* Gut & Klimafreunde */
-th:nth-child(14) { background-color: #003366; color: white; }  /* Bündnis Deutschland */
-th:nth-child(15) { background-color: #D10000; color: white; }  /* MLPD */
-th:nth-child(16) { background-color: #FF9900; color: black; }  /* ÖDP */
-th:nth-child(17) { background-color: #8E44AD; color: white; }  /* BSW */
+
+    /* Parteienfarben im Spaltenkopf */
+    th:nth-child(2)  { background-color: #E3000F; color: white; }
+    th:nth-child(3)  { background-color: #000000; color: white; }
+    th:nth-child(4)  { background-color: #1AA037; color: white; }
+    th:nth-child(5)  { background-color: #FFCC00; color: black; }
+    th:nth-child(6)  { background-color: #009EE0; color: white; }
+    th:nth-child(7)  { background-color: #D0006F; color: white; }
+    th:nth-child(8)  { background-color: #5D3FD3; color: white; }
+    th:nth-child(9)  { background-color: #F28C00; color: white; }
+    th:nth-child(10) { background-color: #00BFAE; color: white; }
+    th:nth-child(11) { background-color: #808080; color: white; }
+    th:nth-child(12) { background-color: #A40000; color: white; }
+    th:nth-child(13) { background-color: #7ED957; color: black; }
+    th:nth-child(14) { background-color: #003366; color: white; }
+    th:nth-child(15) { background-color: #D10000; color: white; }
+    th:nth-child(16) { background-color: #FF9900; color: black; }
+    th:nth-child(17) { background-color: #8E44AD; color: white; }
 
   </style>
 </head>
@@ -145,12 +154,10 @@ th:nth-child(17) { background-color: #8E44AD; color: white; }  /* BSW */
     <h1>Thesenvergleich</h1>
     <p>Die Symbole bedeuten:</p>
     <ul>
-      <li><span class="a">✓ Stimme zu </span></li>
-      <li><span class="n">— Neutral </span></li>
-      <li><span class="d">✗ Stimme nicht zu </span></li>
+      <li><span class="a">✓ Stimme zu</span></li>
+      <li><span class="n">— Neutral</span></li>
+      <li><span class="d">✗ Stimme nicht zu</span></li>
     </ul>
-
-    
 
     <div class="table-wrapper">
       <table>
@@ -340,14 +347,12 @@ th:nth-child(17) { background-color: #8E44AD; color: white; }  /* BSW */
 
         </tbody>
       </table>
+      
     </div>
 
-      <div class="footer-link">
+    <div class="footer-link">
       <a href="index.html">← Zurück zur Startseite</a>
     </div>
   </div>
-  </div>
 </body>
 </html>
-
-
