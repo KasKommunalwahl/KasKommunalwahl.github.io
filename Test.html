@@ -290,36 +290,47 @@
     }
 
     function calculateResult() {
-      const results = [];
+  const results = [];
 
-      for (const party in partyPositions) {
-        const positions = partyPositions[party];
-        let matches = 0;
+  for (const party in partyPositions) {
+    const positions = partyPositions[party];
+    let matches = 0;
 
-        for (let i = 0; i < positions.length; i++) {
-          if (userAnswers[i] === positions[i]) {
-            matches++;
-          }
-        }
-
-        results.push({ party, matches });
+    for (let i = 0; i < positions.length; i++) {
+      if (userAnswers[i] === positions[i]) {
+        matches++;
       }
-
-      results.sort((a, b) => b.matches - a.matches);
-
-      let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
-      for (const entry of results) {
-        const color = partyColors[entry.party] || "#ccc";
-        const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
-        resultHTML += `<li style="background-color: ${color}; color: ${textColor}; padding: 8px; border-radius: 6px; margin-bottom: 6px;">
-          <strong>${entry.party}:</strong> ${entry.matches} von ${questions.length} Übereinstimmungen
-        </li>`;
-      }
-      resultHTML += "</ul>";
-
-      app.innerHTML = "";
-      resultDiv.innerHTML = resultHTML;
     }
+
+    results.push({ party, matches });
+  }
+
+  results.sort((a, b) => b.matches - a.matches);
+
+  let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
+  for (const entry of results) {
+    const color = partyColors[entry.party] || "#ccc";
+    const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
+
+    let warningLink = "";
+    if (entry.party === "AfD") {
+      warningLink = `<a href="hinweis-afd.html" target="_blank" style="margin-left: 10px; color: ${textColor}; text-decoration: underline; font-size: 0.9rem;">Hinweis lesen</a>`;
+    }
+    if (entry.party === "Marxistisch-Leninistische Partei Deutschlands") {
+      warningLink = `<a href="hinweis-mlpd.html" target="_blank" style="margin-left: 10px; color: ${textColor}; text-decoration: underline; font-size: 0.9rem;">Hinweis lesen</a>`;
+    }
+
+    resultHTML += `<li style="background-color: ${color}; color: ${textColor}; padding: 8px; border-radius: 6px; margin-bottom: 6px;">
+      <strong>${entry.party}:</strong> ${entry.matches} von ${questions.length} Übereinstimmungen
+      ${warningLink}
+    </li>`;
+  }
+  resultHTML += "</ul>";
+
+  app.innerHTML = "";
+  resultDiv.innerHTML = resultHTML;
+}
+
 
     // Start mit Intro
     showIntro();
