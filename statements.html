@@ -165,7 +165,18 @@
   const statementDiv = document.createElement("div");
   statementDiv.className = "statement-box";
   statementDiv.id = "statement-" + index;
-  statementDiv.textContent = party.statement;
+  let html = `<p>${party.statement}</p>`;
+
+// Hinweis-Link einbauen, wenn AfD oder MLPD
+if (party.name === "AfD") {
+  html += `<p style="margin-top: 0.5rem;"><a href="hinweis-afd.html" target="_blank" style="color: #c62828; text-decoration: underline; font-size: 0.9rem;">Hinweis zur AfD lesen</a></p>`;
+}
+if (party.name === "Marxistisch-Leninistische Partei Deutschlands") {
+  html += `<p style="margin-top: 0.5rem;"><a href="hinweis-mlpd.html" target="_blank" style="color: #c62828; text-decoration: underline; font-size: 0.9rem;">Hinweis zur MLPD lesen</a></p>`;
+}
+
+statementDiv.innerHTML = html;
+
 
   partyList.appendChild(button);
   partyList.appendChild(statementDiv);
