@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hinweis zur AfD</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #222;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #b30000;
+    }
+
+    .link-button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background-color: #0077cc;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .link-button:hover {
+      background-color: #005fa3;
+    }
+
+    .source {
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .source a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+
+    .source a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Wichtiger Hinweis zur AfD</h1>
+    <p>
+      Die „Alternative für Deutschland“ (AfD) wird vom Bundesamt für Verfassungsschutz als
+      <strong>gesichert rechtsextremistische Bestrebung</strong> eingestuft.
+      Diese Einschätzung basiert auf verfassungsfeindlichen Aussagen und Zielen einzelner Parteistrukturen.
+      Wir empfehlen, diese Information bei politischen Entscheidungen zu berücksichtigen.
+    </p>
+
+    <button class="link-button" onclick="zeigeQuelle()">Zur Quelle (Tagesschau)</button>
+
+    <div class="source" id="quelle">
+      <p>
+        Quelle: 
+        <a href="https://www.tagesschau.de/inland/innenpolitik/verfassungsschutz-afd-102.html" target="_blank">
+          Tagesschau.de – AfD wird als rechtsextremistisch eingestuft
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function zeigeQuelle() {
+      const quelle = document.getElementById("quelle");
+      quelle.style.display = "block";
+    }
+  </script>
+</body>
+</html>
