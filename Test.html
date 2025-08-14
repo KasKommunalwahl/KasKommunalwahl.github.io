@@ -312,14 +312,6 @@
     const color = partyColors[entry.party] || "#ccc";
     const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
 
-    let warningLink = "";
-    if (entry.party === "AfD") {
-      warningLink = `<a href="Hinweis.html" target="_blank" style="margin-left: 10px; color: ${textColor}; text-decoration: underline; font-size: 0.9rem;">Hinweis lesen</a>`;
-    }
-    if (entry.party === "Marxistisch-Leninistische Partei Deutschlands") {
-      warningLink = `<a href="Hinweis.html" target="_blank" style="margin-left: 10px; color: ${textColor}; text-decoration: underline; font-size: 0.9rem;">Hinweis lesen</a>`;
-    }
-
     resultHTML += `<li style="background-color: ${color}; color: ${textColor}; padding: 8px; border-radius: 6px; margin-bottom: 6px;">
       <strong>${entry.party}:</strong> ${entry.matches} von ${questions.length} Übereinstimmungen
       ${warningLink}
