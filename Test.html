@@ -290,39 +290,36 @@
     }
 
     function calculateResult() {
-  const results = [];
+      const results = [];
 
-  for (const party in partyPositions) {
-    const positions = partyPositions[party];
-    let matches = 0;
+      for (const party in partyPositions) {
+        const positions = partyPositions[party];
+        let matches = 0;
 
-    for (let i = 0; i < positions.length; i++) {
-      if (userAnswers[i] === positions[i]) {
-        matches++;
+        for (let i = 0; i < positions.length; i++) {
+          if (userAnswers[i] === positions[i]) {
+            matches++;
+          }
+        }
+
+        results.push({ party, matches });
       }
+
+      results.sort((a, b) => b.matches - a.matches);
+
+      let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
+      for (const entry of results) {
+        const color = partyColors[entry.party] || "#ccc";
+        const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
+        resultHTML += `<li style="background-color: ${color}; color: ${textColor}; padding: 8px; border-radius: 6px; margin-bottom: 6px;">
+          <strong>${entry.party}:</strong> ${entry.matches} von ${questions.length} Übereinstimmungen
+        </li>`;
+      }
+      resultHTML += "</ul>";
+
+      app.innerHTML = "";
+      resultDiv.innerHTML = resultHTML;
     }
-
-    results.push({ party, matches });
-  }
-
-  results.sort((a, b) => b.matches - a.matches);
-
-  let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
-  for (const entry of results) {
-    const color = partyColors[entry.party] || "#ccc";
-    const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
-
-    resultHTML += `<li style="background-color: ${color}; color: ${textColor}; padding: 8px; border-radius: 6px; margin-bottom: 6px;">
-      <strong>${entry.party}:</strong> ${entry.matches} von ${questions.length} Übereinstimmungen
-      ${warningLink}
-    </li>`;
-  }
-  resultHTML += "</ul>";
-
-  app.innerHTML = "";
-  resultDiv.innerHTML = resultHTML;
-}
-
 
     // Start mit Intro
     showIntro();
