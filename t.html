@@ -102,10 +102,41 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    /* NEU: Hinweisbox oben links */
+    .corner-banner {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(200, 240, 255, 0.85); /* pastellig türkis-blau */
+      color: #003344;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      max-width: 280px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 600px) {
+      .corner-banner {
+        font-size: 0.8rem;
+        padding: 0.8rem 1rem;
+        max-width: 90%;
+        left: 10px;
+        right: 10px;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <!-- Hinweis oben links -->
+  <div class="corner-banner">
+    Dies ist kein Ort für Diskriminierung oder Rechtsextremismus –<br />
+    sondern ein Ort für Vielfalt, Respekt und gelebte Demokratie.
+  </div>
+
   <div class="background">
     <header>
       <h1>Kölle kreuzt clever</h1>
@@ -135,3 +166,4 @@
   </script>
 </body>
 </html>
+
