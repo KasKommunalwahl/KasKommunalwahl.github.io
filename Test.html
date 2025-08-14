@@ -170,13 +170,6 @@
   <div class="container">
     <h1>Kölle kreuzt clever</h1>
     <div id="app"></div>
-
-    <div class="tool-hinweis">
-      <strong style="color: #c62828;">❗ Hinweis:</strong><br>
-      Das Tool <strong>„Kölle kreuzt clever“</strong> ist keine Wahlempfehlung. Es zeigt lediglich, welche Parteien bei bestimmten Themen deinen Positionen am nächsten stehen.
-      Bitte informiere dich zusätzlich eigenständig über die Inhalte und Ziele der Parteien, bevor du deine Wahl triffst.
-    </div>
-
     <div id="result" class="result"></div>
 
     <div class="footer-link">
@@ -231,22 +224,22 @@
     };
 
     const partyPositions = {
-      "SPD":                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "CDU":                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "FDP":                [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1,1],
-      "AfD":                [1,0,0,1,1,1,-1,-1,1,-1,1,-1,1,-1,1,-1,-1,1,1,0,-1,1,-1],
-      "Die Linke":          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Volt":               [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Freie Wähler":       [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1,1],
+      "AfD": [1,0,0,1,1,1,-1,-1,1,-1,1,-1,1,-1,1,-1,-1,1,1,0,-1,1,-1],
+      "Die Linke": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Volt": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Freie Wähler": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1],
       "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1,1],
-      "Die PARTEI":          [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Gut & Klimafreunde":  [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Die PARTEI": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Gut & Klimafreunde": [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
       "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "Marxistisch-Leninistische Partei Deutschlands": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Ödp":                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "BSW":                 [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1]
+      "Ödp": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "BSW": [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1]
     };
 
     let userAnswers = new Array(questions.length).fill(null);
@@ -254,6 +247,16 @@
 
     const app = document.getElementById("app");
     const resultDiv = document.getElementById("result");
+
+    function getHinweisHTML() {
+      return `
+        <div class="tool-hinweis">
+          <strong style="color: #c62828;">❗ Hinweis:</strong> Dieses Tool zeigt dir eine Orientierung.
+          Nur weil eine Partei mit dir viele Übereinstimmungen hat, heißt das nicht, dass du sie automatisch wählen solltest.
+          Informiere dich auch auf anderen Wegen über die Parteien und ihre Programme.
+        </div>
+      `;
+    }
 
     function showIntro() {
       app.innerHTML = `
@@ -268,6 +271,7 @@
             Du entscheidest zu jeder Aussage, ob du ihr zustimmst, neutral bist oder nicht zustimmst.
             Am Ende zeigen wir dir, mit welcher Partei du am meisten übereinstimmst.
           </p>
+          ${getHinweisHTML()}
           <p style="margin-top: 1.5rem;">
             Bist du bereit?
           </p>
@@ -332,7 +336,7 @@
           <strong>${entry.party}:</strong> ${entry.matches} von ${questions.length} Übereinstimmungen
         </li>`;
       }
-      resultHTML += "</ul>";
+      resultHTML += "</ul>" + getHinweisHTML();
 
       app.innerHTML = "";
       resultDiv.innerHTML = resultHTML;
@@ -342,4 +346,5 @@
   </script>
 </body>
 </html>
+
 
