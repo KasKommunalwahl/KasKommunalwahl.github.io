@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Kölle kreuzt clever – Wahl-O-Mat</title>
+  <title>Kölle kreuzt clever</title>
   <style>
     html, body {
       margin: 0;
@@ -36,7 +36,7 @@
       background-color: rgba(255, 255, 255, 0.85);
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      min-height: 520px; /* Einheitliche Container-Höhe */
+      min-height: 520px;
     }
 
     h1 {
@@ -49,7 +49,7 @@
     }
 
     .question {
-      min-height: 200px; /* Einheitliche Höhe für Fragebereich */
+      min-height: 200px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -111,6 +111,17 @@
       color: #155214;
     }
 
+    .tool-hinweis {
+      background-color: #fff3f3;
+      border-left: 5px solid #c62828;
+      padding: 1rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: 6px;
+    }
+
     .result {
       margin-top: 2rem;
       font-size: 1.1rem;
@@ -159,6 +170,13 @@
   <div class="container">
     <h1>Kölle kreuzt clever</h1>
     <div id="app"></div>
+
+    <div class="tool-hinweis">
+      <strong style="color: #c62828;">❗ Hinweis:</strong><br>
+      Das Tool <strong>„Kölle kreuzt clever“</strong> ist keine Wahlempfehlung. Es zeigt lediglich, welche Parteien bei bestimmten Themen deinen Positionen am nächsten stehen.
+      Bitte informiere dich zusätzlich eigenständig über die Inhalte und Ziele der Parteien, bevor du deine Wahl triffst.
+    </div>
+
     <div id="result" class="result"></div>
 
     <div class="footer-link">
@@ -238,28 +256,27 @@
     const resultDiv = document.getElementById("result");
 
     function showIntro() {
-  app.innerHTML = `
-    <div class="question">
-      <div class="question-counter">
-        Willkommen bei "Kölle kreuzt clever"
-      </div>
-      <p>
-        In diesem Tool siehst du 23 Aussagen zu Themen wie Schule, Umwelt, Verkehr oder Freizeit in Köln.
-      </p>
-      <p>
-        Du entscheidest zu jeder Aussage, ob du ihr zustimmst, neutral bist oder nicht zustimmst.
-        Am Ende zeigen wir dir, mit welcher Partei du am meisten übereinstimmst.
-      </p>
-      <p style="margin-top: 1.5rem;">
-        Bist du bereit?
-      </p>
-      <div class="btn-group" style="justify-content: center;">
-        <button onclick="showQuestion()" style="background-color:#1AA037; color: white;">Los geht's</button>
-      </div>
-    </div>
-  `;
-}
-
+      app.innerHTML = `
+        <div class="question">
+          <div class="question-counter">
+            Willkommen bei "Kölle kreuzt clever"
+          </div>
+          <p>
+            In diesem Tool siehst du 23 Aussagen zu Themen wie Schule, Umwelt, Verkehr oder Freizeit in Köln.
+          </p>
+          <p>
+            Du entscheidest zu jeder Aussage, ob du ihr zustimmst, neutral bist oder nicht zustimmst.
+            Am Ende zeigen wir dir, mit welcher Partei du am meisten übereinstimmst.
+          </p>
+          <p style="margin-top: 1.5rem;">
+            Bist du bereit?
+          </p>
+          <div class="btn-group" style="justify-content: center;">
+            <button onclick="showQuestion()" style="background-color:#1AA037; color: white;">Los geht's</button>
+          </div>
+        </div>
+      `;
+    }
 
     function showQuestion() {
       if (currentQuestion >= questions.length) {
@@ -319,11 +336,10 @@
 
       app.innerHTML = "";
       resultDiv.innerHTML = resultHTML;
-      
     }
 
-    // Start mit Intro
     showIntro();
   </script>
 </body>
 </html>
+
