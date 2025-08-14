@@ -41,6 +41,17 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
 
+    .intro-note {
+      background-color: #d0f0f7; /* sanftes türkis-blau */
+      color: #003344;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      text-align: left;
+    }
+
     h1 {
       font-size: 3.5rem;
       color: #c62828;
@@ -102,48 +113,17 @@
     footer a:hover {
       text-decoration: underline;
     }
-
-    /* NEU: Hinweisbox oben links */
-    .corner-banner {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background-color: rgba(200, 240, 255, 0.85); /* pastellig türkis-blau */
-      color: #003344;
-      padding: 1rem 1.2rem;
-      border-radius: 12px;
-      max-width: 280px;
-      font-size: 0.9rem;
-      line-height: 1.4;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    @media (max-width: 600px) {
-  .corner-banner {
-    position: fixed;
-    bottom: 20px;
-    top: auto;
-    left: 10px;
-    right: 10px;
-    max-width: none;
-    width: auto;
-    font-size: 0.85rem;
-    padding: 0.8rem 1rem;
-    z-index: 1000;
-  }
-}
-
   </style>
 </head>
 
 <body>
-  <!-- Hinweis oben links -->
-  <div class="corner-banner">
-    Dies ist kein Ort für Diskriminierung oder Rechtsextremismus –<br />
-    sondern ein Ort für Vielfalt und Demokratie.
-  </div>
-
   <div class="background">
+    <!-- Hinweistext in der Box -->
+    <div class="intro-note">
+      Dies ist kein Ort für Diskriminierung oder Rechtsextremismus –<br />
+      sondern ein Ort für Vielfalt und Demokratie.
+    </div>
+
     <header>
       <h1>Kölle kreuzt clever</h1>
       <p class="slogan">Clever kreuzen. Köln gestalten!</p>
