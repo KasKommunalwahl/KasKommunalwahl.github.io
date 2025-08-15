@@ -155,11 +155,9 @@
 
   button.onclick = () => {
     const existing = document.getElementById("statement-" + index);
-    if (existing.style.display === "none") {
-      existing.style.display = "block";
-    } else {
-      existing.style.display = "none";
-    }
+    const isHidden = window.getComputedStyle(existing).display === "none";
+existing.style.display = isHidden ? "block" : "none";
+
   };
 
   const statementDiv = document.createElement("div");
