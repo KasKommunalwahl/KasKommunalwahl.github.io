@@ -24,6 +24,8 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top);
     }
 
     @keyframes gradientFlow {
@@ -44,10 +46,11 @@
     .intro-note {
       background-color: #d0f0f7; /* sanftes türkis-blau */
       color: #003344;
-      padding: 1rem 1.2rem;
+      padding: 1.2rem 1.5rem;
       border-radius: 12px;
       font-size: 1rem;
       margin-bottom: 1.5rem;
+      margin-top: 1rem;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
       text-align: left;
     }
@@ -113,12 +116,16 @@
     footer a:hover {
       text-decoration: underline;
     }
-    @media (max-width: 600px) {
-  .background {
-    padding-top: 3rem;
-  }
-}
 
+    @media (max-width: 600px) {
+      .background {
+        padding-top: 4rem; /* mehr Platz oben im Container */
+      }
+      .intro-note {
+        font-size: 0.95rem;
+        margin-top: 1.5rem; /* mehr Abstand zur Oberkante */
+      }
+    }
   </style>
 </head>
 
@@ -158,4 +165,5 @@
   </script>
 </body>
 </html>
+
 
