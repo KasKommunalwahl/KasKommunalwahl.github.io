@@ -9,20 +9,23 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
+      min-height: 100vh;
       font-family: 'Arial', sans-serif;
       background: linear-gradient(135deg, 
-        #fff9c4,  /* pastellgelb */
-        #ffe0f0,  /* pastellrosa */
-        #e0f7fa,  /* pastellblau */
-        #e6f4ea,  /* pastellgrün */
-        #ffffff   /* weiß */
+        #fff9c4,
+        #ffe0f0,
+        #e0f7fa,
+        #e6f4ea,
+        #ffffff
       );
       background-size: 400% 400%;
       animation: gradientFlow 15s ease infinite;
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
       box-sizing: border-box;
-      padding-top: env(safe-area-inset-top);
+      padding: env(safe-area-inset-top) 1rem 2rem;
     }
 
     @keyframes gradientFlow {
@@ -35,19 +38,21 @@
       text-align: center;
       padding: 2rem;
       max-width: 800px;
-      background-color: rgba(255, 255, 255, 0.85);
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
       border-radius: 20px;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      box-sizing: border-box;
     }
 
     .intro-note {
-      background-color: #d0f0f7; /* sanftes türkis-blau */
+      background-color: #d0f0f7;
       color: #003344;
       padding: 1.2rem 1.5rem;
       border-radius: 12px;
       font-size: 1rem;
       margin-bottom: 1.5rem;
-      margin-top: 1rem;
+      margin-top: 0;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
       text-align: left;
     }
@@ -116,11 +121,20 @@
 
     @media (max-width: 600px) {
       .background {
-        padding-top: 4rem; /* mehr Platz oben im Container */
+        padding: 3rem 1.5rem;
       }
+
       .intro-note {
         font-size: 0.95rem;
-        margin-top: 1.5rem; /* mehr Abstand zur Oberkante */
+        margin-top: 0.5rem;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .slogan {
+        font-size: 1.2rem;
       }
     }
   </style>
