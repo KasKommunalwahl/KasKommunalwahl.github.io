@@ -2,29 +2,23 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Noch unentschlossen? – Kölle kreuzt clever</title>
+  <title>Kölle kreuzt clever – Tipps für Unentschlossene</title>
   <style>
     html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Arial', sans-serif;
+      margin: 0; padding: 0; min-height: 100vh;
+      font-family: Arial, sans-serif;
       background: linear-gradient(135deg, 
-        #fff9c4,  /* pastellgelb */
-        #ffe0f0,  /* pastellrosa */
-        #e0f7fa,  /* pastellblau */
-        #e6f4ea,  /* pastellgrün */
-        #ffffff   /* weiß */
+        #fff9c4,
+        #ffe0f0,
+        #e0f7fa,
+        #e6f4ea,
+        #ffffff
       );
       background-size: 400% 400%;
       animation: gradientFlow 15s ease infinite;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      padding: 2rem;
-      box-sizing: border-box;
     }
 
     @keyframes gradientFlow {
@@ -33,87 +27,63 @@
       100% {background-position: 0% 50%;}
     }
 
-    .background {
-      text-align: left;
-      padding: 2rem;
+    .container {
       max-width: 800px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      margin-top: 3rem;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      height: auto;
+      min-height: 550px;
+      overflow-y: auto;
     }
 
     h1 {
-      font-size: 2.5rem;
       color: #c62828;
-      margin-bottom: 1rem;
       text-align: center;
-    }
-
-    p.intro {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-      color: #333;
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
 
     ul.tips {
-      padding-left: 1.2rem;
-      font-size: 1.05rem;
-      color: #444;
+      list-style-type: disc;
+      padding-left: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
 
-    ul.tips li {
-      margin-bottom: 1rem;
-    }
-
-    a {
-      color: #0077cc;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    nav {
-      text-align: center;
+    .footer-link {
       margin-top: 2rem;
+      text-align: center;
     }
 
-    nav a.button {
-      display: inline-block;
-      padding: 0.6rem 1.2rem;
-      border-radius: 10px;
-      background-color: #0077cc;
-      color: #fff;
+    .footer-link a {
       text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
+      color: #0077cc;
     }
 
-    nav a.button:hover {
-      background-color: #005fa3;
+    .footer-link a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="background">
+  <div class="container">
     <h1>Noch unentschlossen?</h1>
-    <p class="intro">
-      Kein Problem – viele Menschen sind bei der ersten Wahl unsicher. Hier sind ein paar Tipps, wie du dich weiter informieren kannst:
-    </p>
-
     <ul class="tips">
-      <li><strong>Wahlprogramme lesen:</strong> Besonders Kurzfassungen oder Programme in leichter Sprache können dir einen schnellen Überblick geben.</li>
-      <li><strong>Weitere Tools nutzen:</strong> <a href="https://www.wahl-o-mat.de" target="_blank">Wahl-O-Mat</a>, <a href="https://www.deinwal.de" target="_blank">DeinWal.de</a> oder <a href="https://www.abgeordnetenwatch.de" target="_blank">abgeordnetenwatch.de</a> helfen dir zusätzlich.</li>
-      <li><strong>Mit anderen sprechen:</strong> Frag Freund:innen, Lehrer:innen oder Eltern – auch andere Meinungen helfen bei der eigenen Orientierung.</li>
-      <li><strong>Überleg, was dir wichtig ist – hier in Köln:</strong> Was wünschst du dir z. B. für deine Schule, Freizeit oder den Verkehr?</li>
-      <li><strong>Du musst kein Profi sein:</strong> Es ist okay, wenn du nicht alles verstehst. Es reicht, wenn du eine Richtung findest, die zu deinen Werten passt.</li>
-      <li><strong>Du entscheidest selbst – und geheim:</strong> Deine Stimme gehört dir. Du musst niemandem erklären, was du wählst.</li>
+      <li><strong>Wahl-O-Mat nutzen:</strong> Beantworte Fragen und vergleiche deine Meinung mit den Parteien.</li>
+      <li><strong>Wahlprogramme anschauen:</strong> Lies die Kurzfassungen auf den Websites der Parteien – vor allem zu Themen, die dir wichtig sind.</li>
+      <li><strong>Frag deine Freund*innen:</strong> Welche Themen sind ihnen wichtig? Vielleicht hilft dir der Austausch bei der Entscheidung.</li>
+      <li><strong>Lokal schauen:</strong> Kommunal- oder Stadtpolitik wirkt direkt in deinem Alltag – oft lohnt ein Blick auf kleinere Parteien.</li>
+      <li><strong>Werte abgleichen:</strong> Welche Partei passt am besten zu deinen Werten wie Gerechtigkeit, Umwelt, Freiheit oder Solidarität?</li>
+      <li><strong>Keine Stimme ist „verschenkt“:</strong> Jede Stimme zählt – sie zeigt, was dir wichtig ist!</li>
+      <li><strong>Besser wählen als schweigen:</strong> Wer nicht wählt, überlässt anderen die Entscheidung.</li>
     </ul>
 
-    <nav>
-      <a class="button" href="index.html">⬅ Zurück zur Startseite</a>
-    </nav>
+    <div class="footer-link">
+      <a href="index.html">← Zurück zur Startseite</a>
+    </div>
   </div>
 </body>
 </html>
