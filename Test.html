@@ -98,13 +98,12 @@
       font-size: 24px;
       cursor: pointer;
       user-select: none;
-      color: #ccc;
+      color: black; /* standard schwarz */
       transition: color 0.3s ease;
-      user-select: none;
     }
 
     .heart.active {
-      color: #e63946;
+      color: #e63946; /* rot wenn aktiv */
     }
 
     .btn-group {
@@ -292,10 +291,10 @@
       "Volt": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1],
       "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1,1],
-      "Die PARTEI": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Gut & Klimafreunde": [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Die PARTEI": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Gut & Klimafreunde": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
       "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Marxistisch-Leninistische Partei Deutschlands": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Marxistisch-Leninistische Partei Deutschlands": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
       "Ödp": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
       "BSW": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     };
@@ -306,7 +305,6 @@
     const app = document.getElementById("app");
     const resultDiv = document.getElementById("result");
 
-    // Intro-Seite anzeigen
     function showIntro() {
       currentQuestion = 0;
       userAnswers = Array(questions.length).fill(null).map(() => ({value: null, weight: 1}));
@@ -324,7 +322,6 @@
       `;
     }
 
-    // Frage anzeigen
     function renderQuestion() {
       resultDiv.innerHTML = "";
       const q = questions[currentQuestion];
@@ -347,7 +344,6 @@
         </div>
       `;
 
-      // Event Listener für Navigation
       document.getElementById("prev-arrow").onclick = () => {
         if (currentQuestion > 0) {
           currentQuestion--;
@@ -361,13 +357,11 @@
         }
       };
 
-      // Herz-Toggle Gewicht
       document.getElementById("heart").onclick = () => {
         userAnswers[currentQuestion].weight = userAnswers[currentQuestion].weight === 1 ? 2 : 1;
         renderQuestion();
       };
 
-      // Antwort speichern & weiter
       document.getElementById("btn-disagree").onclick = () => {
         userAnswers[currentQuestion].value = -1;
         if(currentQuestion < questions.length -1) {
@@ -398,7 +392,6 @@
     }
 
     function calculateResult() {
-      // Ergebnisse berechnen
       let results = {};
       for (const party in partyPositions) {
         let score = 0;
@@ -410,19 +403,15 @@
           const partyPos = partyPositions[party][i];
           if (partyPos === 0) continue;
 
-          // Übereinstimmung nur wenn Partei auch eine Meinung hat (nicht 0)
           score += (userAnswer === partyPos ? 1 : 0) * userWeight;
           totalWeight += userWeight;
         }
         results[party] = totalWeight > 0 ? (score / totalWeight) * 100 : 0;
       }
 
-      // Sortieren & Top 8 auswählen
       const sortedResults = Object.entries(results)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 8);
+        .sort((a, b) => b[1] - a[1]);
 
-      // Ergebnis anzeigen
       let html = `<h2>Deine Übereinstimmung mit Parteien</h2><ul>`;
       for (const [party, score] of sortedResults) {
         const color = partyColors[party] || "#666";
@@ -439,12 +428,8 @@
       `;
     }
 
-    // Start mit Intro
     showIntro();
   </script>
 </body>
 </html>
-
-
-
 
