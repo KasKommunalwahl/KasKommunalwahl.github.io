@@ -90,9 +90,10 @@
       transition: background-color 0.3s ease;
       color: #111;
       max-width: 150px;
+      user-select: none;
     }
 
-    .btn-group button:hover {
+    .btn-group button:hover:not(:disabled) {
       opacity: 0.9;
     }
 
@@ -109,6 +110,42 @@
     .btn-group button:nth-child(3) {
       background: #a5d6a7;
       color: #155214;
+    }
+
+    /* Hervorhebung der ausgewählten Antwort */
+    .btn-group button.selected {
+      box-shadow: 0 0 8px 2px #1AA037;
+      font-weight: bold;
+      outline: 2px solid #1AA037;
+    }
+
+    /* Navigation unter den Antworten */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+
+    .nav-buttons button {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      background-color: #1AA037;
+      color: white;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-buttons button:disabled {
+      background-color: #ccc;
+      cursor: default;
+      color: #666;
+    }
+
+    .nav-buttons button:hover:not(:disabled) {
+      background-color: #13872b;
     }
 
     .tool-hinweis {
@@ -144,8 +181,11 @@
     .result li {
       margin-bottom: 0.5rem;
       padding: 0.3rem 0.5rem;
-      border-bottom: 1px solid #ddd;
+      border-radius: 6px;
       font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .footer-link {
@@ -239,69 +279,43 @@
       "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "Marxistisch-Leninistische Partei Deutschlands": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "Ödp": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "BSW": [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1]
+      "BSW": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     };
-
-    let userAnswers = new Array(questions.length).fill(null);
-    let currentQuestion = 0;
 
     const app = document.getElementById("app");
     const resultDiv = document.getElementById("result");
 
-    function getHinweisHTML() {
-      return `
-        <div class="tool-hinweis">
-          <strong style="color: #c62828;">❗ Hinweis:</strong> Dieses Tool zeigt dir eine Orientierung.
-          Nur weil eine Partei mit dir viele Übereinstimmungen hat, heißt das nicht, dass du sie automatisch wählen solltest.
-          Informiere dich auch auf anderen Wegen über die Parteien und ihre Programme.
-        </div>
-      `;
-    }
-
-    function showIntro() {
-      app.innerHTML = `
-        <div class="question">
-          <div class="question-counter">
-            Willkommen bei "Kölle kreuzt clever"
-          </div>
-          <p>
-            In diesem Tool siehst du 23 Aussagen zu Themen wie Schule, Umwelt, Verkehr oder Freizeit in Köln.
-          </p>
-          <p>
-            Du entscheidest zu jeder Aussage, ob du ihr zustimmst, neutral bist oder nicht zustimmst.
-            Am Ende zeigen wir dir, mit welcher Partei du am meisten übereinstimmst.
-          </p>
-          ${getHinweisHTML()}
-          <p style="margin-top: 1.5rem;">
-            Bist du bereit?
-          </p>
-          <div class="btn-group" style="justify-content: center;">
-            <button onclick="showQuestion()" style="background-color:#1AA037; color: white;">Los geht's</button>
-          </div>
-        </div>
-      `;
-    }
+    let userAnswers = new Array(questions.length).fill(null);
+    let currentQuestion = 0;
 
     function showQuestion() {
+      if (currentQuestion < 0) currentQuestion = 0;
       if (currentQuestion >= questions.length) {
         calculateResult();
         return;
       }
 
       const question = questions[currentQuestion];
+      const answer = userAnswers[currentQuestion];
+
       app.innerHTML = `
         <div class="question">
-          <div class="question-counter">
-            Frage ${currentQuestion + 1} von ${questions.length}
-          </div>
+          <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
           <p>${question}</p>
           <div class="btn-group">
-            <button onclick="answer(-1)">Stimme nicht zu</button>
-            <button onclick="answer(0)">Neutral</button>
-            <button onclick="answer(1)">Stimme zu</button>
+            <button onclick="answer(-1)" class="${answer === -1 ? 'selected' : ''}">Stimme nicht zu</button>
+            <button onclick="answer(0)" class="${answer === 0 ? 'selected' : ''}">Neutral</button>
+            <button onclick="answer(1)" class="${answer === 1 ? 'selected' : ''}">Stimme zu</button>
+          </div>
+          <div class="nav-buttons">
+            <button onclick="prevQuestion()" ${currentQuestion === 0 ? 'disabled' : ''}>&lt; Zurück</button>
+            <button onclick="skipQuestion()">Überspringen &gt;</button>
           </div>
         </div>
       `;
+
+      // Scroll bei neuer Frage nach oben
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function answer(value) {
@@ -310,42 +324,75 @@
       showQuestion();
     }
 
+    function prevQuestion() {
+      currentQuestion--;
+      showQuestion();
+    }
+
+    function skipQuestion() {
+      userAnswers[currentQuestion] = null;
+      currentQuestion++;
+      showQuestion();
+    }
+
     function calculateResult() {
       const results = [];
+      // Nur beantwortete Fragen zählen
+      const answeredIndexes = userAnswers
+        .map((v, i) => (v !== null ? i : -1))
+        .filter(i => i !== -1);
+      const answeredCount = answeredIndexes.length;
 
       for (const party in partyPositions) {
         const positions = partyPositions[party];
         let matches = 0;
 
-        for (let i = 0; i < positions.length; i++) {
+        for (const i of answeredIndexes) {
           if (userAnswers[i] === positions[i]) {
             matches++;
           }
         }
 
-        results.push({ party, matches });
+        const percent = answeredCount > 0 ? Math.round((matches / answeredCount) * 100) : 0;
+        results.push({ party, matches, percent });
       }
 
-      results.sort((a, b) => b.matches - a.matches);
+      results.sort((a, b) => b.percent - a.percent);
 
       let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
       for (const entry of results) {
         const color = partyColors[entry.party] || "#ccc";
         const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
-        resultHTML += `<li style="background-color: ${color}; color: ${textColor}; padding: 8px; border-radius: 6px; margin-bottom: 6px;">
-          <strong>${entry.party}:</strong> ${entry.matches} von ${questions.length} Übereinstimmungen
+
+        resultHTML += `<li style="background-color: ${color}; color: ${textColor};">
+          <strong>${entry.party}:</strong> ${entry.matches} von ${answeredCount} Übereinstimmungen
+          <span style="font-weight: 700;">${entry.percent}%</span>
         </li>`;
       }
       resultHTML += "</ul>" + getHinweisHTML();
 
       app.innerHTML = "";
       resultDiv.innerHTML = resultHTML;
+
+      // Scroll zum Ergebnis
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    showIntro();
+    function getHinweisHTML() {
+      return `
+        <div class="tool-hinweis">
+          <h3>Hinweis:</h3>
+          <p>Dieser Test ist kein wissenschaftliches Instrument, sondern eine Orientierungshilfe.  
+          Die Übereinstimmung basiert nur auf den hier gestellten Fragen.  
+          Bitte informiere dich zusätzlich bei den Parteien selbst.</p>
+        </div>
+      `;
+    }
+
+    showQuestion();
   </script>
+
 </body>
 </html>
-
 
 
