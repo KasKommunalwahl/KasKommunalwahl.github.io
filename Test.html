@@ -30,15 +30,11 @@
       background-color: rgba(255, 255, 255, 0.85);
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
     }
 
     h1 {
       color: #c62828;
+      text-align: center;
       font-size: 2.5rem;
       margin-bottom: 1rem;
       font-weight: 700;
@@ -50,60 +46,39 @@
       color: #333;
       margin-bottom: 1rem;
       font-size: 1.2rem;
-    }
-
-    .question-wrapper {
+      text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 1rem;
-      margin-bottom: 1rem;
-      max-width: 600px;
-      width: 100%;
+      user-select: none;
     }
 
     .nav-arrow {
       cursor: pointer;
-      font-size: 2.5rem;
+      font-size: 1.8rem;
+      color: #666;
       user-select: none;
-      color: #c62828;
-      width: 50px;
-      text-align: center;
-      font-weight: bold;
-      border-radius: 6px;
-      transition: background-color 0.2s ease;
-      user-select: none;
+      padding: 0 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
     }
-
-    .nav-arrow:hover {
-      background-color: rgba(198,40,40,0.1);
+    .nav-arrow:hover:not(.disabled) {
+      background-color: #ddd;
+    }
+    .nav-arrow.disabled {
+      color: #ccc;
+      cursor: default;
     }
 
     .question p {
       font-size: 1.15rem;
       line-height: 1.5;
-      margin: 0 1rem;
+      margin: 1rem 0;
       font-weight: 600;
       color: #222;
-      position: relative;
-      padding-right: 30px;
-      flex: 1;
       text-align: center;
-    }
-
-    .heart {
-      position: absolute;
-      right: 0;
-      top: 0;
-      font-size: 24px;
-      cursor: pointer;
-      user-select: none;
-      color: #444; /* grau/schwarz für Gewicht 1 */
-      transition: color 0.3s ease;
-    }
-
-    .heart.active {
-      color: #e63946; /* rot für Gewicht 2 */
+      position: relative;
     }
 
     .btn-group {
@@ -112,12 +87,11 @@
       margin-top: 1rem;
       justify-content: center;
       flex-wrap: wrap;
-      max-width: 600px;
-      width: 100%;
     }
 
     .btn-group button {
       flex: 1;
+      max-width: 180px;
       padding: 0.7rem 1.2rem;
       border: none;
       border-radius: 6px;
@@ -126,45 +100,27 @@
       font-weight: 600;
       transition: background-color 0.3s ease;
       color: #111;
-      max-width: 180px;
-      min-width: 120px;
     }
 
-    /* Button Farben */
-    button.start-btn {
-      background-color: #b39ddb; /* Pastell lila */
-      color: #2c2c54;
+    .btn-start {
+      background-color: #c8a2c8; /* Pastell lila */
+      color: #3c003c;
     }
-    button.start-btn:hover {
-      background-color: #9575cd;
-      color: #fff;
+    .btn-stimme-nicht-zu {
+      background-color: #f8c4c4; /* Pastell rot */
+      color: #660000;
     }
-
-    button.btn-disagree {
-      background-color: #f8bbd0; /* Pastell rot */
-      color: #880e4f;
+    .btn-stimme-zu {
+      background-color: #c4f8c4; /* Pastell grün */
+      color: #004400;
     }
-    button.btn-disagree:hover {
-      background-color: #ec407a;
-      color: #fff;
+    .btn-neutral {
+      background-color: #fcf4b2; /* Pastell gelb */
+      color: #665500;
     }
 
-    button.btn-neutral {
-      background-color: #fff9c4; /* Pastell gelb */
-      color: #f57f17;
-    }
-    button.btn-neutral:hover {
-      background-color: #fff176;
-      color: #000;
-    }
-
-    button.btn-agree {
-      background-color: #c8e6c9; /* Pastell grün */
-      color: #2e7d32;
-    }
-    button.btn-agree:hover {
-      background-color: #66bb6a;
-      color: #fff;
+    .btn-group button:hover {
+      filter: brightness(0.9);
     }
 
     .tool-hinweis {
@@ -176,17 +132,12 @@
       font-size: 1rem;
       line-height: 1.5;
       border-radius: 6px;
-      max-width: 600px;
-      width: 100%;
-      text-align: left;
     }
 
     .result {
       margin-top: 2rem;
       font-size: 1.1rem;
       color: #222;
-      max-width: 600px;
-      width: 100%;
     }
 
     .result h2 {
@@ -205,9 +156,9 @@
     .result li {
       margin-bottom: 0.5rem;
       padding: 0.3rem 0.5rem;
-      border-bottom: 1px solid #ddd;
-      font-weight: 600;
       border-radius: 6px;
+      font-weight: 600;
+      color: white;
     }
 
     .footer-link {
@@ -224,6 +175,23 @@
 
     .footer-link a:hover {
       text-decoration: underline;
+    }
+
+    /* Herz für doppelte Gewichtung */
+    .heart {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 1.8rem;
+      cursor: pointer;
+      user-select: none;
+      color: black;
+      transition: color 0.3s ease;
+      padding: 0 0.3rem;
+      line-height: 1;
+    }
+    .heart.active {
+      color: red;
     }
   </style>
 </head>
@@ -272,152 +240,219 @@
       "Ödp": "#FF9900", "BSW": "#8E44AD"
     };
 
-    // Hier die Partei-Positionen: als Beispiel nur 22 Werte, zu Fragen passen
     const partyPositions = {
-      "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1],
-      "AfD": [1,0,0,1,1,1,-1,-1,1,-1,0,0,1,-1,1,-1,-1,1,1,0,-1,1],
-      "Die Linke": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Volt": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1],
-      "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1],
-      "Die PARTEI": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Gut & Klimafreunde": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Marxistisch-Leninistische Partei Deutschlands": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Ödp": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "BSW": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1,1],
+      "AfD": [1,0,0,1,1,1,-1,-1,1,-1,0,0,1,-1,1,-1,-1,1,1,0,-1,1,0],
+      "Die Linke": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Volt": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1],
+      "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1,1],
+      "Die PARTEI": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Gut & Klimafreunde": [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Marxistisch-Leninistische Partei Deutschlands": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Ödp": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "BSW": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     };
 
-    let currentQuestion = 0;
-    // Array mit Objekten: {value: -1/0/1/null, weight: 1 oder 2}
-    let userAnswers = Array(questions.length).fill(null).map(() => ({value: null, weight: 1}));
+    // Speichere Userantworten: {value: -1, 0, 1, weight: 1 oder 2}
+    const userAnswers = questions.map(() => ({ value: null, weight: 1 }));
+
+    let currentIndex = -1;
 
     const app = document.getElementById("app");
     const resultDiv = document.getElementById("result");
 
-    function showIntro() {
-      currentQuestion = 0;
-      userAnswers = Array(questions.length).fill(null).map(() => ({value: null, weight: 1}));
-      resultDiv.innerHTML = "";
+    // Herz-Symbol SVG (Unicode ♥)
+    function createHeart(isDouble) {
+      const span = document.createElement("span");
+      span.classList.add("heart");
+      span.textContent = "♥";
+      if (isDouble) {
+        span.classList.add("active");
+      }
+      return span;
+    }
+
+    function renderStartPage() {
       app.innerHTML = `
-        <div style="max-width:600px; margin:auto; text-align:center;">
-          <p style="font-size:1.2rem; line-height:1.5; margin-bottom:2rem;">
-            Willkommen zu <strong>Kölle kreuzt clever</strong> – deinem interaktiven Tool, um deine politische Haltung zu
-            aktuellen Kölner Themen zu testen. Du kannst jeder Frage zustimmen, neutral bleiben oder ablehnen.
-            Außerdem kannst du wichtige Fragen mit einem Klick auf das Herz <span style="color:#e63946;">&#10084;</span>
-            gewichten.
+        <div style="text-align:center; padding:2rem;">
+          <p style="font-size:1.3rem; color:#555; margin-bottom:2rem;">
+            Hier kannst du deine Meinung zu verschiedenen Fragen in Köln abgeben und sehen, welche Parteien dir am nächsten stehen.
           </p>
-          <button class="start-btn" onclick="renderQuestion()">Los geht's!</button>
+          <button class="btn-start" id="startBtn">Los geht's!</button>
         </div>
       `;
+
+      document.getElementById("startBtn").onclick = () => {
+        currentIndex = 0;
+        resultDiv.innerHTML = "";
+        renderQuestion();
+      };
     }
 
     function renderQuestion() {
-      resultDiv.innerHTML = "";
-      const q = questions[currentQuestion];
-      const answer = userAnswers[currentQuestion];
+      const qText = questions[currentIndex];
+      const currentAnswer = userAnswers[currentIndex];
+
+      // Navigation Pfeile (disabled wenn am Anfang oder Ende)
+      const leftDisabled = currentIndex === 0 ? "disabled" : "";
+      const rightDisabled = currentIndex === questions.length - 1 ? "disabled" : "";
 
       app.innerHTML = `
-        <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
-        <div class="question-wrapper">
-          <div class="nav-arrow" id="prev-arrow" ${currentQuestion === 0 ? 'style="visibility:hidden;"' : ''}>&lt;</div>
-          <div class="question" style="position:relative; flex: 1;">
-            <p>${q}</p>
-            <div class="heart ${answer.weight === 2 ? "active" : ""}" id="heart" title="Wichtigkeit toggeln">&#10084;</div>
-          </div>
-          <div class="nav-arrow" id="next-arrow" ${currentQuestion === questions.length -1 ? 'style="visibility:hidden;"' : ''}>&gt;</div>
+        <div class="question-counter">
+          <span class="nav-arrow ${leftDisabled}" id="prevBtn">&#9664;</span>
+          <span>Frage ${currentIndex + 1} von ${questions.length}</span>
+          <span class="nav-arrow ${rightDisabled}" id="nextBtn">&#9654;</span>
+          <span class="heart-container" style="position: relative;">
+            <span id="heart">${currentAnswer.weight === 2 ? '♥' : '♡'}</span>
+          </span>
         </div>
-        <div class="btn-group">
-          <button class="btn-disagree" id="btn-disagree">Stimme nicht zu</button>
-          <button class="btn-neutral" id="btn-neutral">Neutral</button>
-          <button class="btn-agree" id="btn-agree">Stimme zu</button>
+        <div class="question">
+          <p>${qText}</p>
+          <div class="btn-group">
+            <button id="btnDisagree" class="btn-stimme-nicht-zu ${currentAnswer.value === -1 ? 'active' : ''}">Stimme nicht zu</button>
+            <button id="btnNeutral" class="btn-neutral ${currentAnswer.value === 0 ? 'active' : ''}">Neutral</button>
+            <button id="btnAgree" class="btn-stimme-zu ${currentAnswer.value === 1 ? 'active' : ''}">Stimme zu</button>
+          </div>
+          <div style="text-align:center; margin-top: 0.8rem;">
+            <label style="cursor:pointer;">
+              <input type="checkbox" id="doubleWeight" ${currentAnswer.weight === 2 ? "checked" : ""} />
+              <span style="font-weight:600; user-select:none;">Doppelte Gewichtung</span>
+            </label>
+          </div>
+          <div style="text-align:center; margin-top:1rem;">
+            <button id="showResult" style="padding: 0.7rem 1.5rem; font-weight: 600; background:#c62828; color:#fff; border:none; border-radius:6px; cursor:pointer;">
+              Ergebnis anzeigen
+            </button>
+          </div>
         </div>
       `;
 
-      document.getElementById("prev-arrow").onclick = () => {
-        if (currentQuestion > 0) {
-          currentQuestion--;
-          renderQuestion();
-        }
-      };
-      document.getElementById("next-arrow").onclick = () => {
-        if (currentQuestion < questions.length -1) {
-          currentQuestion++;
-          renderQuestion();
-        }
-      };
+      // Farbige Buttons: aktiven Status
+      const btnDisagree = document.getElementById("btnDisagree");
+      const btnNeutral = document.getElementById("btnNeutral");
+      const btnAgree = document.getElementById("btnAgree");
+      const doubleWeightCheckbox = document.getElementById("doubleWeight");
 
-      document.getElementById("heart").onclick = () => {
-        userAnswers[currentQuestion].weight = userAnswers[currentQuestion].weight === 1 ? 2 : 1;
+      function updateAnswer(value) {
+        userAnswers[currentIndex].value = value;
         renderQuestion();
-      };
-
-      document.getElementById("btn-disagree").onclick = () => {
-        userAnswers[currentQuestion].value = -1;
-        nextOrResult();
-      };
-      document.getElementById("btn-neutral").onclick = () => {
-        userAnswers[currentQuestion].value = 0;
-        nextOrResult();
-      };
-      document.getElementById("btn-agree").onclick = () => {
-        userAnswers[currentQuestion].value = 1;
-        nextOrResult();
-      };
-    }
-
-    function nextOrResult() {
-      if(currentQuestion < questions.length -1) {
-        currentQuestion++;
-        renderQuestion();
-      } else {
-        calculateResult();
       }
+
+      btnDisagree.onclick = () => {
+        userAnswers[currentIndex].value = -1;
+        renderQuestion();
+      };
+      btnNeutral.onclick = () => {
+        userAnswers[currentIndex].value = 0;
+        renderQuestion();
+      };
+      btnAgree.onclick = () => {
+        userAnswers[currentIndex].value = 1;
+        renderQuestion();
+      };
+
+      doubleWeightCheckbox.onchange = () => {
+        userAnswers[currentIndex].weight = doubleWeightCheckbox.checked ? 2 : 1;
+        renderQuestion();
+      };
+
+      document.getElementById("prevBtn").onclick = () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          renderQuestion();
+        }
+      };
+      document.getElementById("nextBtn").onclick = () => {
+        if (currentIndex < questions.length - 1) {
+          currentIndex++;
+          renderQuestion();
+        }
+      };
+
+      document.getElementById("showResult").onclick = calculateResult;
     }
 
     function calculateResult() {
-      let results = {};
+      // Ergebnisse sammeln
+      const results = [];
+
+      // Wie viele Fragen mit nicht-neutralen Antworten
+      const totalNonNeutralAnswers = userAnswers.filter(a => a.value !== null && a.value !== 0).length;
+
       for (const party in partyPositions) {
         let score = 0;
         let totalWeight = 0;
+
         for (let i = 0; i < questions.length; i++) {
           const userAnswer = userAnswers[i].value;
-          if (userAnswer === null || userAnswer === 0) continue; // Neutral oder keine Antwort zählt nicht
           const userWeight = userAnswers[i].weight;
           const partyPos = partyPositions[party][i];
-          if (partyPos === 0) continue; // Partei sagt nichts zu der Frage
 
-          // Übereinstimmung = userAnswer == partyPos => Punkte
-          if(userAnswer === partyPos) {
+          if (userAnswer === null) continue;
+
+          totalWeight += userWeight;
+
+          if (userAnswer === 0) {
+            // neutral: zählt nicht zur Übereinstimmung
+            continue;
+          }
+
+          if (userAnswer === partyPos) {
             score += userWeight;
           }
-          totalWeight += userWeight;
         }
-        results[party] = totalWeight > 0 ? (score / totalWeight) * 100 : 0;
+
+        results.push({ party, score });
       }
 
-      const sortedResults = Object.entries(results)
-        .sort((a, b) => b[1] - a[1]);
-
-      let html = `<h2>Deine Übereinstimmung mit Parteien</h2><ul>`;
-      for (const [party, score] of sortedResults) {
-        const color = partyColors[party] || "#666";
-        html += `<li style="color:${color};">${party}: ${score.toFixed(1)}%</li>`;
+      // Sonderfall: Wenn alle Antworten neutral oder keine beantwortet, alle Parteien 100%
+      if (totalNonNeutralAnswers === 0) {
+        results.forEach(r => r.percent = 100);
+      } else {
+        const maxScore = Math.max(...results.map(r => r.score));
+        const divisor = maxScore === 0 ? 1 : maxScore;
+        results.forEach(r => {
+          r.percent = (r.score / divisor) * 100;
+        });
       }
-      html += `</ul>`;
 
+      // Sortiere nach Prozent absteigend
+      results.sort((a,b) => b.percent - a.percent);
+
+      // Ergebnis HTML bauen
+      let html = "<h2>Dein Ergebnis:</h2><ul>";
+      for (const r of results) {
+        const bgColor = partyColors[r.party] || "#999";
+        // Textfarbe: heller Text für dunkle Farben, sonst schwarz
+        const textColor = (bgColor === "#FFCC00" || bgColor === "#F28C00" || bgColor === "#FF9900" || bgColor === "#7ED957") ? "#000" : "#fff";
+
+        html += `<li style="background-color:${bgColor}; color:${textColor}; padding:0.5rem 1rem; border-radius:6px;">
+          <strong>${r.party}</strong>: ${r.percent.toFixed(1)}%
+        </li>`;
+      }
+      html += "</ul>" + getHinweisHTML();
+
+      app.innerHTML = "";
       resultDiv.innerHTML = html;
-
-      // Kein Neustartbutton mehr!
-      app.innerHTML = `<div style="text-align:center; margin-top: 2rem; color:#555; font-style: italic;">
-        Vielen Dank fürs Mitmachen!
-      </div>`;
     }
 
-    showIntro();
+    function getHinweisHTML() {
+      return `
+        <div class="tool-hinweis">
+          <p>Die Prozentangaben zeigen, wie gut deine Meinungen mit den Positionen der Parteien übereinstimmen.</p>
+          <p>Du kannst deine Antworten jederzeit anpassen und neu berechnen.</p>
+        </div>
+      `;
+    }
+
+    // Startseite initial
+    renderStartPage();
+
   </script>
 </body>
 </html>
