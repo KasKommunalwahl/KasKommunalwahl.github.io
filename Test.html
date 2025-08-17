@@ -30,6 +30,7 @@
       background-color: rgba(255, 255, 255, 0.85);
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
     }
 
     h1 {
@@ -49,13 +50,56 @@
       text-align: center;
     }
 
+    .question-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .nav-arrow {
+      cursor: pointer;
+      font-size: 2.5rem;
+      user-select: none;
+      color: #c62828;
+      width: 50px;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background-color 0.2s ease;
+    }
+
+    .nav-arrow:hover {
+      background-color: rgba(198,40,40,0.1);
+    }
+
     .question p {
       font-size: 1.15rem;
       line-height: 1.5;
-      margin: 1rem 0;
+      margin: 0 1rem;
       font-weight: 600;
       color: #222;
       text-align: center;
+      max-width: 600px;
+      position: relative;
+      padding-right: 30px;
+    }
+
+    .heart {
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 24px;
+      cursor: pointer;
+      user-select: none;
+      color: #ccc;
+      transition: color 0.3s ease;
+      user-select: none;
+    }
+
+    .heart.active {
+      color: #e63946;
     }
 
     .btn-group {
@@ -77,6 +121,52 @@
       transition: background-color 0.3s ease;
       color: #111;
       max-width: 180px;
+    }
+
+    /* Button Farben */
+    button.start-btn {
+      background-color: #b39ddb; /* Pastell lila */
+      color: #2c2c54;
+    }
+    button.start-btn:hover {
+      background-color: #9575cd;
+      color: #fff;
+    }
+
+    button.btn-disagree {
+      background-color: #f8bbd0; /* Pastell rot */
+      color: #880e4f;
+    }
+    button.btn-disagree:hover {
+      background-color: #ec407a;
+      color: #fff;
+    }
+
+    button.btn-neutral {
+      background-color: #fff9c4; /* Pastell gelb */
+      color: #f57f17;
+    }
+    button.btn-neutral:hover {
+      background-color: #fff176;
+      color: #000;
+    }
+
+    button.btn-agree {
+      background-color: #c8e6c9; /* Pastell grün */
+      color: #2e7d32;
+    }
+    button.btn-agree:hover {
+      background-color: #66bb6a;
+      color: #fff;
+    }
+
+    button.btn-next {
+      background-color: #90caf9;
+      color: #0d47a1;
+    }
+    button.btn-next:hover {
+      background-color: #42a5f5;
+      color: #fff;
     }
 
     .tool-hinweis {
@@ -114,6 +204,7 @@
       padding: 0.3rem 0.5rem;
       border-bottom: 1px solid #ddd;
       font-weight: 600;
+      border-radius: 6px;
     }
 
     .footer-link {
@@ -131,12 +222,20 @@
     .footer-link a:hover {
       text-decoration: underline;
     }
+
+    /* Disable text selection on arrows and heart for better UX */
+    .nav-arrow, .heart {
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Standard */
+    }
+
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Kölle kreuzt clever</h1>
-    <div id="question-nav" style="display: flex; flex-wrap: wrap; gap: 0.3rem; justify-content: center; margin-bottom: 1rem;"></div>
     <div id="app"></div>
     <div id="result" class="result"></div>
     <div class="footer-link">
@@ -179,7 +278,7 @@
       "Ödp": "#FF9900", "BSW": "#8E44AD"
     };
 
-        const partyPositions = {
+    const partyPositions = {
       "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -199,6 +298,8 @@
 
     let userAnswers = questions.map(() => ({ value: null, weight: 1 }));
     let currentQuestion = 0;
+    let heartActive = false;
+    let finished = false;
 
     const app = document.getElementById("app");
     const resultDiv = document.getElementById("result");
@@ -212,6 +313,11 @@
     }
 
     function showIntro() {
+      finished = false;
+      userAnswers = questions.map(() => ({ value: null, weight: 1 }));
+      currentQuestion = 0;
+      heartActive = false;
+      resultDiv.innerHTML = "";
       app.innerHTML = `
         <div class="question">
           <div class="question-counter">Willkommen bei "Kölle kreuzt clever"</div>
@@ -220,97 +326,124 @@
           ${getHinweisHTML()}
           <p style="margin-top: 1.5rem;">Bist du bereit?</p>
           <div class="btn-group" style="justify-content: center;">
-            <button onclick="showQuestion()">Los geht's</button>
+            <button class="start-btn" onclick="showQuestion()">Los geht's</button>
           </div>
         </div>`;
     }
 
-    function renderQuestionNav() {
-      const navContainer = document.getElementById("question-nav");
-      navContainer.innerHTML = "";
-      questions.forEach((_, i) => {
-        const btn = document.createElement("button");
-        btn.textContent = i + 1;
-        btn.style.padding = "6px 10px";
-        btn.style.border = "1px solid #ccc";
-        btn.style.borderRadius = "4px";
-        btn.style.cursor = "pointer";
-        btn.style.marginBottom = "4px";
-        const answered = userAnswers[i].value !== null;
-        btn.style.backgroundColor = answered ? "#a5d6a7" : "#f0f0f0";
-        btn.style.fontWeight = i === currentQuestion ? "bold" : "normal";
-        btn.onclick = () => showQuestion(i);
-        navContainer.appendChild(btn);
-      });
-    }
-
-    function showQuestion(index = currentQuestion) {
-      if (index >= questions.length) {
-        calculateResult();
-        return;
-      }
-
-      currentQuestion = index;
-      const question = questions[index];
+    function renderQuestion() {
+      const question = questions[currentQuestion];
+      const answer = userAnswers[currentQuestion];
 
       app.innerHTML = `
-        <div class="question">
-          <div class="question-counter">Frage ${index + 1} von ${questions.length}</div>
-          <p>${question}</p>
-          <div class="btn-group">
-            <button onclick="answer(-1)">Stimme nicht zu</button>
-            <button onclick="answer(0)">Neutral</button>
-            <button onclick="answer(1)">Stimme zu</button>
-            <button onclick="answer(null, 0)">Überspringen</button>
-            <button onclick="answer(1, 2)">Doppelt gewichten</button>
+        <div class="question-wrapper">
+          <div class="nav-arrow" id="prev-arrow" title="Zurück">&lt;</div>
+          <div class="question" style="position:relative; max-width: 600px;">
+            <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
+            <p>${question}<span class="heart${heartActive ? " active" : ""}" id="heart">&#10084;</span></p>
           </div>
+          <div class="nav-arrow" id="next-arrow" title="Weiter">&gt;</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn-disagree" onclick="handleAnswer(-1)">Stimme nicht zu</button>
+          <button class="btn-neutral" onclick="handleAnswer(0)">Neutral</button>
+          <button class="btn-agree" onclick="handleAnswer(1)">Stimme zu</button>
         </div>`;
-      renderQuestionNav();
+
+      // Event listeners for navigation arrows and heart
+      document.getElementById("prev-arrow").onclick = () => {
+        if (finished) return;
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          heartActive = userAnswers[currentQuestion].weight === 2;
+          renderQuestion();
+        }
+      };
+
+      document.getElementById("next-arrow").onclick = () => {
+        if (finished) return;
+        // Überspringen mit > (ohne Wert zu setzen)
+        currentQuestion++;
+        if (currentQuestion >= questions.length) {
+          showFinishButton();
+        } else {
+          heartActive = userAnswers[currentQuestion]?.weight === 2;
+          renderQuestion();
+        }
+      };
+
+      const heart = document.getElementById("heart");
+      heart.onclick = () => {
+        heartActive = !heartActive;
+        heart.classList.toggle("active", heartActive);
+        userAnswers[currentQuestion].weight = heartActive ? 2 : 1;
+      };
     }
 
-    function answer(value, weight = 1) {
-      userAnswers[currentQuestion] = { value, weight };
-      const next = currentQuestion + 1;
-      if (next < questions.length) {
-        showQuestion(next);
+    function handleAnswer(value) {
+      if (finished) return;
+      userAnswers[currentQuestion].value = value;
+      userAnswers[currentQuestion].weight = heartActive ? 2 : 1;
+      currentQuestion++;
+      heartActive = false;
+
+      if (currentQuestion >= questions.length) {
+        showFinishButton();
       } else {
-        calculateResult();
+        renderQuestion();
       }
+    }
+
+    function showFinishButton() {
+      finished = true;
+      app.innerHTML = `
+        <div style="text-align:center;">
+          <p>Du hast alle Fragen beantwortet oder übersprungen.</p>
+          <button class="start-btn" onclick="calculateResult()">Ergebnis anzeigen</button>
+          <button class="start-btn" style="margin-left:1rem;" onclick="showIntro()">Neu starten</button>
+        </div>
+      `;
     }
 
     function calculateResult() {
-      const results = [];
-
+      // Ergebnisse berechnen
+      let results = {};
       for (const party in partyPositions) {
-        const positions = partyPositions[party];
         let score = 0;
-        let maxScore = 0;
+        let totalWeight = 0;
+        for (let i = 0; i < questions.length; i++) {
+          const userAnswer = userAnswers[i].value;
+          if (userAnswer === null) continue;
+          const userWeight = userAnswers[i].weight;
+          const partyPos = partyPositions[party][i];
+          if (partyPos === 0) continue;
 
-        for (let i = 0; i < userAnswers.length; i++) {
-          const { value, weight } = userAnswers[i];
-          if (value !== null) {
-            maxScore += weight;
-            if (value === positions[i]) score += weight;
-          }
+          // Übereinstimmung nur wenn Partei auch eine Meinung hat (nicht 0)
+          score += (userAnswer === partyPos ? 1 : 0) * userWeight;
+          totalWeight += userWeight;
         }
-
-        results.push({ party, score, maxScore });
+        results[party] = totalWeight > 0 ? (score / totalWeight) * 100 : 0;
       }
 
-      results.sort((a, b) => b.score - a.score);
+      // Sortieren
+      const sortedResults = Object.entries(results)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8);
 
-      let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
-      for (const entry of results) {
-        const color = partyColors[entry.party] || "#ccc";
-        const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
-        resultHTML += `<li style="background-color: ${color}; color: ${textColor}; padding: 8px; border-radius: 6px; margin-bottom: 6px;">
-          <strong>${entry.party}:</strong> ${entry.score} von ${entry.maxScore} Übereinstimmungen
-        </li>`;
+      // Ausgabe
+      let html = `<h2>Deine Übereinstimmung mit Parteien</h2><ul>`;
+      for (const [party, score] of sortedResults) {
+        const color = partyColors[party] || "#666";
+        html += `<li style="color:${color};">${party}: ${score.toFixed(1)}%</li>`;
       }
-      resultHTML += "</ul>" + getHinweisHTML();
+      html += `</ul>`;
+      resultDiv.innerHTML = html;
 
-      app.innerHTML = "";
-      resultDiv.innerHTML = resultHTML;
+      app.innerHTML = `
+        <div style="text-align:center;">
+          <button class="start-btn" onclick="showIntro()">Neu starten</button>
+        </div>
+      `;
     }
 
     showIntro();
