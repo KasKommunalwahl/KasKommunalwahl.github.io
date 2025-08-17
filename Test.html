@@ -5,12 +5,16 @@
   <title>Kölle kreuzt clever</title>
   <style>
     html, body {
-      margin: 0; padding: 0; min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #fff9c4, #ffe0f0, #e0f7fa, #e6f4ea, #ffffff);
       background-size: 400% 400%;
       animation: gradientFlow 15s ease infinite;
-      display: flex; flex-direction: column; align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     @keyframes gradientFlow {
@@ -23,11 +27,9 @@
       max-width: 800px;
       margin-top: 3rem;
       padding: 2rem;
-      background-color: rgba(255,255,255,0.85);
+      background-color: rgba(255, 255, 255, 0.85);
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 100%;
-      box-sizing: border-box;
     }
 
     h1 {
@@ -45,33 +47,15 @@
       margin-bottom: 1rem;
       font-size: 1.2rem;
       text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      user-select: none;
-    }
-    .nav-arrow {
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 1.7rem;
-      padding: 0 10px;
-      user-select: none;
-      color: #555;
-      transition: color 0.3s ease;
-    }
-    .nav-arrow:hover {
-      color: #c62828;
     }
 
     .question p {
       font-size: 1.15rem;
       line-height: 1.5;
-      margin: 1rem 0 0.5rem 0;
+      margin: 1rem 0;
       font-weight: 600;
       color: #222;
       text-align: center;
-      min-height: 70px;
     }
 
     .btn-group {
@@ -84,7 +68,6 @@
 
     .btn-group button {
       flex: 1;
-      max-width: 180px;
       padding: 0.7rem 1.2rem;
       border: none;
       border-radius: 6px;
@@ -93,41 +76,7 @@
       font-weight: 600;
       transition: background-color 0.3s ease;
       color: #111;
-    }
-    button#start-btn {
-      background-color: #c8a2ff; /* Pastell Lila */
-      color: #111;
-    }
-    button.stimme-nicht-zu {
-      background-color: #f7a8a8; /* Pastell Rot */
-    }
-    button.stimme-zu {
-      background-color: #a8f7a8; /* Pastell Grün */
-    }
-    button.neutral {
-      background-color: #f7f3a8; /* Pastell Gelb */
-    }
-    button:focus {
-      outline: 2px solid #c62828;
-    }
-
-    .heart {
-      font-size: 24px;
-      cursor: pointer;
-      user-select: none;
-      transition: color 0.3s ease;
-      color: black;
-      position: absolute;
-      right: 30px;
-      top: 12px;
-    }
-    .heart.active {
-      color: red;
-    }
-    .question-wrapper {
-      position: relative;
-      padding-top: 30px;
-      margin-bottom: 1rem;
+      max-width: 180px;
     }
 
     .tool-hinweis {
@@ -139,10 +88,6 @@
       font-size: 1rem;
       line-height: 1.5;
       border-radius: 6px;
-      max-width: 650px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: center;
     }
 
     .result {
@@ -162,19 +107,13 @@
       padding: 0;
       max-height: 400px;
       overflow-y: auto;
-      max-width: 600px;
-      margin: 0 auto;
     }
 
     .result li {
       margin-bottom: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
+      padding: 0.3rem 0.5rem;
+      border-bottom: 1px solid #ddd;
       font-weight: 600;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
     .footer-link {
@@ -192,32 +131,12 @@
     .footer-link a:hover {
       text-decoration: underline;
     }
-
-    #show-results-btn {
-      margin-top: 1.5rem;
-      display: block;
-      padding: 0.7rem 1.5rem;
-      font-size: 1.1rem;
-      font-weight: 700;
-      background-color: #c8a2ff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      color: #111;
-      max-width: 250px;
-      margin-left: auto;
-      margin-right: auto;
-      transition: background-color 0.3s ease;
-    }
-    #show-results-btn:hover {
-      background-color: #a57dff;
-    }
-
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Kölle kreuzt clever</h1>
+    <div id="question-nav" style="display: flex; flex-wrap: wrap; gap: 0.3rem; justify-content: center; margin-bottom: 1rem;"></div>
     <div id="app"></div>
     <div id="result" class="result"></div>
     <div class="footer-link">
@@ -225,283 +144,180 @@
     </div>
   </div>
 
-<script>
-  const questions = [
-    "Köln soll mehr Clubs, Jugendzentren und Freizeitorte für junge Menschen schaffen.",
-    "Bei neuen Wohnungen in Köln sollen günstige Plätze für Azubis und junge Erwachsene mitgeplant werden.",
-    "An öffentlichen Plätzen und Haltestellen in Köln soll es flächendeckend kostenloses WLAN geben.",
-    "Jugendliche sollen in Köln stärker an der Kommunalpolitik beteiligt werden.",
-    "Köln soll mehr kostenlose Sport- und Bewegungsangebote im Freien anbieten.",
-    "Köln soll mehr sichere Fahrradwege und Fahrradparkplätze bauen.",
-    "Busse, Bahnen und Fahrräder sollen in der Innenstadt Vorrang vor Autos haben.",
-    "Schüler:innen in Köln sollen kostenlos Bus und Bahn fahren dürfen.",
-    "Nachtbusse und Verbindungen in Außenbezirke sollen verbessert werden.",
-    "Einige Teile der Innenstadt sollen autofrei werden.",
-    "Kreative Projekte und junge Start-ups sollen Räume und Geld zur Unterstützung bekommen.",
-    "Bei neuen Gebäuden soll stärker auf bezahlbare Wohnungen geachtet werden.",
-    "Kölner Schulen sollen modernisiert und besser für digitalen Unterricht ausgestattet werden.",
-    "Das Schulessen soll kostenlos und möglichst in Bio-Qualität angeboten werden.",
-    "Alle Schultoiletten in Köln sollen sauber, modern und regelmäßig gepflegt sein.",
-    "Köln soll bis 2035 klimaneutral werden.",
-    "Beim Sparen soll nicht an Umwelt- und Jugendprojekten gekürzt werden.",
-    "Die Stadt soll sich stärker um saubere Straßen, Parks und öffentliche Plätze kümmern.",
-    "Schulen sollen mehr gegen Rassismus, Queerfeindlichkeit und andere Diskriminierung tun.",
-    "Die Stadt soll Angebote für junge Menschen zur mentalen Gesundheit ausbauen.",
-    "Geflüchtete sollen in Köln mehr Angebote zur Teilhabe und Unterstützung bekommen.",
-    "Die Stadtverwaltung soll digitaler und einfacher für junge Menschen werden.",
-    "Köln soll enger mit seinen europäischen Partnerstädten zusammenarbeiten."
-  ];
+  <script>
+    const questions = [
+      "Köln soll mehr Clubs, Jugendzentren und Freizeitorte für junge Menschen schaffen.",
+      "Bei neuen Wohnungen in Köln sollen günstige Plätze für Azubis und junge Erwachsene mitgeplant werden.",
+      "An öffentlichen Plätzen und Haltestellen in Köln soll es flächendeckend kostenloses WLAN geben.",
+      "Jugendliche sollen in Köln stärker an der Kommunalpolitik beteiligt werden.",
+      "Köln soll mehr kostenlose Sport- und Bewegungsangebote im Freien anbieten.",
+      "Köln soll mehr sichere Fahrradwege und Fahrradparkplätze bauen.",
+      "Busse, Bahnen und Fahrräder sollen in der Innenstadt Vorrang vor Autos haben.",
+      "Schüler:innen in Köln sollen kostenlos Bus und Bahn fahren dürfen.",
+      "Nachtbusse und Verbindungen in Außenbezirke sollen verbessert werden.",
+      "Einige Teile der Innenstadt sollen autofrei werden.",
+      "Kreative Projekte und junge Start-ups sollen Räume und Geld zur Unterstützung bekommen.",
+      "Bei neuen Gebäuden soll stärker auf bezahlbare Wohnungen geachtet werden.",
+      "Kölner Schulen sollen modernisiert und besser für digitalen Unterricht ausgestattet werden.",
+      "Das Schulessen soll kostenlos und möglichst in Bio-Qualität angeboten werden.",
+      "Alle Schultoiletten in Köln sollen sauber, modern und regelmäßig gepflegt sein.",
+      "Köln soll bis 2035 klimaneutral werden.",
+      "Beim Sparen soll nicht an Umwelt- und Jugendprojekten gekürzt werden.",
+      "Die Stadt soll sich stärker um saubere Straßen, Parks und öffentliche Plätze kümmern.",
+      "Schulen sollen mehr gegen Rassismus, Queerfeindlichkeit und andere Diskriminierung tun.",
+      "Die Stadt soll Angebote für junge Menschen zur mentalen Gesundheit ausbauen.",
+      "Geflüchtete sollen in Köln mehr Angebote zur Teilhabe und Unterstützung bekommen.",
+      "Die Stadtverwaltung soll digitaler und einfacher für junge Menschen werden.",
+      "Köln soll enger mit seinen europäischen Partnerstädten zusammenarbeiten."
+    ];
 
-  const partyColors = {
-    "SPD": "#E3000F", "CDU": "#000000", "Bündnis 90/Die Grünen": "#1AA037", "FDP": "#FFCC00",
-    "AfD": "#009EE0", "Die Linke": "#D0006F", "Volt": "#5D3FD3", "Freie Wähler": "#F28C00",
-    "Partei des Fortschritts": "#00BFAE", "Kölner Stadt-Gesellschaft": "#808080", "Die PARTEI": "#A40000",
-    "Gut & Klimafreunde": "#7ED957", "Bündnis Deutschland": "#003366", "Marxistisch-Leninistische Partei Deutschlands": "#D10000",
-    "Ödp": "#FF9900", "BSW": "#8E44AD"
-  };
+    const partyColors = {
+      "SPD": "#E3000F", "CDU": "#000000", "Bündnis 90/Die Grünen": "#1AA037", "FDP": "#FFCC00",
+      "AfD": "#009EE0", "Die Linke": "#D0006F", "Volt": "#5D3FD3", "Freie Wähler": "#F28C00",
+      "Partei des Fortschritts": "#00BFAE", "Kölner Stadt-Gesellschaft": "#808080", "Die PARTEI": "#A40000",
+      "Gut & Klimafreunde": "#7ED957", "Bündnis Deutschland": "#003366", "Marxistisch-Leninistische Partei Deutschlands": "#D10000",
+      "Ödp": "#FF9900", "BSW": "#8E44AD"
+    };
 
-  const partyPositions = {
-    "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1,1],
-    "AfD": [1,0,0,1,1,1,-1,-1,1,-1,0,0,1,-1,1,-1,-1,1,1,0,-1,1,0],
-    "Die Linke": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    "Volt": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1],
-    "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1,1],
-    "Die PARTEI": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    "Gut & Klimafreunde": [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
-    "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    "Marxistisch-Leninistische Partei Deutschlands": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    "Ödp": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    "BSW": [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1]
-  };
+        const partyPositions = {
+      "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1,1],
+      "AfD": [1,0,0,1,1,1,-1,-1,1,-1,0,0,1,-1,1,-1,-1,1,1,0,-1,1,0],
+      "Die Linke": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Volt": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1],
+      "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1,1],
+      "Die PARTEI": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Gut & Klimafreunde": [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Marxistisch-Leninistische Partei Deutschlands": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Ödp": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "BSW": [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1]
+    };
 
-  // Initial User answers array [{value: null, weight:1}, ...]
-  let userAnswers = questions.map(() => ({ value: null, weight: 1 }));
+    let userAnswers = questions.map(() => ({ value: null, weight: 1 }));
+    let currentQuestion = 0;
 
-  let currentQuestion = 0;
-  let showResultsBtnAdded = false;
+    const app = document.getElementById("app");
+    const resultDiv = document.getElementById("result");
 
-  const app = document.getElementById("app");
-  const resultDiv = document.getElementById("result");
+    function getHinweisHTML() {
+      return `
+        <div class="tool-hinweis">
+          <strong style="color: #c62828;">❗ Hinweis:</strong> Dieses Tool zeigt dir eine Orientierung.
+          Informiere dich auch auf anderen Wegen über die Parteien und ihre Programme.
+        </div>`;
+    }
 
-  function getHinweisHTML() {
-    return `
-      <div class="tool-hinweis">
-        <strong style="color: #c62828;">❗ Hinweis:</strong> Dieses Tool zeigt dir eine Orientierung.
-        Informiere dich auch auf anderen Wegen über die Parteien und ihre Programme.
-      </div>`;
-  }
+    function showIntro() {
+      app.innerHTML = `
+        <div class="question">
+          <div class="question-counter">Willkommen bei "Kölle kreuzt clever"</div>
+          <p>In diesem Tool siehst du 23 Aussagen zu Themen wie Schule, Umwelt, Verkehr oder Freizeit in Köln.</p>
+          <p>Du entscheidest zu jeder Aussage, ob du ihr zustimmst, neutral bist oder nicht zustimmst.</p>
+          ${getHinweisHTML()}
+          <p style="margin-top: 1.5rem;">Bist du bereit?</p>
+          <div class="btn-group" style="justify-content: center;">
+            <button onclick="showQuestion()">Los geht's</button>
+          </div>
+        </div>`;
+    }
 
-  // Show intro screen
-  function showIntro() {
-    app.innerHTML = `
-      <div class="question">
-        <div class="question-counter">Willkommen bei "Kölle kreuzt clever"</div>
-        <p>In diesem Tool siehst du 23 Aussagen zu Themen wie Schule, Umwelt, Verkehr oder Freizeit in Köln.</p>
-        <p>Du entscheidest zu jeder Aussage, ob du ihr zustimmst, neutral bist oder nicht zustimmst.</p>
-        ${getHinweisHTML()}
-        <p style="margin-top: 1.5rem;">Bist du bereit?</p>
-        <div class="btn-group" style="justify-content: center;">
-          <button id="start-btn">Los geht's</button>
-        </div>
-      </div>
-    `;
-
-    document.getElementById("start-btn").addEventListener("click", () => {
-      currentQuestion = 0;
-      userAnswers = questions.map(() => ({ value: null, weight: 1 }));
-      resultDiv.innerHTML = "";
-      showQuestion();
-    });
-  }
-
-  // Render one question
-  function showQuestion() {
-    const q = questions[currentQuestion];
-    const userAnswer = userAnswers[currentQuestion];
-
-    app.innerHTML = `
-      <div class="question-counter">
-        <span class="nav-arrow" id="prev-question" aria-label="Vorherige Frage" role="button" tabindex="0">&lt;</span>
-        Frage ${currentQuestion+1} von ${questions.length}
-        <span class="nav-arrow" id="next-question" aria-label="Nächste Frage" role="button" tabindex="0">&gt;</span>
-      </div>
-      <div class="question-wrapper">
-        <p>${q}</p>
-        <span id="heart" class="heart" title="Doppelte Gewichtung (klicken zum Umschalten)" role="button" tabindex="0" aria-pressed="${userAnswer.weight===2}">&#10084;</span>
-      </div>
-      <div class="btn-group">
-        <button class="stimme-nicht-zu" data-value="-1" ${userAnswer.value === -1 ? "style='outline: 3px solid #c62828;'" : ""}>Stimme nicht zu</button>
-        <button class="neutral" data-value="0" ${userAnswer.value === 0 ? "style='outline: 3px solid #c62828;'" : ""}>Neutral</button>
-        <button class="stimme-zu" data-value="1" ${userAnswer.value === 1 ? "style='outline: 3px solid #c62828;'" : ""}>Stimme zu</button>
-      </div>
-    `;
-
-    // Event listeners
-    document.getElementById("heart").addEventListener("click", toggleWeight);
-    document.getElementById("heart").addEventListener("keydown", e => {
-      if(e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggleWeight();
-      }
-    });
-
-    document.querySelectorAll(".btn-group button").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const val = parseInt(btn.getAttribute("data-value"));
-        userAnswers[currentQuestion].value = val;
-        // mark selected button outline
-        btn.style.outline = "3px solid #c62828";
-        // reset others
-        document.querySelectorAll(".btn-group button").forEach(b => {
-          if(b !== btn) b.style.outline = "none";
-        });
-
-        // automatische weiter zur nächsten Frage oder Ergebnis falls letzte Frage
-        if(currentQuestion < questions.length -1) {
-          currentQuestion++;
-          showQuestion();
-        } else {
-          showShowResultsButton();
-        }
+    function renderQuestionNav() {
+      const navContainer = document.getElementById("question-nav");
+      navContainer.innerHTML = "";
+      questions.forEach((_, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = i + 1;
+        btn.style.padding = "6px 10px";
+        btn.style.border = "1px solid #ccc";
+        btn.style.borderRadius = "4px";
+        btn.style.cursor = "pointer";
+        btn.style.marginBottom = "4px";
+        const answered = userAnswers[i].value !== null;
+        btn.style.backgroundColor = answered ? "#a5d6a7" : "#f0f0f0";
+        btn.style.fontWeight = i === currentQuestion ? "bold" : "normal";
+        btn.onclick = () => showQuestion(i);
+        navContainer.appendChild(btn);
       });
-    });
+    }
 
-    document.getElementById("prev-question").addEventListener("click", () => {
-      if(currentQuestion > 0) {
-        currentQuestion--;
-        showQuestion();
+    function showQuestion(index = currentQuestion) {
+      if (index >= questions.length) {
+        calculateResult();
+        return;
       }
-    });
-    document.getElementById("next-question").addEventListener("click", () => {
-      if(currentQuestion < questions.length -1) {
-        currentQuestion++;
-        showQuestion();
+
+      currentQuestion = index;
+      const question = questions[index];
+
+      app.innerHTML = `
+        <div class="question">
+          <div class="question-counter">Frage ${index + 1} von ${questions.length}</div>
+          <p>${question}</p>
+          <div class="btn-group">
+            <button onclick="answer(-1)">Stimme nicht zu</button>
+            <button onclick="answer(0)">Neutral</button>
+            <button onclick="answer(1)">Stimme zu</button>
+            <button onclick="answer(null, 0)">Überspringen</button>
+            <button onclick="answer(1, 2)">Doppelt gewichten</button>
+          </div>
+        </div>`;
+      renderQuestionNav();
+    }
+
+    function answer(value, weight = 1) {
+      userAnswers[currentQuestion] = { value, weight };
+      const next = currentQuestion + 1;
+      if (next < questions.length) {
+        showQuestion(next);
+      } else {
+        calculateResult();
       }
-    });
-
-    // Update heart color
-    updateHeart();
-  }
-
-  function toggleWeight() {
-    const currentWeight = userAnswers[currentQuestion].weight;
-    userAnswers[currentQuestion].weight = currentWeight === 1 ? 2 : 1;
-    updateHeart();
-  }
-
-  function updateHeart() {
-    const heart = document.getElementById("heart");
-    if(!heart) return;
-    if(userAnswers[currentQuestion].weight === 2) {
-      heart.classList.add("active");
-      heart.setAttribute("aria-pressed", "true");
-    } else {
-      heart.classList.remove("active");
-      heart.setAttribute("aria-pressed", "false");
-    }
-  }
-
-  // Zeigt den Button "Ergebnis anzeigen" nach letzter Frage
-  function showShowResultsButton() {
-    if(!showResultsBtnAdded) {
-      app.innerHTML += `<button id="show-results-btn" aria-label="Ergebnis anzeigen">Ergebnis anzeigen</button>`;
-      document.getElementById("show-results-btn").addEventListener("click", showResults);
-      showResultsBtnAdded = true;
-    }
-  }
-
-  // Berechnet und zeigt die Ergebnisse an
-  function showResults() {
-    // max Punkte = Summe aller gewichteten Antworten (nur Fragen, wo user geantwortet hat)
-    let maxPoints = 0;
-    for(let i = 0; i < userAnswers.length; i++) {
-      if(userAnswers[i].value !== null) maxPoints += userAnswers[i].weight;
-    }
-    if(maxPoints === 0) {
-      resultDiv.innerHTML = `<h2>Ergebnis</h2><p>Du hast keine Antworten gegeben.</p>`;
-      return;
     }
 
-    // Für jede Partei Summe der Punkte
-    let partyScores = [];
+    function calculateResult() {
+      const results = [];
 
-    for(let party in partyPositions) {
-      let score = 0;
-      for(let i = 0; i < questions.length; i++) {
-        if(userAnswers[i].value === null) continue;
-        // Wert der Partei für Frage i
-        const pVal = partyPositions[party][i];
-        if(pVal === 0) continue; // Partei neutral zu dem Thema
+      for (const party in partyPositions) {
+        const positions = partyPositions[party];
+        let score = 0;
+        let maxScore = 0;
 
-        // Übereinstimmung:
-        // Wenn user Antwort = Partei Antwort => volle Punkte
-        // Wenn user Antwort neutral => halbe Punkte (weight/2)
-        // Wenn user Antwort gegenteilig => 0 Punkte
-
-        if(userAnswers[i].value === pVal) {
-          score += userAnswers[i].weight;
-        } else if(userAnswers[i].value === 0) {
-          score += userAnswers[i].weight / 2;
-        } else {
-          // Kein Punkt
+        for (let i = 0; i < userAnswers.length; i++) {
+          const { value, weight } = userAnswers[i];
+          if (value !== null) {
+            maxScore += weight;
+            if (value === positions[i]) score += weight;
+          }
         }
+
+        results.push({ party, score, maxScore });
       }
-      partyScores.push({party, score});
-    }
 
-    // Max mögliche Punkte für jede Partei: Summe der Gewichtung der Fragen, bei denen Partei nicht neutral ist UND Nutzer eine Antwort hat
-    let maxPossiblePerParty = {};
-    for(let party in partyPositions) {
-      let maxP = 0;
-      for(let i = 0; i < questions.length; i++) {
-        if(userAnswers[i].value === null) continue;
-        if(partyPositions[party][i] !== 0) {
-          maxP += userAnswers[i].weight;
-        }
+      results.sort((a, b) => b.score - a.score);
+
+      let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
+      for (const entry of results) {
+        const color = partyColors[entry.party] || "#ccc";
+        const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
+        resultHTML += `<li style="background-color: ${color}; color: ${textColor}; padding: 8px; border-radius: 6px; margin-bottom: 6px;">
+          <strong>${entry.party}:</strong> ${entry.score} von ${entry.maxScore} Übereinstimmungen
+        </li>`;
       }
-      maxPossiblePerParty[party] = maxP;
+      resultHTML += "</ul>" + getHinweisHTML();
+
+      app.innerHTML = "";
+      resultDiv.innerHTML = resultHTML;
     }
 
-    // Prozent berechnen & auf 100% max beschränken
-    partyScores = partyScores.map(obj => {
-      let p = maxPossiblePerParty[obj.party];
-      let percent = p > 0 ? (obj.score / p) * 100 : 0;
-      if(percent > 100) percent = 100;
-      return {...obj, percent};
-    });
-
-    // Sortieren nach Prozent absteigend
-    partyScores.sort((a,b) => b.percent - a.percent);
-
-    // Ausgabe
-    let html = `<h2>Deine Übereinstimmung mit den Parteien</h2><ul>`;
-    for(let obj of partyScores) {
-      const color = partyColors[obj.party] || "#666";
-      const percentText = obj.percent % 1 === 0 ? obj.percent.toFixed(0) : obj.percent.toFixed(1);
-      html += `<li style="background-color: ${color};">
-        <span>${obj.party}</span>
-        <span>${percentText}%</span>
-      </li>`;
-    }
-    html += "</ul>";
-
-    html += getHinweisHTML();
-
-    resultDiv.innerHTML = html;
-
-    // Scroll to result
-    resultDiv.scrollIntoView({behavior: "smooth"});
-  }
-
-  showIntro();
-
-</script>
+    showIntro();
+  </script>
 </body>
 </html>
+
 
 
 
