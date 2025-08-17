@@ -31,11 +31,14 @@
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
     h1 {
       color: #c62828;
-      text-align: center;
       font-size: 2.5rem;
       margin-bottom: 1rem;
       font-weight: 700;
@@ -47,7 +50,6 @@
       color: #333;
       margin-bottom: 1rem;
       font-size: 1.2rem;
-      text-align: center;
     }
 
     .question-wrapper {
@@ -56,6 +58,8 @@
       justify-content: center;
       gap: 1rem;
       margin-bottom: 1rem;
+      max-width: 600px;
+      width: 100%;
     }
 
     .nav-arrow {
@@ -68,6 +72,7 @@
       font-weight: bold;
       border-radius: 6px;
       transition: background-color 0.2s ease;
+      user-select: none;
     }
 
     .nav-arrow:hover {
@@ -80,10 +85,10 @@
       margin: 0 1rem;
       font-weight: 600;
       color: #222;
-      text-align: center;
-      max-width: 600px;
       position: relative;
       padding-right: 30px;
+      flex: 1;
+      text-align: center;
     }
 
     .heart {
@@ -108,6 +113,8 @@
       margin-top: 1rem;
       justify-content: center;
       flex-wrap: wrap;
+      max-width: 600px;
+      width: 100%;
     }
 
     .btn-group button {
@@ -121,6 +128,7 @@
       transition: background-color 0.3s ease;
       color: #111;
       max-width: 180px;
+      min-width: 120px;
     }
 
     /* Button Farben */
@@ -178,12 +186,17 @@
       font-size: 1rem;
       line-height: 1.5;
       border-radius: 6px;
+      max-width: 600px;
+      width: 100%;
+      text-align: left;
     }
 
     .result {
       margin-top: 2rem;
       font-size: 1.1rem;
       color: #222;
+      max-width: 600px;
+      width: 100%;
     }
 
     .result h2 {
@@ -222,15 +235,6 @@
     .footer-link a:hover {
       text-decoration: underline;
     }
-
-    /* Disable text selection on arrows and heart for better UX */
-    .nav-arrow, .heart {
-      -webkit-user-select: none; /* Safari */
-      -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* IE10+/Edge */
-      user-select: none; /* Standard */
-    }
-
   </style>
 </head>
 <body>
@@ -292,117 +296,105 @@
       "Gut & Klimafreunde": [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
       "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       "Marxistisch-Leninistische Partei Deutschlands": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Ödp": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "BSW": [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1]
+      "Ödp": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "BSW": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     };
 
-    let userAnswers = questions.map(() => ({ value: null, weight: 1 }));
     let currentQuestion = 0;
-    let heartActive = false;
-    let finished = false;
+    let userAnswers = Array(questions.length).fill(null).map(() => ({value: null, weight: 1}));
 
     const app = document.getElementById("app");
     const resultDiv = document.getElementById("result");
 
-    function getHinweisHTML() {
-      return `
-        <div class="tool-hinweis">
-          <strong style="color: #c62828;">❗ Hinweis:</strong> Dieses Tool zeigt dir eine Orientierung.
-          Informiere dich auch auf anderen Wegen über die Parteien und ihre Programme.
-        </div>`;
-    }
-
+    // Intro-Seite anzeigen
     function showIntro() {
-      finished = false;
-      userAnswers = questions.map(() => ({ value: null, weight: 1 }));
       currentQuestion = 0;
-      heartActive = false;
+      userAnswers = Array(questions.length).fill(null).map(() => ({value: null, weight: 1}));
       resultDiv.innerHTML = "";
       app.innerHTML = `
-        <div class="question">
-          <div class="question-counter">Willkommen bei "Kölle kreuzt clever"</div>
-          <p>In diesem Tool siehst du 23 Aussagen zu Themen wie Schule, Umwelt, Verkehr oder Freizeit in Köln.</p>
-          <p>Du entscheidest zu jeder Aussage, ob du ihr zustimmst, neutral bist oder nicht zustimmst.</p>
-          ${getHinweisHTML()}
-          <p style="margin-top: 1.5rem;">Bist du bereit?</p>
-          <div class="btn-group" style="justify-content: center;">
-            <button class="start-btn" onclick="showQuestion()">Los geht's</button>
-          </div>
-        </div>`;
+        <div style="max-width:600px; margin:auto; text-align:center;">
+          <p style="font-size:1.2rem; line-height:1.5; margin-bottom:2rem;">
+            Willkommen zu <strong>Kölle kreuzt clever</strong> – deinem interaktiven Tool, um deine politische Haltung zu
+            aktuellen Kölner Themen zu testen. Du kannst jeder Frage zustimmen, neutral bleiben oder ablehnen.
+            Außerdem kannst du wichtige Fragen mit einem Klick auf das Herz <span style="color:#e63946;">&#10084;</span>
+            gewichten.
+          </p>
+          <button class="start-btn" onclick="renderQuestion()">Los geht's!</button>
+        </div>
+      `;
     }
 
+    // Frage anzeigen
     function renderQuestion() {
-      const question = questions[currentQuestion];
+      resultDiv.innerHTML = "";
+      const q = questions[currentQuestion];
       const answer = userAnswers[currentQuestion];
 
       app.innerHTML = `
+        <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
         <div class="question-wrapper">
-          <div class="nav-arrow" id="prev-arrow" title="Zurück">&lt;</div>
-          <div class="question" style="position:relative; max-width: 600px;">
-            <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
-            <p>${question}<span class="heart${heartActive ? " active" : ""}" id="heart">&#10084;</span></p>
+          <div class="nav-arrow" id="prev-arrow" ${currentQuestion === 0 ? 'style="visibility:hidden;"' : ''}>&lt;</div>
+          <div class="question" style="position:relative;">
+            <p>${q}</p>
+            <div class="heart ${answer.weight > 1 ? "active" : ""}" id="heart">&#10084;</div>
           </div>
-          <div class="nav-arrow" id="next-arrow" title="Weiter">&gt;</div>
+          <div class="nav-arrow" id="next-arrow" ${currentQuestion === questions.length -1 ? 'style="visibility:hidden;"' : ''}>&gt;</div>
         </div>
         <div class="btn-group">
-          <button class="btn-disagree" onclick="handleAnswer(-1)">Stimme nicht zu</button>
-          <button class="btn-neutral" onclick="handleAnswer(0)">Neutral</button>
-          <button class="btn-agree" onclick="handleAnswer(1)">Stimme zu</button>
-        </div>`;
-
-      // Event listeners for navigation arrows and heart
-      document.getElementById("prev-arrow").onclick = () => {
-        if (finished) return;
-        if (currentQuestion > 0) {
-          currentQuestion--;
-          heartActive = userAnswers[currentQuestion].weight === 2;
-          renderQuestion();
-        }
-      };
-
-      document.getElementById("next-arrow").onclick = () => {
-        if (finished) return;
-        // Überspringen mit > (ohne Wert zu setzen)
-        currentQuestion++;
-        if (currentQuestion >= questions.length) {
-          showFinishButton();
-        } else {
-          heartActive = userAnswers[currentQuestion]?.weight === 2;
-          renderQuestion();
-        }
-      };
-
-      const heart = document.getElementById("heart");
-      heart.onclick = () => {
-        heartActive = !heartActive;
-        heart.classList.toggle("active", heartActive);
-        userAnswers[currentQuestion].weight = heartActive ? 2 : 1;
-      };
-    }
-
-    function handleAnswer(value) {
-      if (finished) return;
-      userAnswers[currentQuestion].value = value;
-      userAnswers[currentQuestion].weight = heartActive ? 2 : 1;
-      currentQuestion++;
-      heartActive = false;
-
-      if (currentQuestion >= questions.length) {
-        showFinishButton();
-      } else {
-        renderQuestion();
-      }
-    }
-
-    function showFinishButton() {
-      finished = true;
-      app.innerHTML = `
-        <div style="text-align:center;">
-          <p>Du hast alle Fragen beantwortet oder übersprungen.</p>
-          <button class="start-btn" onclick="calculateResult()">Ergebnis anzeigen</button>
-          <button class="start-btn" style="margin-left:1rem;" onclick="showIntro()">Neu starten</button>
+          <button class="btn-disagree" id="btn-disagree">Stimme nicht zu</button>
+          <button class="btn-neutral" id="btn-neutral">Neutral</button>
+          <button class="btn-agree" id="btn-agree">Stimme zu</button>
         </div>
       `;
+
+      // Event Listener für Navigation
+      document.getElementById("prev-arrow").onclick = () => {
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          renderQuestion();
+        }
+      };
+      document.getElementById("next-arrow").onclick = () => {
+        if (currentQuestion < questions.length -1) {
+          currentQuestion++;
+          renderQuestion();
+        }
+      };
+
+      // Herz-Toggle Gewicht
+      document.getElementById("heart").onclick = () => {
+        userAnswers[currentQuestion].weight = userAnswers[currentQuestion].weight === 1 ? 2 : 1;
+        renderQuestion();
+      };
+
+      // Antwort speichern & weiter
+      document.getElementById("btn-disagree").onclick = () => {
+        userAnswers[currentQuestion].value = -1;
+        if(currentQuestion < questions.length -1) {
+          currentQuestion++;
+          renderQuestion();
+        } else {
+          calculateResult();
+        }
+      };
+      document.getElementById("btn-neutral").onclick = () => {
+        userAnswers[currentQuestion].value = 0;
+        if(currentQuestion < questions.length -1) {
+          currentQuestion++;
+          renderQuestion();
+        } else {
+          calculateResult();
+        }
+      };
+      document.getElementById("btn-agree").onclick = () => {
+        userAnswers[currentQuestion].value = 1;
+        if(currentQuestion < questions.length -1) {
+          currentQuestion++;
+          renderQuestion();
+        } else {
+          calculateResult();
+        }
+      };
     }
 
     function calculateResult() {
@@ -425,31 +417,34 @@
         results[party] = totalWeight > 0 ? (score / totalWeight) * 100 : 0;
       }
 
-      // Sortieren
+      // Sortieren & Top 8 auswählen
       const sortedResults = Object.entries(results)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 8);
 
-      // Ausgabe
+      // Ergebnis anzeigen
       let html = `<h2>Deine Übereinstimmung mit Parteien</h2><ul>`;
       for (const [party, score] of sortedResults) {
         const color = partyColors[party] || "#666";
         html += `<li style="color:${color};">${party}: ${score.toFixed(1)}%</li>`;
       }
       html += `</ul>`;
+
       resultDiv.innerHTML = html;
 
       app.innerHTML = `
-        <div style="text-align:center;">
+        <div style="text-align:center; margin-top: 2rem;">
           <button class="start-btn" onclick="showIntro()">Neu starten</button>
         </div>
       `;
     }
 
+    // Start mit Intro
     showIntro();
   </script>
 </body>
 </html>
+
 
 
 
