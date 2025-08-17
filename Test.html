@@ -98,12 +98,12 @@
       font-size: 24px;
       cursor: pointer;
       user-select: none;
-      color: black; /* standard schwarz */
+      color: #444; /* grau/schwarz für Gewicht 1 */
       transition: color 0.3s ease;
     }
 
     .heart.active {
-      color: #e63946; /* rot wenn aktiv */
+      color: #e63946; /* rot für Gewicht 2 */
     }
 
     .btn-group {
@@ -164,15 +164,6 @@
     }
     button.btn-agree:hover {
       background-color: #66bb6a;
-      color: #fff;
-    }
-
-    button.btn-next {
-      background-color: #90caf9;
-      color: #0d47a1;
-    }
-    button.btn-next:hover {
-      background-color: #42a5f5;
       color: #fff;
     }
 
@@ -281,25 +272,27 @@
       "Ödp": "#FF9900", "BSW": "#8E44AD"
     };
 
+    // Hier die Partei-Positionen: als Beispiel nur 22 Werte, zu Fragen passen
     const partyPositions = {
-      "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1,1],
-      "AfD": [1,0,0,1,1,1,-1,-1,1,-1,0,0,1,-1,1,-1,-1,1,1,0,-1,1,0],
-      "Die Linke": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Volt": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1],
-      "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1,1],
-      "Die PARTEI": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Gut & Klimafreunde": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Marxistisch-Leninistische Partei Deutschlands": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Ödp": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "BSW": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1],
+      "AfD": [1,0,0,1,1,1,-1,-1,1,-1,0,0,1,-1,1,-1,-1,1,1,0,-1,1],
+      "Die Linke": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Volt": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1],
+      "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1],
+      "Die PARTEI": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Gut & Klimafreunde": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Marxistisch-Leninistische Partei Deutschlands": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Ödp": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "BSW": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     };
 
     let currentQuestion = 0;
+    // Array mit Objekten: {value: -1/0/1/null, weight: 1 oder 2}
     let userAnswers = Array(questions.length).fill(null).map(() => ({value: null, weight: 1}));
 
     const app = document.getElementById("app");
@@ -331,9 +324,9 @@
         <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
         <div class="question-wrapper">
           <div class="nav-arrow" id="prev-arrow" ${currentQuestion === 0 ? 'style="visibility:hidden;"' : ''}>&lt;</div>
-          <div class="question" style="position:relative;">
+          <div class="question" style="position:relative; flex: 1;">
             <p>${q}</p>
-            <div class="heart ${answer.weight > 1 ? "active" : ""}" id="heart">&#10084;</div>
+            <div class="heart ${answer.weight === 2 ? "active" : ""}" id="heart" title="Wichtigkeit toggeln">&#10084;</div>
           </div>
           <div class="nav-arrow" id="next-arrow" ${currentQuestion === questions.length -1 ? 'style="visibility:hidden;"' : ''}>&gt;</div>
         </div>
@@ -364,31 +357,25 @@
 
       document.getElementById("btn-disagree").onclick = () => {
         userAnswers[currentQuestion].value = -1;
-        if(currentQuestion < questions.length -1) {
-          currentQuestion++;
-          renderQuestion();
-        } else {
-          calculateResult();
-        }
+        nextOrResult();
       };
       document.getElementById("btn-neutral").onclick = () => {
         userAnswers[currentQuestion].value = 0;
-        if(currentQuestion < questions.length -1) {
-          currentQuestion++;
-          renderQuestion();
-        } else {
-          calculateResult();
-        }
+        nextOrResult();
       };
       document.getElementById("btn-agree").onclick = () => {
         userAnswers[currentQuestion].value = 1;
-        if(currentQuestion < questions.length -1) {
-          currentQuestion++;
-          renderQuestion();
-        } else {
-          calculateResult();
-        }
+        nextOrResult();
       };
+    }
+
+    function nextOrResult() {
+      if(currentQuestion < questions.length -1) {
+        currentQuestion++;
+        renderQuestion();
+      } else {
+        calculateResult();
+      }
     }
 
     function calculateResult() {
@@ -398,12 +385,15 @@
         let totalWeight = 0;
         for (let i = 0; i < questions.length; i++) {
           const userAnswer = userAnswers[i].value;
-          if (userAnswer === null) continue;
+          if (userAnswer === null || userAnswer === 0) continue; // Neutral oder keine Antwort zählt nicht
           const userWeight = userAnswers[i].weight;
           const partyPos = partyPositions[party][i];
-          if (partyPos === 0) continue;
+          if (partyPos === 0) continue; // Partei sagt nichts zu der Frage
 
-          score += (userAnswer === partyPos ? 1 : 0) * userWeight;
+          // Übereinstimmung = userAnswer == partyPos => Punkte
+          if(userAnswer === partyPos) {
+            score += userWeight;
+          }
           totalWeight += userWeight;
         }
         results[party] = totalWeight > 0 ? (score / totalWeight) * 100 : 0;
@@ -421,15 +411,15 @@
 
       resultDiv.innerHTML = html;
 
-      app.innerHTML = `
-        <div style="text-align:center; margin-top: 2rem;">
-          <button class="start-btn" onclick="showIntro()">Neu starten</button>
-        </div>
-      `;
+      // Kein Neustartbutton mehr!
+      app.innerHTML = `<div style="text-align:center; margin-top: 2rem; color:#555; font-style: italic;">
+        Vielen Dank fürs Mitmachen!
+      </div>`;
     }
 
     showIntro();
   </script>
 </body>
 </html>
+
 
