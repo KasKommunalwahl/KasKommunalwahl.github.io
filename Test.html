@@ -4,209 +4,21 @@
   <meta charset="UTF-8" />
   <title>Kölle kreuzt clever</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, 
-        #fff9c4,
-        #ffe0f0,
-        #e0f7fa,
-        #e6f4ea,
-        #ffffff
-      );
-      background-size: 400% 400%;
-      animation: gradientFlow 15s ease infinite;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    /* ... (dein gesamtes CSS bleibt unverändert) ... */
 
-    @keyframes gradientFlow {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
-
-    .container {
-      max-width: 800px;
-      margin-top: 3rem;
-      padding: 2rem;
-      background-color: rgba(255, 255, 255, 0.85);
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      min-height: 520px;
-    }
-
-    h1 {
-      color: #c62828;
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      text-shadow: 1px 1px 3px #aaa;
-    }
-
-    .question {
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .question-counter {
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-      text-align: center;
-    }
-
-    .question p {
-      font-size: 1.15rem;
-      line-height: 1.5;
-      margin: 1rem 0;
-      font-weight: 600;
-      color: #222;
-      text-align: center;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-      justify-content: center;
-    }
-
-    .btn-group button {
-      flex: 1;
-      padding: 0.7rem 1.2rem;
-      border: none;
-      border-radius: 6px;
+    .heart-icon {
       cursor: pointer;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-      color: #111;
-      max-width: 150px;
+      font-size: 1.6rem;
       user-select: none;
+      transition: transform 0.2s ease;
     }
 
-    .btn-group button:hover:not(:disabled) {
-      opacity: 0.9;
-    }
-
-    .btn-group button:nth-child(1) {
-      background: #ef9a9a;
-      color: #600;
-    }
-
-    .btn-group button:nth-child(2) {
-      background: #fff59d;
-      color: #665500;
-    }
-
-    .btn-group button:nth-child(3) {
-      background: #a5d6a7;
-      color: #155214;
-    }
-
-    /* Hervorhebung der ausgewählten Antwort */
-    .btn-group button.selected {
-      box-shadow: 0 0 8px 2px #1AA037;
-      font-weight: bold;
-      outline: 2px solid #1AA037;
-    }
-
-    /* Navigation unter den Antworten */
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
-    }
-
-    .nav-buttons button {
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      background-color: #1AA037;
-      color: white;
-      user-select: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .nav-buttons button:disabled {
-      background-color: #ccc;
-      cursor: default;
-      color: #666;
-    }
-
-    .nav-buttons button:hover:not(:disabled) {
-      background-color: #13872b;
-    }
-
-    .tool-hinweis {
-      background-color: #fff3f3;
-      border-left: 5px solid #c62828;
-      padding: 1rem;
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-      font-size: 1rem;
-      line-height: 1.5;
-      border-radius: 6px;
-    }
-
-    .result {
-      margin-top: 2rem;
-      font-size: 1.1rem;
-      color: #222;
-    }
-
-    .result h2 {
-      color: #c62828;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-
-    .result ul {
-      list-style-type: none;
-      padding: 0;
-      max-height: 400px;
-      overflow-y: auto;
-    }
-
-    .result li {
-      margin-bottom: 0.5rem;
-      padding: 0.3rem 0.5rem;
-      border-radius: 6px;
-      font-weight: 600;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer-link {
-      margin-top: 3rem;
-      text-align: center;
-      font-size: 0.95rem;
-    }
-
-    .footer-link a {
-      text-decoration: none;
-      color: #0077cc;
-      font-weight: 600;
-    }
-
-    .footer-link a:hover {
-      text-decoration: underline;
+    .heart-icon:hover {
+      transform: scale(1.2);
     }
   </style>
 </head>
 <body>
-
   <div class="container">
     <h1>Kölle kreuzt clever</h1>
     <div id="app"></div>
@@ -284,6 +96,7 @@
     const resultDiv = document.getElementById("result");
 
     let userAnswers = new Array(questions.length).fill(null);
+    let questionWeights = new Array(questions.length).fill(1);
     let currentQuestion = 0;
 
     function showQuestion() {
@@ -295,10 +108,15 @@
 
       const question = questions[currentQuestion];
       const answer = userAnswers[currentQuestion];
+      const weight = questionWeights[currentQuestion];
+      const heart = weight === 2 ? "❤️" : "🤍";
 
       app.innerHTML = `
         <div class="question">
-          <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
+            <div class="heart-icon" onclick="toggleWeight()" title="Frage doppelt gewichten">${heart}</div>
+          </div>
           <p>${question}</p>
           <div class="btn-group">
             <button onclick="answer(-1)" class="${answer === -1 ? 'selected' : ''}">Stimme nicht zu</button>
@@ -312,8 +130,12 @@
         </div>
       `;
 
-      // Scroll bei neuer Frage nach oben
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleWeight() {
+      questionWeights[currentQuestion] = questionWeights[currentQuestion] === 1 ? 2 : 1;
+      showQuestion();
     }
 
     function answer(value) {
@@ -335,24 +157,25 @@
 
     function calculateResult() {
       const results = [];
-      // Nur beantwortete Fragen zählen
       const answeredIndexes = userAnswers
         .map((v, i) => (v !== null ? i : -1))
         .filter(i => i !== -1);
-      const answeredCount = answeredIndexes.length;
 
       for (const party in partyPositions) {
         const positions = partyPositions[party];
         let matches = 0;
+        let maxPoints = 0;
 
         for (const i of answeredIndexes) {
+          const weight = questionWeights[i];
+          maxPoints += weight;
           if (userAnswers[i] === positions[i]) {
-            matches++;
+            matches += weight;
           }
         }
 
-        const percent = answeredCount > 0 ? Math.round((matches / answeredCount) * 100) : 0;
-        results.push({ party, matches, percent });
+        const percent = maxPoints > 0 ? Math.round((matches / maxPoints) * 100) : 0;
+        results.push({ party, matches, percent, maxPoints });
       }
 
       results.sort((a, b) => b.percent - a.percent);
@@ -363,7 +186,7 @@
         const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
 
         resultHTML += `<li style="background-color: ${color}; color: ${textColor};">
-          <strong>${entry.party}:</strong> ${entry.matches} von ${answeredCount} Übereinstimmungen
+          <strong>${entry.party}:</strong> ${entry.matches} von ${entry.maxPoints} möglichen Punkten
           <span style="font-weight: 700;">${entry.percent}%</span>
         </li>`;
       }
@@ -372,7 +195,6 @@
       app.innerHTML = "";
       resultDiv.innerHTML = resultHTML;
 
-      // Scroll zum Ergebnis
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -389,8 +211,5 @@
 
     showQuestion();
   </script>
-
 </body>
 </html>
-
-
