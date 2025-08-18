@@ -223,6 +223,39 @@
     .footer-link a:hover {
       text-decoration: underline;
     }
+    .intro {
+  text-align: center;
+  padding: 1rem;
+}
+
+.intro h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #c62828;
+}
+
+.intro p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.intro button {
+  background-color: #1AA037;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.intro button:hover {
+  background-color: #13872b;
+}
+
   </style>
 </head>
 <body>
@@ -306,6 +339,27 @@
 
   const app = document.getElementById("app");
   const resultDiv = document.getElementById("result");
+function showIntro() {
+  app.innerHTML = `
+    <div class="intro">
+      <h2>Willkommen bei „Kölle kreuzt clever“</h2>
+      <p>
+        Hier findest du 23 Thesen zu Themen, die junge Menschen in Köln betreffen: 
+        von Schule, Freizeit, Verkehr bis Klima.
+      </p>
+      <p>
+        Du kannst bei jeder These angeben, ob du zustimmst, neutral bist oder ablehnst. 
+        Markiere mit ❤️, was dir besonders wichtig ist. Am Ende siehst du, welche Partei am besten zu dir passt.
+      </p>
+      <p><strong>Hinweis:</strong> Deine Antworten bleiben nur auf diesem Gerät und werden nicht gespeichert.</p>
+      <button onclick="startQuestions()">Los geht’s!</button>
+    </div>
+  `;
+}
+function startQuestions() {
+  currentQuestion = 0;
+  showQuestion();
+}
 
   function showQuestion() {
     const q = questions[currentQuestion];
@@ -434,7 +488,8 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  showQuestion();
+  showIntro();
+
 </script>
 </body>
 </html>
