@@ -351,11 +351,12 @@ function showIntro() {
         Du kannst bei jeder These angeben, ob du zustimmst, neutral bist oder ablehnst. 
         Markiere mit ❤️, was dir besonders wichtig ist. Am Ende siehst du, welche Partei am besten zu dir passt.
       </p>
-      <p><strong>Hinweis:</strong> Deine Antworten bleiben nur auf diesem Gerät und werden nicht gespeichert.</p>
+      ${getHinweisHTML()}
       <button onclick="startQuestions()">Los geht’s!</button>
     </div>
   `;
 }
+
 function startQuestions() {
   currentQuestion = 0;
   showQuestion();
@@ -428,12 +429,15 @@ function startQuestions() {
   }
 
   function getHinweisHTML() {
-    return `
-      <div class="tool-hinweis">
-        <strong>Hinweis:</strong> Deine Antworten werden mit den Positionen der Parteien verglichen. Je mehr Fragen du beantwortest, desto genauer wird dein Ergebnis. Nutze das Herz ❤️, um besonders wichtige Fragen hervorzuheben.
-      </div>
-    `;
-  }
+  return `
+    <div class="tool-hinweis">
+      <strong>Hinweis:</strong> Dieses Tool hilft dir herauszufinden, welche Parteien ähnliche Ansichten haben wie du. 
+      Es ist keine Wahlempfehlung – du entscheidest selbst, was dir am wichtigsten ist. 
+      Je mehr Fragen du beantwortest, desto genauer wird dein Ergebnis. Nutze das Herz ❤️, um besonders wichtige Fragen hervorzuheben.
+    </div>
+  `;
+}
+
 
   function calculateResult() {
     const results = [];
