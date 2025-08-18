@@ -53,21 +53,6 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      position: relative;
-    }
-
-    .heart-icon {
-      position: absolute;
-      top: 0;
-      right: 0;
-      font-size: 1.8rem;
-      cursor: pointer;
-      user-select: none;
-      transition: transform 0.2s ease;
-    }
-
-    .heart-icon:hover {
-      transform: scale(1.2);
     }
 
     .question-counter {
@@ -127,12 +112,33 @@
       color: #155214;
     }
 
+    /* Hervorhebung der ausgewählten Antwort */
     .btn-group button.selected {
       box-shadow: 0 0 8px 2px #1AA037;
       font-weight: bold;
       outline: 2px solid #1AA037;
     }
 
+    /* Herz-Button */
+    .weight-btn {
+      font-size: 1.8rem;
+      cursor: pointer;
+      user-select: none;
+      color: #bbb;
+      text-align: center;
+      margin: 1rem auto 0;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      transition: color 0.3s ease;
+    }
+
+    .weight-btn.filled {
+      color: #e63946;
+      text-shadow: 0 0 6px #e63946;
+    }
+
+    /* Navigation unter den Antworten */
     .nav-buttons {
       display: flex;
       justify-content: space-between;
@@ -219,6 +225,7 @@
   </style>
 </head>
 <body>
+
   <div class="container">
     <h1>Kölle kreuzt clever</h1>
     <div id="app"></div>
@@ -230,15 +237,73 @@
   </div>
 
   <script>
-    const questions = [...]; // <- Deine Fragen hier einsetzen
-    const partyColors = {...}; // <- Deine Farbtabelle
-    const partyPositions = {...}; // <- Deine Positionsdaten
+    const questions = [
+      "Köln soll mehr Clubs, Jugendzentren und Freizeitorte für junge Menschen schaffen.",
+      "Bei neuen Wohnungen in Köln sollen günstige Plätze für Azubis und junge Erwachsene mitgeplant werden.",
+      "An öffentlichen Plätzen und Haltestellen in Köln soll es flächendeckend kostenloses WLAN geben.",
+      "Jugendliche sollen in Köln stärker an der Kommunalpolitik beteiligt werden.",
+      "Köln soll mehr kostenlose Sport- und Bewegungsangebote im Freien anbieten.",
+      "Köln soll mehr sichere Fahrradwege und Fahrradparkplätze bauen.",
+      "Busse, Bahnen und Fahrräder sollen in der Innenstadt Vorrang vor Autos haben.",
+      "Schüler:innen in Köln sollen kostenlos Bus und Bahn fahren dürfen.",
+      "Nachtbusse und Verbindungen in Außenbezirke sollen verbessert werden.",
+      "Einige Teile der Innenstadt sollen autofrei werden.",
+      "Kreative Projekte und junge Start-ups sollen Räume und Geld zur Unterstützung bekommen.",
+      "Bei neuen Gebäuden soll stärker auf bezahlbare Wohnungen geachtet werden.",
+      "Kölner Schulen sollen modernisiert und besser für digitalen Unterricht ausgestattet werden.",
+      "Das Schulessen soll kostenlos und möglichst in Bio-Qualität angeboten werden.",
+      "Alle Schultoiletten in Köln sollen sauber, modern und regelmäßig gepflegt sein.",
+      "Köln soll bis 2035 klimaneutral werden.",
+      "Beim Sparen soll nicht an Umwelt- und Jugendprojekten gekürzt werden.",
+      "Die Stadt soll sich stärker um saubere Straßen, Parks und öffentliche Plätze kümmern.",
+      "Schulen sollen mehr gegen Rassismus, Queerfeindlichkeit und andere Diskriminierung tun.",
+      "Die Stadt soll Angebote für junge Menschen zur mentalen Gesundheit ausbauen.",
+      "Geflüchtete sollen in Köln mehr Angebote zur Teilhabe und Unterstützung bekommen.",
+      "Die Stadtverwaltung soll digitaler und einfacher für junge Menschen werden.",
+      "Köln soll enger mit seinen europäischen Partnerstädten zusammenarbeiten."
+    ];
+
+    const partyColors = {
+      "SPD": "#E3000F",
+      "CDU": "#000000",
+      "Bündnis 90/Die Grünen": "#1AA037",
+      "FDP": "#FFCC00",
+      "AfD": "#009EE0",
+      "Die Linke": "#D0006F",
+      "Volt": "#5D3FD3",
+      "Partei des Fortschritts": "#00BFAE",
+      "Kölner Stadt-Gesellschaft": "#808080",
+      "Die PARTEI": "#A40000",
+      "Gut & Klimafreunde": "#7ED957",
+      "Bündnis Deutschland": "#003366",
+      "Marxistisch-Leninistische Partei Deutschlands": "#D10000",
+      "Ödp": "#FF9900",
+      "BSW": "#8E44AD"
+    };
+
+    const partyPositions = {
+      "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1],
+      "AfD": [1,0,0,1,1,1,-1,-1,1,-1,0,0,1,-1,1,-1,-1,1,1,0,-1,1],
+      "Die Linke": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Volt": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1],
+      "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1],
+      "Die PARTEI": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Gut & Klimafreunde": [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1],
+      "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Marxistisch-Leninistische Partei Deutschlands": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Ödp": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "BSW": [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1]
+    };
 
     const app = document.getElementById("app");
     const resultDiv = document.getElementById("result");
 
     let userAnswers = new Array(questions.length).fill(null);
-    let doubleWeight = new Array(questions.length).fill(false);
+    let userWeights = new Array(questions.length).fill(1); // 1 = einfach, 2 = doppelt
     let currentQuestion = 0;
 
     function showQuestion() {
@@ -250,21 +315,19 @@
 
       const question = questions[currentQuestion];
       const answer = userAnswers[currentQuestion];
-      const isDouble = doubleWeight[currentQuestion];
+      const weight = userWeights[currentQuestion];
 
       app.innerHTML = `
         <div class="question">
-          <div class="question-counter">
-            Frage ${currentQuestion + 1} von ${questions.length}
-            <span class="heart-icon" onclick="toggleWeight(${currentQuestion})">
-              ${isDouble ? "❤️" : "🤍"}
-            </span>
-          </div>
+          <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
           <p>${question}</p>
           <div class="btn-group">
             <button onclick="answer(-1)" class="${answer === -1 ? 'selected' : ''}">Stimme nicht zu</button>
             <button onclick="answer(0)" class="${answer === 0 ? 'selected' : ''}">Neutral</button>
             <button onclick="answer(1)" class="${answer === 1 ? 'selected' : ''}">Stimme zu</button>
+          </div>
+          <div class="weight-btn ${weight === 2 ? 'filled' : ''}" title="Doppelt gewichten" onclick="toggleWeight()">
+            ${weight === 2 ? '❤️' : '🤍'}
           </div>
           <div class="nav-buttons">
             <button onclick="prevQuestion()" ${currentQuestion === 0 ? 'disabled' : ''}>&lt; Zurück</button>
@@ -276,13 +339,11 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function toggleWeight(index) {
-      doubleWeight[index] = !doubleWeight[index];
-      showQuestion();
-    }
-
     function answer(value) {
       userAnswers[currentQuestion] = value;
+      // Nach Antwort nicht automatisch weiter, da Vorgabe: erst bei Klick auf nav oder Antwort weiter
+      // Aber die Anforderung sagt "Es soll erst zur nächsten Frage gehen, wenn man auf zurück, überspringen oder Antwort klickt"
+      // Also hier gehen wir zur nächsten Frage:
       currentQuestion++;
       showQuestion();
     }
@@ -298,58 +359,92 @@
       showQuestion();
     }
 
+    function toggleWeight() {
+      if (userWeights[currentQuestion] === 1) {
+        userWeights[currentQuestion] = 2;
+      } else {
+        userWeights[currentQuestion] = 1;
+      }
+      showQuestion();
+    }
+
     function calculateResult() {
       const results = [];
+      // Nur beantwortete Fragen zählen
       const answeredIndexes = userAnswers
         .map((v, i) => (v !== null ? i : -1))
         .filter(i => i !== -1);
-
-      const totalWeight = answeredIndexes.reduce((sum, i) => sum + (doubleWeight[i] ? 2 : 1), 0);
+      const answeredCount = answeredIndexes.length;
 
       for (const party in partyPositions) {
         const positions = partyPositions[party];
-        let matchPoints = 0;
+        let sum = 0;
+        let totalWeight = 0;
 
-        for (const i of answeredIndexes) {
-          const weight = doubleWeight[i] ? 2 : 1;
-          if (userAnswers[i] === positions[i]) {
-            matchPoints += weight;
-          }
+        for (let i = 0; i < questions.length; i++) {
+          const ua = userAnswers[i];
+          if (ua === null) continue;
+          const weight = userWeights[i];
+
+          const diff = Math.abs(ua - positions[i]);
+          const maxDiff = 2; // Da Werte von -1 bis +1, max Differenz 2
+
+          // Ähnlichkeit als (maxDiff - diff) / maxDiff * weight
+          const similarity = ((maxDiff - diff) / maxDiff) * weight;
+
+          sum += similarity;
+          totalWeight += weight;
         }
 
-        const percent = totalWeight > 0 ? Math.round((matchPoints / totalWeight) * 100) : 0;
-        results.push({ party, matchPoints, percent });
+        const score = totalWeight ? (sum / totalWeight) : 0;
+        results.push({ party, score });
       }
 
-      results.sort((a, b) => b.percent - a.percent);
+      // Sortieren nach Ergebnis absteigend
+      results.sort((a, b) => b.score - a.score);
 
-      let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
-      for (const entry of results) {
-        const color = partyColors[entry.party] || "#ccc";
-        const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
-
-        resultHTML += `<li style="background-color: ${color}; color: ${textColor};">
-          <strong>${entry.party}:</strong> ${entry.matchPoints} Punkt(e)
-          <span style="font-weight: 700;">${entry.percent}%</span>
-        </li>`;
-      }
-      resultHTML += "</ul>" + getHinweisHTML();
-
-      app.innerHTML = "";
-      resultDiv.innerHTML = resultHTML;
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      displayResults(results);
     }
 
-    function getHinweisHTML() {
-      return `
-        <div class="tool-hinweis">
-          <h3>Hinweis:</h3>
-          <p>Dieser Test ist kein wissenschaftliches Instrument, sondern eine Orientierungshilfe.  
-          Die Übereinstimmung basiert nur auf den hier gestellten Fragen.  
-          Bitte informiere dich zusätzlich bei den Parteien selbst.</p>
-        </div>
+    function displayResults(results) {
+      app.innerHTML = "";
+
+      let html = `
+        <h2>Deine Übereinstimmung mit den Parteien</h2>
+        <ul>
       `;
+
+      results.forEach(r => {
+        const percent = (r.score * 100).toFixed(1);
+        const color = partyColors[r.party] || '#666';
+        html += `<li style="border-left: 6px solid ${color}; padding-left: 0.5rem;">
+          <span>${r.party}</span>
+          <strong>${percent}%</strong>
+        </li>`;
+      });
+
+      html += "</ul>";
+
+      resultDiv.innerHTML = html + `
+        <button onclick="restart()" style="
+          margin-top: 1rem;
+          padding: 0.6rem 1rem;
+          border: none;
+          background-color: #c62828;
+          color: white;
+          border-radius: 6px;
+          cursor: pointer;
+          font-weight: 600;
+        ">Neustart</button>
+      `;
+    }
+
+    function restart() {
+      userAnswers.fill(null);
+      userWeights.fill(1);
+      currentQuestion = 0;
+      resultDiv.innerHTML = "";
+      showQuestion();
     }
 
     showQuestion();
