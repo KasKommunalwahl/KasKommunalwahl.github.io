@@ -53,6 +53,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative;
     }
 
     .question-counter {
@@ -121,21 +122,21 @@
 
     /* Herz-Button */
     .weight-btn {
-      font-size: 1.8rem;
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 2rem;
+      background: none;
+      border: none;
       cursor: pointer;
       user-select: none;
       color: #bbb;
-      text-align: center;
-      margin: 1rem auto 0;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
       transition: color 0.3s ease;
     }
 
     .weight-btn.filled {
-      color: #e63946;
-      text-shadow: 0 0 6px #e63946;
+      color: #e91e63;
+      text-shadow: 0 0 6px #e91e63;
     }
 
     /* Navigation unter den Antworten */
@@ -282,169 +283,154 @@
     };
 
     const partyPositions = {
-      "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1],
-      "AfD": [1,0,0,1,1,1,-1,-1,1,-1,0,0,1,-1,1,-1,-1,1,1,0,-1,1],
-      "Die Linke": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Volt": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1],
-      "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1],
-      "Die PARTEI": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Gut & Klimafreunde": [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1],
-      "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Marxistisch-Leninistische Partei Deutschlands": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Ödp": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "BSW": [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1]
+      "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1,1],
+      "AfD": [1,0,0,1,1,1,-1,-1,1,-1,0,0,1,-1,1,-1,-1,1,1,0,-1,1,0],
+      "Die Linke": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Volt": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1],
+      "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1,1],
+      "Die PARTEI": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      "Gut & Klimafreunde": [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Bündnis Deutschland": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Marxistisch-Leninistische Partei Deutschlands": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "Ödp": [1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "BSW": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     };
+
+    let currentQuestion = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+    let userWeights = new Array(questions.length).fill(1);
 
     const app = document.getElementById("app");
     const resultDiv = document.getElementById("result");
 
-    let userAnswers = new Array(questions.length).fill(null);
-    let userWeights = new Array(questions.length).fill(1); // 1 = einfach, 2 = doppelt
-    let currentQuestion = 0;
+    function convert(value) {
+      // -1 => 1, 0 => 2, 1 => 3
+      return value + 2;
+    }
 
     function showQuestion() {
-      if (currentQuestion < 0) currentQuestion = 0;
-      if (currentQuestion >= questions.length) {
-        calculateResult();
-        return;
-      }
-
-      const question = questions[currentQuestion];
+      const q = questions[currentQuestion];
       const answer = userAnswers[currentQuestion];
       const weight = userWeights[currentQuestion];
 
       app.innerHTML = `
+        <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
         <div class="question">
-          <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
-          <p>${question}</p>
-          <div class="btn-group">
-            <button onclick="answer(-1)" class="${answer === -1 ? 'selected' : ''}">Stimme nicht zu</button>
-            <button onclick="answer(0)" class="${answer === 0 ? 'selected' : ''}">Neutral</button>
-            <button onclick="answer(1)" class="${answer === 1 ? 'selected' : ''}">Stimme zu</button>
-          </div>
-          <div class="weight-btn ${weight === 2 ? 'filled' : ''}" title="Doppelt gewichten" onclick="toggleWeight()">
-            ${weight === 2 ? '❤️' : '🤍'}
-          </div>
-          <div class="nav-buttons">
-            <button onclick="prevQuestion()" ${currentQuestion === 0 ? 'disabled' : ''}>&lt; Zurück</button>
-            <button onclick="skipQuestion()">Überspringen &gt;</button>
+          <button 
+            class="weight-btn ${weight === 2 ? 'filled' : ''}" 
+            title="Frage mit Herz markieren"
+            onclick="toggleWeight()"
+            aria-label="Frage mit Herz markieren"
+          >
+            ${weight === 2 ? "❤️" : "🤍"}
+          </button>
+          <p>${q}</p>
+          <div class="btn-group" role="radiogroup" aria-label="Antwortmöglichkeiten">
+            <button ${answer === -1 ? "class='selected'" : ""} onclick="selectAnswer(-1)">Stimme nicht zu</button>
+            <button ${answer === 0 ? "class='selected'" : ""} onclick="selectAnswer(0)">Neutral</button>
+            <button ${answer === 1 ? "class='selected'" : ""} onclick="selectAnswer(1)">Stimme zu</button>
           </div>
         </div>
+
+        <div class="nav-buttons">
+          <button ${currentQuestion === 0 ? "disabled" : ""} onclick="prevQuestion()">Zurück</button>
+          ${currentQuestion === questions.length - 1 ? 
+            `<button onclick="calculateResult()">Fertig</button>` : 
+            `<button ${answer === null ? "disabled" : ""} onclick="nextQuestion()">Weiter</button>`}
+        </div>
       `;
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function answer(value) {
+    function selectAnswer(value) {
       userAnswers[currentQuestion] = value;
-      // Nach Antwort nicht automatisch weiter, da Vorgabe: erst bei Klick auf nav oder Antwort weiter
-      // Aber die Anforderung sagt "Es soll erst zur nächsten Frage gehen, wenn man auf zurück, überspringen oder Antwort klickt"
-      // Also hier gehen wir zur nächsten Frage:
-      currentQuestion++;
-      showQuestion();
-    }
-
-    function prevQuestion() {
-      currentQuestion--;
-      showQuestion();
-    }
-
-    function skipQuestion() {
-      userAnswers[currentQuestion] = null;
-      currentQuestion++;
       showQuestion();
     }
 
     function toggleWeight() {
-      if (userWeights[currentQuestion] === 1) {
-        userWeights[currentQuestion] = 2;
-      } else {
-        userWeights[currentQuestion] = 1;
-      }
+      userWeights[currentQuestion] = userWeights[currentQuestion] === 1 ? 2 : 1;
       showQuestion();
+    }
+
+    function nextQuestion() {
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        showQuestion();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion();
+      }
+    }
+
+    function getHinweisHTML() {
+      return `
+        <div class="tool-hinweis">
+          <strong>Hinweis:</strong> Deine Antworten werden mit den Positionen der Parteien verglichen. Je mehr Fragen du beantwortest, desto genauer wird dein Ergebnis. Nutze das Herz ❤️, um besonders wichtige Fragen hervorzuheben.
+        </div>
+      `;
     }
 
     function calculateResult() {
       const results = [];
-      // Nur beantwortete Fragen zählen
+
       const answeredIndexes = userAnswers
         .map((v, i) => (v !== null ? i : -1))
         .filter(i => i !== -1);
-      const answeredCount = answeredIndexes.length;
+
+      if (answeredIndexes.length === 0) {
+        resultDiv.innerHTML = "<p>Bitte beantworte mindestens eine Frage.</p>";
+        return;
+      }
 
       for (const party in partyPositions) {
         const positions = partyPositions[party];
-        let sum = 0;
+        let matchPoints = 0;
         let totalWeight = 0;
 
-        for (let i = 0; i < questions.length; i++) {
-          const ua = userAnswers[i];
-          if (ua === null) continue;
-          const weight = userWeights[i];
+        for (const i of answeredIndexes) {
+          const userVal = convert(userAnswers[i]);
+          const partyVal = convert(positions[i]);
+          const weight = userWeights[i] || 1;
 
-          const diff = Math.abs(ua - positions[i]);
-          const maxDiff = 2; // Da Werte von -1 bis +1, max Differenz 2
-
-          // Ähnlichkeit als (maxDiff - diff) / maxDiff * weight
-          const similarity = ((maxDiff - diff) / maxDiff) * weight;
-
-          sum += similarity;
           totalWeight += weight;
+
+          if (userVal === partyVal) {
+            matchPoints += weight;
+          }
+          // sonst kein Punkt
         }
 
-        const score = totalWeight ? (sum / totalWeight) : 0;
-        results.push({ party, score });
+        const percent = Math.round((matchPoints / totalWeight) * 100);
+
+        results.push({ party, percent });
       }
 
-      // Sortieren nach Ergebnis absteigend
-      results.sort((a, b) => b.score - a.score);
+      results.sort((a, b) => b.percent - a.percent);
 
-      displayResults(results);
-    }
+      let resultHTML = "<h2>Dein Ergebnis:</h2><ul>";
+      for (const entry of results) {
+        const color = partyColors[entry.party] || "#ccc";
+        // Helle Farben bekommen dunklen Text, dunkle Farben weißen
+        const lightBgColors = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"];
+        const textColor = lightBgColors.includes(color) ? "#000" : "#fff";
 
-    function displayResults(results) {
-      app.innerHTML = "";
-
-      let html = `
-        <h2>Deine Übereinstimmung mit den Parteien</h2>
-        <ul>
-      `;
-
-      results.forEach(r => {
-        const percent = (r.score * 100).toFixed(1);
-        const color = partyColors[r.party] || '#666';
-        html += `<li style="border-left: 6px solid ${color}; padding-left: 0.5rem;">
-          <span>${r.party}</span>
-          <strong>${percent}%</strong>
+        resultHTML += `<li style="background-color: ${color}; color: ${textColor};">
+          <strong>${entry.party}:</strong> ${entry.percent}% Übereinstimmung
         </li>`;
-      });
+      }
+      resultHTML += "</ul>" + getHinweisHTML();
 
-      html += "</ul>";
+      app.innerHTML = "";
+      resultDiv.innerHTML = resultHTML;
 
-      resultDiv.innerHTML = html + `
-        <button onclick="restart()" style="
-          margin-top: 1rem;
-          padding: 0.6rem 1rem;
-          border: none;
-          background-color: #c62828;
-          color: white;
-          border-radius: 6px;
-          cursor: pointer;
-          font-weight: 600;
-        ">Neustart</button>
-      `;
-    }
-
-    function restart() {
-      userAnswers.fill(null);
-      userWeights.fill(1);
-      currentQuestion = 0;
-      resultDiv.innerHTML = "";
-      showQuestion();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     showQuestion();
