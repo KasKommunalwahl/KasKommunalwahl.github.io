@@ -283,21 +283,21 @@
     };
 
     const partyPositions = {
-      "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1,1],
-      "AfD": [1,0,0,1,1,1,-1,-1,1,-1,0,0,1,-1,1,-1,-1,1,1,0,-1,1,0],
-      "Die Linke": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Volt": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1],
-      "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1,1],
-      "Die PARTEI": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Gut & Klimafreunde": [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Bündnis Deutschland": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Marxistisch-Leninistische Partei Deutschlands": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Ödp": [1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "BSW": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+      "SPD": [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+      "CDU": [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+      "Bündnis 90/Die Grünen":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+      "FDP": [3,3,3,3,3,3,1,1,3,1,3,3,3,2,3,1,2,3,2,3,3,3,3],
+      "AfD": [3,2,2,3,3,3,1,1,3,1,2,2,3,1,3,1,1,3,3,2,1,3,2],
+      "Die Linke": [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+      "Volt": [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+      "Partei des Fortschritts":[3,3,2,3,3,3,3,3,3,3,3,3,3,2,3,3,3,3,3,3,3,3,3],
+      "Kölner Stadt-Gesellschaft":[3,3,3,3,3,3,1,3,3,1,3,3,3,3,3,2,3,3,3,3,3,3,3],
+      "Die PARTEI": [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+      "Gut & Klimafreunde": [3,3,2,3,3,3,3,3,3,3,2,3,3,3,3,3,3,3,3,3,3,3,3],
+      "Bündnis Deutschland": [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+      "Marxistisch-Leninistische Partei Deutschlands": [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+      "Ödp": [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+      "BSW": [3,3,3,3,3,3,3,3,3,2,3,3,3,3,3,2,3,3,3,3,3,3,3]
     };
 
     let currentQuestion = 0;
@@ -306,11 +306,6 @@
 
     const app = document.getElementById("app");
     const resultDiv = document.getElementById("result");
-
-    function convert(value) {
-      // -1 => 1, 0 => 2, 1 => 3
-      return value + 2;
-    }
 
     function showQuestion() {
       const q = questions[currentQuestion];
@@ -330,9 +325,9 @@
           </button>
           <p>${q}</p>
           <div class="btn-group" role="radiogroup" aria-label="Antwortmöglichkeiten">
-            <button ${answer === -1 ? "class='selected'" : ""} onclick="selectAnswer(-1)">Stimme nicht zu</button>
-            <button ${answer === 0 ? "class='selected'" : ""} onclick="selectAnswer(0)">Neutral</button>
-            <button ${answer === 1 ? "class='selected'" : ""} onclick="selectAnswer(1)">Stimme zu</button>
+            <button ${answer === 1 ? "class='selected'" : ""} onclick="selectAnswer(1)">Stimme nicht zu</button>
+            <button ${answer === 2 ? "class='selected'" : ""} onclick="selectAnswer(2)">Neutral</button>
+            <button ${answer === 3 ? "class='selected'" : ""} onclick="selectAnswer(3)">Stimme zu</button>
           </div>
         </div>
 
