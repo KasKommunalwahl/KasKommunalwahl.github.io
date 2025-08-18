@@ -4,17 +4,217 @@
   <meta charset="UTF-8" />
   <title>Kölle kreuzt clever</title>
   <style>
-    /* ... (dein gesamtes CSS bleibt unverändert) ... */
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, 
+        #fff9c4,
+        #ffe0f0,
+        #e0f7fa,
+        #e6f4ea,
+        #ffffff
+      );
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @keyframes gradientFlow {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .container {
+      max-width: 800px;
+      margin-top: 3rem;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      min-height: 520px;
+    }
+
+    h1 {
+      color: #c62828;
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-shadow: 1px 1px 3px #aaa;
+    }
+
+    .question {
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
 
     .heart-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 1.8rem;
       cursor: pointer;
-      font-size: 1.6rem;
       user-select: none;
       transition: transform 0.2s ease;
     }
 
     .heart-icon:hover {
       transform: scale(1.2);
+    }
+
+    .question-counter {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .question p {
+      font-size: 1.15rem;
+      line-height: 1.5;
+      margin: 1rem 0;
+      font-weight: 600;
+      color: #222;
+      text-align: center;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+
+    .btn-group button {
+      flex: 1;
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      color: #111;
+      max-width: 150px;
+      user-select: none;
+    }
+
+    .btn-group button:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+
+    .btn-group button:nth-child(1) {
+      background: #ef9a9a;
+      color: #600;
+    }
+
+    .btn-group button:nth-child(2) {
+      background: #fff59d;
+      color: #665500;
+    }
+
+    .btn-group button:nth-child(3) {
+      background: #a5d6a7;
+      color: #155214;
+    }
+
+    .btn-group button.selected {
+      box-shadow: 0 0 8px 2px #1AA037;
+      font-weight: bold;
+      outline: 2px solid #1AA037;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+
+    .nav-buttons button {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      background-color: #1AA037;
+      color: white;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-buttons button:disabled {
+      background-color: #ccc;
+      cursor: default;
+      color: #666;
+    }
+
+    .nav-buttons button:hover:not(:disabled) {
+      background-color: #13872b;
+    }
+
+    .tool-hinweis {
+      background-color: #fff3f3;
+      border-left: 5px solid #c62828;
+      padding: 1rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: 6px;
+    }
+
+    .result {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      color: #222;
+    }
+
+    .result h2 {
+      color: #c62828;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .result ul {
+      list-style-type: none;
+      padding: 0;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .result li {
+      margin-bottom: 0.5rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-link {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .footer-link a {
+      text-decoration: none;
+      color: #0077cc;
+      font-weight: 600;
+    }
+
+    .footer-link a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -30,73 +230,15 @@
   </div>
 
   <script>
-    const questions = [
-      "Köln soll mehr Clubs, Jugendzentren und Freizeitorte für junge Menschen schaffen.",
-      "Bei neuen Wohnungen in Köln sollen günstige Plätze für Azubis und junge Erwachsene mitgeplant werden.",
-      "An öffentlichen Plätzen und Haltestellen in Köln soll es flächendeckend kostenloses WLAN geben.",
-      "Jugendliche sollen in Köln stärker an der Kommunalpolitik beteiligt werden.",
-      "Köln soll mehr kostenlose Sport- und Bewegungsangebote im Freien anbieten.",
-      "Köln soll mehr sichere Fahrradwege und Fahrradparkplätze bauen.",
-      "Busse, Bahnen und Fahrräder sollen in der Innenstadt Vorrang vor Autos haben.",
-      "Schüler:innen in Köln sollen kostenlos Bus und Bahn fahren dürfen.",
-      "Nachtbusse und Verbindungen in Außenbezirke sollen verbessert werden.",
-      "Einige Teile der Innenstadt sollen autofrei werden.",
-      "Kreative Projekte und junge Start-ups sollen Räume und Geld zur Unterstützung bekommen.",
-      "Bei neuen Gebäuden soll stärker auf bezahlbare Wohnungen geachtet werden.",
-      "Kölner Schulen sollen modernisiert und besser für digitalen Unterricht ausgestattet werden.",
-      "Das Schulessen soll kostenlos und möglichst in Bio-Qualität angeboten werden.",
-      "Alle Schultoiletten in Köln sollen sauber, modern und regelmäßig gepflegt sein.",
-      "Köln soll bis 2035 klimaneutral werden.",
-      "Beim Sparen soll nicht an Umwelt- und Jugendprojekten gekürzt werden.",
-      "Die Stadt soll sich stärker um saubere Straßen, Parks und öffentliche Plätze kümmern.",
-      "Schulen sollen mehr gegen Rassismus, Queerfeindlichkeit und andere Diskriminierung tun.",
-      "Die Stadt soll Angebote für junge Menschen zur mentalen Gesundheit ausbauen.",
-      "Geflüchtete sollen in Köln mehr Angebote zur Teilhabe und Unterstützung bekommen.",
-      "Die Stadtverwaltung soll digitaler und einfacher für junge Menschen werden.",
-      "Köln soll enger mit seinen europäischen Partnerstädten zusammenarbeiten."
-    ];
-
-    const partyColors = {
-      "SPD": "#E3000F",
-      "CDU": "#000000",
-      "Bündnis 90/Die Grünen": "#1AA037",
-      "FDP": "#FFCC00",
-      "AfD": "#009EE0",
-      "Die Linke": "#D0006F",
-      "Volt": "#5D3FD3",
-      "Partei des Fortschritts": "#00BFAE",
-      "Kölner Stadt-Gesellschaft": "#808080",
-      "Die PARTEI": "#A40000",
-      "Gut & Klimafreunde": "#7ED957",
-      "Bündnis Deutschland": "#003366",
-      "Marxistisch-Leninistische Partei Deutschlands": "#D10000",
-      "Ödp": "#FF9900",
-      "BSW": "#8E44AD"
-    };
-
-    const partyPositions = {
-      "SPD": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "CDU": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Bündnis 90/Die Grünen":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "FDP": [1,1,1,1,1,1,-1,-1,1,-1,1,1,1,0,1,-1,0,1,0,1,1,1,1],
-      "AfD": [1,0,0,1,1,1,-1,-1,1,-1,0,0,1,-1,1,-1,-1,1,1,0,-1,1,0],
-      "Die Linke": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Volt": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Partei des Fortschritts":[1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1],
-      "Kölner Stadt-Gesellschaft":[1,1,1,1,1,1,-1,1,1,-1,1,1,1,1,1,0,1,1,1,1,1,1,1],
-      "Die PARTEI": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Gut & Klimafreunde": [1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1],
-      "Bündnis Deutschland": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Marxistisch-Leninistische Partei Deutschlands": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "Ödp": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      "BSW": [1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1]
-    };
+    const questions = [...]; // <- Deine Fragen hier einsetzen
+    const partyColors = {...}; // <- Deine Farbtabelle
+    const partyPositions = {...}; // <- Deine Positionsdaten
 
     const app = document.getElementById("app");
     const resultDiv = document.getElementById("result");
 
     let userAnswers = new Array(questions.length).fill(null);
-    let questionWeights = new Array(questions.length).fill(1);
+    let doubleWeight = new Array(questions.length).fill(false);
     let currentQuestion = 0;
 
     function showQuestion() {
@@ -108,14 +250,15 @@
 
       const question = questions[currentQuestion];
       const answer = userAnswers[currentQuestion];
-      const weight = questionWeights[currentQuestion];
-      const heart = weight === 2 ? "❤️" : "🤍";
+      const isDouble = doubleWeight[currentQuestion];
 
       app.innerHTML = `
         <div class="question">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div class="question-counter">Frage ${currentQuestion + 1} von ${questions.length}</div>
-            <div class="heart-icon" onclick="toggleWeight()" title="Frage doppelt gewichten">${heart}</div>
+          <div class="question-counter">
+            Frage ${currentQuestion + 1} von ${questions.length}
+            <span class="heart-icon" onclick="toggleWeight(${currentQuestion})">
+              ${isDouble ? "❤️" : "🤍"}
+            </span>
           </div>
           <p>${question}</p>
           <div class="btn-group">
@@ -133,8 +276,8 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function toggleWeight() {
-      questionWeights[currentQuestion] = questionWeights[currentQuestion] === 1 ? 2 : 1;
+    function toggleWeight(index) {
+      doubleWeight[index] = !doubleWeight[index];
       showQuestion();
     }
 
@@ -161,21 +304,21 @@
         .map((v, i) => (v !== null ? i : -1))
         .filter(i => i !== -1);
 
+      const totalWeight = answeredIndexes.reduce((sum, i) => sum + (doubleWeight[i] ? 2 : 1), 0);
+
       for (const party in partyPositions) {
         const positions = partyPositions[party];
-        let matches = 0;
-        let maxPoints = 0;
+        let matchPoints = 0;
 
         for (const i of answeredIndexes) {
-          const weight = questionWeights[i];
-          maxPoints += weight;
+          const weight = doubleWeight[i] ? 2 : 1;
           if (userAnswers[i] === positions[i]) {
-            matches += weight;
+            matchPoints += weight;
           }
         }
 
-        const percent = maxPoints > 0 ? Math.round((matches / maxPoints) * 100) : 0;
-        results.push({ party, matches, percent, maxPoints });
+        const percent = totalWeight > 0 ? Math.round((matchPoints / totalWeight) * 100) : 0;
+        results.push({ party, matchPoints, percent });
       }
 
       results.sort((a, b) => b.percent - a.percent);
@@ -186,7 +329,7 @@
         const textColor = ["#FFCC00", "#F28C00", "#FF9900", "#7ED957"].includes(color) ? "#000" : "#fff";
 
         resultHTML += `<li style="background-color: ${color}; color: ${textColor};">
-          <strong>${entry.party}:</strong> ${entry.matches} von ${entry.maxPoints} möglichen Punkten
+          <strong>${entry.party}:</strong> ${entry.matchPoints} Punkt(e)
           <span style="font-weight: 700;">${entry.percent}%</span>
         </li>`;
       }
@@ -213,3 +356,4 @@
   </script>
 </body>
 </html>
+
